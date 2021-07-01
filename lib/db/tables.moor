@@ -1,0 +1,47 @@
+create table items (
+    id integer primary key,
+    name text,
+    type text,
+    /* '0':consumption
+     '1':material
+     '5X':equipment
+     -> '51':helmet
+     -> '52':necklace
+     -> '53':ring
+     -> '54':shoulder
+     -> '55':breastplate
+     -> '56':gloves
+     -> '57':shoes
+     '9':task item */
+    description text,
+    imagePath text,
+    life integer,
+    magic integer,
+    earth integer,
+    fire integer,
+    water integer,
+    wind integer,
+) as Item;
+
+create table player_state (
+    id integer primary key,
+    name text,
+    life integer,
+    magic integer,
+    earth integer,
+    fire integer,
+    water integer,
+    wind integer,
+    bagsize integer,
+);
+create table player_items (
+    id integer primary key,
+    itemid integer,
+    bagindex integer,
+    cnt integer,
+) as PlayerItem;
+
+--initItemsData:
+--insert into items values
+--(1, '', '0', '', '', 30, 0, 0, 0, 0, 0)，
+--(2, '', '0', 'Magic Potion', 'assets/images/items/potion_magic.png', 0, 30, 0, 0, 0, 0);
