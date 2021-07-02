@@ -146,20 +146,19 @@ class _GameState extends State<Game>
 
     _controller.addGameComponent(
       AnimatedObjectOnce(
-        animation: SpriteAnimation.load(
-            "smoke_explosin.png",
-            SpriteAnimationData.sequenced(
-                amount:6,
-                stepTime:30,
-                textureSize:Vector2(16,16),
-              texturePosition:Vector2(x,y),
-            ))
-      ),
+          animation: SpriteAnimation.load(
+              "smoke_explosin.png",
+              SpriteAnimationData.sequenced(
+                amount: 6,
+                stepTime: 0.15,
+                textureSize: Vector2(16, 16),
+                texturePosition: Vector2(x, y),
+              ))),
     );
 
     _controller.addGameComponent(
       Goblin(
-        Vector2(x,y),
+        Vector2(x, y),
       ),
     );
   }

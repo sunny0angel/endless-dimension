@@ -9,7 +9,7 @@ class Torch extends GameDecoration with Lighting {
             "items/torch_spritesheet.png",
             SpriteAnimationData.sequenced(
               amount: 6,
-              stepTime: 30,
+              stepTime: 0.15,
               textureSize: Vector2(16, 16),
             ),
           ),

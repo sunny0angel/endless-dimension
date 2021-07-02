@@ -16,7 +16,7 @@ class DungeonMap {
     return TileWithCollision(
       'tile/wall.png',
       position,
-      collisions: [CollisionArea.rectangle(size: Size(tileSize,tileSize))],
+      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
       width: tileSize,
       height: tileSize,
     );
@@ -26,7 +26,7 @@ class DungeonMap {
     return TileWithCollision(
       'tile/wall_top.png',
       position,
-      collisions: [CollisionArea.rectangle(size: Size(tileSize,tileSize))],
+      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
       width: tileSize,
       height: tileSize,
     );
@@ -36,7 +36,7 @@ class DungeonMap {
     return TileWithCollision(
       'tile/wall_bottom.png',
       position,
-      collisions: [CollisionArea.rectangle(size: Size(tileSize,tileSize))],
+      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
       width: tileSize,
       height: tileSize,
     );
@@ -46,7 +46,7 @@ class DungeonMap {
     return TileWithCollision(
       'tile/wall_left.png',
       position,
-      collisions: [CollisionArea.rectangle(size: Size(tileSize,tileSize))],
+      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
       width: tileSize,
       height: tileSize,
     );
@@ -56,7 +56,7 @@ class DungeonMap {
     return TileWithCollision(
       'tile/wall_right.png',
       position,
-      collisions: [CollisionArea.rectangle(size: Size(tileSize,tileSize))],
+      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
       width: tileSize,
       height: tileSize,
     );
@@ -66,7 +66,7 @@ class DungeonMap {
     return TileWithCollision(
       'tile/wall_top_inner_left.png',
       position,
-      collisions: [CollisionArea.rectangle(size: Size(tileSize,tileSize))],
+      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
       width: tileSize,
       height: tileSize,
     );
@@ -76,7 +76,7 @@ class DungeonMap {
     return TileWithCollision(
       'tile/wall_top_inner_right.png',
       position,
-      collisions: [CollisionArea.rectangle(size: Size(tileSize,tileSize))],
+      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
       width: tileSize,
       height: tileSize,
     );
@@ -270,45 +270,44 @@ class DungeonMap {
     while (tmpCnt > 0) {
       gl.add(BarrelDraggable(
           getRandomTileVector2(mapTitleList, 9, true, 0, true)));
-      gl.add(GameDecorationWithCollision(
-        Sprite('items/barrel.png'),
-        getRandomTileVector2(mapTitleList, 9, true, 0, true),
-        width: tileSize,
-        height: tileSize,
-        collisions: [
-          CollisionArea(
-            width: tileSize / 1.5,
-            height: tileSize / 1.5,
-          )
-        ],
-      ));
+      Flame.images
+          .load('items/barrel.png')
+          .then((value) => gl.add(GameDecorationWithCollision(
+                getRandomTileVector2(mapTitleList, 9, true, 0, true),
+                sprite: Sprite(value),
+                width: tileSize,
+                height: tileSize,
+                collisions: [
+                  CollisionArea.rectangle(
+                      size: Size(tileSize / 1.5, tileSize / 1.5))
+                ],
+              )));
       gl.add(Chest(getRandomTileVector2(mapTitleList, 9, true, 0, false)));
-      gl.add(GameDecorationWithCollision(
-        Sprite('items/table.png'),
-        getRandomTileVector2(mapTitleList, 9, true, 0, true),
-        width: tileSize,
-        height: tileSize,
-        collisions: [
-          CollisionArea(
-            height: tileSize * 0.8,
-            width: tileSize,
-          ),
-        ],
-      ));
+      Flame.images
+          .load('items/table.png')
+          .then((value) => gl.add(GameDecorationWithCollision(
+                getRandomTileVector2(mapTitleList, 9, true, 0, true),
+                sprite: Sprite(value),
+                width: tileSize,
+                height: tileSize,
+                collisions: [
+                  CollisionArea.rectangle(size: Size(tileSize * 0.8, tileSize))
+                ],
+              )));
 
       tmpCnt--;
     }
     tmpCnt = cnt;
     while (tmpCnt > 0) {
       gl.add(Torch(getRandomTileVector2(mapTitleList, 1, true, 0, false)));
-      gl.add(GameDecoration.sprite(
-        Sprite('items/prisoner.png'),
+      gl.add(GameDecoration.withSprite(
+        Sprite.load('items/prisoner.png'),
         position: getRandomTileVector2(mapTitleList, 1, true, 0, false),
         width: tileSize,
         height: tileSize,
       ));
-      gl.add(GameDecoration.sprite(
-        Sprite('items/flag_red.png'),
+      gl.add(GameDecoration.withSprite(
+        Sprite.load('items/flag_red.png'),
         position: getRandomTileVector2(mapTitleList, 1, true, 0, false),
         width: tileSize,
         height: tileSize,

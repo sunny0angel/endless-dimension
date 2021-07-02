@@ -5,6 +5,7 @@ import 'package:endless_dimension/game/game.dart';
 import 'package:endless_dimension/util/localization/strings_location.dart';
 import 'package:endless_dimension/util/sounds.dart';
 import 'package:endless_dimension/util/webWidget/fullscreen_button_web/fullscreen_button.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -25,22 +26,22 @@ class _MenuState extends State<Menu> {
 
   List<Widget> _menuAnimations;
 
-  Future<List<Widget>> _sprites() async  {
+  Future<List<Widget>> _sprites() async {
     return <Widget>[
       SpriteAnimationWidget(
-      animation: await SpriteAnimation.load(
-          "player/knight_run.png",
-          SpriteAnimationData.sequenced(
-            amount: 6,
-            stepTime: 30,
-            textureSize: Vector2(16, 16),
-          ))),
+          animation: await SpriteAnimation.load(
+              "player/knight_run.png",
+              SpriteAnimationData.sequenced(
+                amount: 6,
+                stepTime: 0.15,
+                textureSize: Vector2(16, 16),
+              ))),
       SpriteAnimationWidget(
           animation: await SpriteAnimation.load(
               "player/knight_idle.png",
               SpriteAnimationData.sequenced(
                 amount: 6,
-                stepTime: 30,
+                stepTime: 0.15,
                 textureSize: Vector2(16, 16),
               ))),
       SpriteAnimationWidget(
@@ -48,7 +49,7 @@ class _MenuState extends State<Menu> {
               "enemy/goblin_run_right.png",
               SpriteAnimationData.sequenced(
                 amount: 6,
-                stepTime: 30,
+                stepTime: 0.15,
                 textureSize: Vector2(16, 16),
               ))),
       SpriteAnimationWidget(
@@ -56,12 +57,12 @@ class _MenuState extends State<Menu> {
               "enemy/goblin_idle.png",
               SpriteAnimationData.sequenced(
                 amount: 6,
-                stepTime: 30,
+                stepTime: 0.15,
                 textureSize: Vector2(16, 16),
               ))),
     ];
   }
-  
+
   // Flame.util.animationAsWidget(
   //     Vector2(80, 80),
   //     FlameAnimation.Animation.sequenced(
@@ -103,7 +104,6 @@ class _MenuState extends State<Menu> {
       Sounds.initialize();
       Sounds.playMenuBackgroundSound();
     }
-    _sprites().then((value) => _menuAnimations);
     startTimer();
     super.initState();
   }
@@ -117,14 +117,8 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
-    screenHeight = MediaQuery
-        .of(context)
-        .size
-        .height;
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
     return AnimatedSwitcher(
       duration: Duration(milliseconds: 300),
       child: Scaffold(
@@ -134,43 +128,42 @@ class _MenuState extends State<Menu> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               kIsWeb
-                  ? Container(
-                height: 50,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButton(
-                      icon:
-                      Icon(mute ? Icons.volume_off : Icons.volume_up),
-                      tooltip:
-                      mute ? 'Enable the Music' : 'Close the Music',
-                      onPressed: () {
-                        setState(() {
-                          if (mute) {
-                            mute = false;
-                            Sounds.initialize();
-                            Sounds.playMenuBackgroundSound();
-                          } else {
-                            mute = true;
-                          }
-                        });
-                      },
-                    ),
-                    fullscreenWeb(
-                      fullscreen,
+                  ? Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            mute ? Icons.volume_off : Icons.volume_up,
+                            color: Colors.white,
+                          ),
+                          tooltip:
+                              mute ? 'Enable the Music' : 'Close the Music',
+                          onPressed: () {
+                            setState(() {
+                              if (mute) {
+                                mute = false;
+                                Sounds.initialize();
+                                Sounds.playMenuBackgroundSound();
+                              } else {
+                                mute = true;
+                                FlameAudio.bgm.audioPlayer.setVolume(0);
+                              }
+                            });
+                          },
+                        ),
+                        fullscreenWeb(
+                          fullscreen,
                           () {
-                        setState(() {
-                          if (fullscreen) {
-                            fullscreen = false;
-                          } else {
-                            fullscreen = true;
-                          }
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              )
+                            setState(() {
+                              if (fullscreen) {
+                                fullscreen = false;
+                              } else {
+                                fullscreen = true;
+                              }
+                            });
+                          },
+                        ),
+                      ],
+                    )
                   : Text(""),
               Container(
                 height: 58 * 2.0,
@@ -192,7 +185,21 @@ class _MenuState extends State<Menu> {
               SizedBox(
                 height: 20.0,
               ),
-              _menuAnimations[currentIndex],
+              FutureBuilder<List<Widget>>(
+                  future: _sprites(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Widget>> snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.done:
+                        _menuAnimations = snapshot.data;
+                        return _menuAnimations[currentIndex];
+                      default:
+                        return Container();
+                    }
+                  }),
+              _menuAnimations == null
+                  ? Container()
+                  : _menuAnimations[currentIndex],
               SizedBox(
                 height: 15.0,
               ),

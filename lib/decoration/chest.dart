@@ -14,7 +14,7 @@ class Chest extends GameDecoration with TapGesture {
             "items/chest_spritesheet.png",
             SpriteAnimationData.sequenced(
               amount: 8,
-              stepTime: 30,
+              stepTime: 0.15,
               textureSize: Vector2(16, 16),
             ),
           ),
@@ -51,7 +51,8 @@ class Chest extends GameDecoration with TapGesture {
       TextPaint(config: _TextPaintConfig).render(
         canvas,
         'Touch me !!',
-        Vector2(this.position.left - width / 1.5, this.position.top - (height + 5)),
+        Vector2(
+            this.position.left - width / 1.5, this.position.top - (height + 5)),
       );
     }
   }
@@ -87,23 +88,27 @@ class Chest extends GameDecoration with TapGesture {
 
     gameRef.add(
       AnimatedObjectOnce(
-        animation: FlameAnimation.Animation.sequenced(
+        animation: SpriteAnimation.load(
           "smoke_explosin.png",
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
+          SpriteAnimationData.sequenced(
+            amount: 6,
+            stepTime: 0.15,
+            textureSize: Vector2(16, 16),
+          ),
         ),
-        position: Vector2.translate(width * 2, 0),
+        position: position.translate(width * 2, 0),
       ),
     );
 
     gameRef.add(
       AnimatedObjectOnce(
-        animation: FlameAnimation.Animation.sequenced(
+        animation: SpriteAnimation.load(
           "smoke_explosin.png",
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
+          SpriteAnimationData.sequenced(
+            amount: 6,
+            stepTime: 0.15,
+            textureSize: Vector2(16, 16),
+          ),
         ),
         position: position.translate(width * 2, height * 2),
       ),
@@ -113,15 +118,32 @@ class Chest extends GameDecoration with TapGesture {
   void _showEmote() {
     gameRef.add(
       AnimatedFollowerObject(
-        animation: FlameAnimation.Animation.sequenced(
+        animation: SpriteAnimation.load(
           'player/emote_exclamacao.png',
-          8,
-          textureWidth: 32,
-          textureHeight: 32,
+          SpriteAnimationData.sequenced(
+            amount: 8,
+            stepTime: 0.15,
+            textureSize: Vector2(32, 32),
+          ),
         ),
         target: this,
         positionFromTarget: Vector2Rect(Vector2(18, -6), Vector2(16, 16)),
       ),
     );
+  }
+
+  @override
+  void onTapCancel() {
+    // TODO: implement onTapCancel
+  }
+
+  @override
+  void onTapDown(int pointer, Offset position) {
+    // TODO: implement onTapDown
+  }
+
+  @override
+  void onTapUp(int pointer, Offset position) {
+    // TODO: implement onTapUp
   }
 }

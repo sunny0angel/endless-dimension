@@ -10,7 +10,7 @@ class TowerRotation extends RotationEnemy with ObjectCollision {
             "enemy/ballista.png",
             SpriteAnimationData.sequenced(
               amount: 1,
-              stepTime: 30,
+              stepTime: 0.15,
               textureSize: Vector2(64, 64),
             ),
           ),
@@ -18,7 +18,7 @@ class TowerRotation extends RotationEnemy with ObjectCollision {
             "enemy/ballista.png",
             SpriteAnimationData.sequenced(
               amount: 6,
-              stepTime: 30,
+              stepTime: 0.15,
               textureSize: Vector2(64, 64),
             ),
           ),
@@ -52,7 +52,7 @@ class TowerRotation extends RotationEnemy with ObjectCollision {
                 'enemy/ballista_bolts.png',
                 SpriteAnimationData.sequenced(
                   amount: 2,
-                  stepTime: 30,
+                  stepTime: 0.15,
                   textureSize: Vector2(64, 64),
                 ),
               ),
@@ -60,7 +60,7 @@ class TowerRotation extends RotationEnemy with ObjectCollision {
                 'player/explosion_fire.png',
                 SpriteAnimationData.sequenced(
                   amount: 6,
-                  stepTime: 30,
+                  stepTime: 0.15,
                   textureSize: Vector2(32, 32),
                 ),
               ),
@@ -90,7 +90,7 @@ class TowerRotation extends RotationEnemy with ObjectCollision {
             "smoke_explosin.png",
             SpriteAnimationData.sequenced(
               amount: 6,
-              stepTime: 30,
+              stepTime: 0.15,
               textureSize: Vector2(16, 16),
             ),
           ),

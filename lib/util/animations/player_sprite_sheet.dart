@@ -5,7 +5,7 @@ class PlayerSpriteSheet {
       "player/knight_idle_left.png",
       SpriteAnimationData.sequenced(
         amount: 6,
-        stepTime: 30,
+        stepTime: 0.15,
         textureSize: Vector2(16, 16),
       ));
 
@@ -13,7 +13,7 @@ class PlayerSpriteSheet {
       "player/knight_idle.png",
       SpriteAnimationData.sequenced(
         amount: 6,
-        stepTime: 30,
+        stepTime: 0.15,
         textureSize: Vector2(16, 16),
       ));
 
@@ -21,7 +21,7 @@ class PlayerSpriteSheet {
       "player/knight_run.png",
       SpriteAnimationData.sequenced(
         amount: 6,
-        stepTime: 30,
+        stepTime: 0.15,
         textureSize: Vector2(16, 16),
       ));
 
@@ -29,7 +29,7 @@ class PlayerSpriteSheet {
       "player/knight_run_left.png",
       SpriteAnimationData.sequenced(
         amount: 6,
-        stepTime: 30,
+        stepTime: 0.15,
         textureSize: Vector2(16, 16),
       ));
 

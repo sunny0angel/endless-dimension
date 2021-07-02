@@ -1,26 +1,22 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:bonfire/util/collision/object_collision.dart';
 import 'package:endless_dimension/db/database.dart';
 import 'package:endless_dimension/map/dungeon_map.dart';
-import 'package:flame/Vector2.dart';
 
 class PotionLife extends GameDecoration with Sensor {
-  final Vector2 Vector2;
-  final double life;
   // double _lifeDistributed = 0;
 
-  PotionLife(this.Vector2, this.life)
-      : super.sprite(
-          Sprite('items/potion_life.png'),
-          position: Vector2,
+  PotionLife(Vector2 position, double life)
+      : super.withSprite(
+          Sprite.load('items/potion_life.png'),
+          position: position,
           width: DungeonMap.tileSize * 0.5,
           height: DungeonMap.tileSize * 0.5,
         );
 
   @override
-  void onContact(ObjectCollision collision) {
+  void onContact(GameComponent component) {
     final db = DBProvider.db.database;
-    if (collision is Player) {
+    if (component is Player) {
       // Timer.periodic(Duration(milliseconds: 100), (timer) {
       //   if (_lifeDistributed >= life) {
       //     timer.cancel();

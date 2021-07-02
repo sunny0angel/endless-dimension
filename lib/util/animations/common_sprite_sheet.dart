@@ -5,7 +5,7 @@ class CommonSpriteSheet {
       'player/explosion_fire.png',
       SpriteAnimationData.sequenced(
         amount: 6,
-        stepTime: 30,
+        stepTime: 0.15,
         textureSize: Vector2(32, 32),
       ));
 
@@ -13,7 +13,7 @@ class CommonSpriteSheet {
       'player/emote_exclamacao.png',
       SpriteAnimationData.sequenced(
         amount: 8,
-        stepTime: 30,
+        stepTime: 0.15,
         textureSize: Vector2(32, 32),
       ));
 
@@ -21,7 +21,7 @@ class CommonSpriteSheet {
       "smoke_explosin.png",
       SpriteAnimationData.sequenced(
         amount: 6,
-        stepTime: 30,
+        stepTime: 0.15,
         textureSize: Vector2(16, 16),
       ));
 
@@ -30,7 +30,7 @@ class CommonSpriteSheet {
           'player/atack_effect_bottom.png',
           SpriteAnimationData.sequenced(
             amount: 6,
-            stepTime: 30,
+            stepTime: 0.15,
             textureSize: Vector2(16, 16),
           ));
 
@@ -39,7 +39,7 @@ class CommonSpriteSheet {
           'player/atack_effect_left.png',
           SpriteAnimationData.sequenced(
             amount: 6,
-            stepTime: 30,
+            stepTime: 0.15,
             textureSize: Vector2(16, 16),
           ));
 
@@ -48,7 +48,7 @@ class CommonSpriteSheet {
           'player/atack_effect_right.png',
           SpriteAnimationData.sequenced(
             amount: 6,
-            stepTime: 30,
+            stepTime: 0.15,
             textureSize: Vector2(16, 16),
           ));
 
@@ -57,7 +57,7 @@ class CommonSpriteSheet {
           'player/atack_effect_top.png',
           SpriteAnimationData.sequenced(
             amount: 6,
-            stepTime: 30,
+            stepTime: 0.15,
             textureSize: Vector2(16, 16),
           ));
 
@@ -66,7 +66,7 @@ class CommonSpriteSheet {
           'enemy/atack_effect_bottom.png',
           SpriteAnimationData.sequenced(
             amount: 6,
-            stepTime: 30,
+            stepTime: 0.15,
             textureSize: Vector2(16, 16),
           ));
 
@@ -75,7 +75,7 @@ class CommonSpriteSheet {
           'enemy/atack_effect_left.png',
           SpriteAnimationData.sequenced(
             amount: 6,
-            stepTime: 30,
+            stepTime: 0.15,
             textureSize: Vector2(16, 16),
           ));
 
@@ -84,7 +84,7 @@ class CommonSpriteSheet {
           'enemy/atack_effect_right.png',
           SpriteAnimationData.sequenced(
             amount: 6,
-            stepTime: 30,
+            stepTime: 0.15,
             textureSize: Vector2(16, 16),
           ));
 
@@ -93,7 +93,7 @@ class CommonSpriteSheet {
           'enemy/atack_effect_top.png',
           SpriteAnimationData.sequenced(
             amount: 6,
-            stepTime: 30,
+            stepTime: 0.15,
             textureSize: Vector2(16, 16),
           ));
 
@@ -101,7 +101,7 @@ class CommonSpriteSheet {
       'player/fireball_right.png',
       SpriteAnimationData.sequenced(
         amount: 3,
-        stepTime: 30,
+        stepTime: 0.15,
         textureSize: Vector2(23, 23),
       ));
 
@@ -109,7 +109,7 @@ class CommonSpriteSheet {
       'player/fireball_left.png',
       SpriteAnimationData.sequenced(
         amount: 3,
-        stepTime: 30,
+        stepTime: 0.15,
         textureSize: Vector2(23, 23),
       ));
 
@@ -117,7 +117,7 @@ class CommonSpriteSheet {
       'player/fireball_bottom.png',
       SpriteAnimationData.sequenced(
         amount: 3,
-        stepTime: 30,
+        stepTime: 0.15,
         textureSize: Vector2(23, 23),
       ));
 
@@ -125,7 +125,7 @@ class CommonSpriteSheet {
       'player/fireball_top.png',
       SpriteAnimationData.sequenced(
         amount: 3,
-        stepTime: 30,
+        stepTime: 0.15,
         textureSize: Vector2(23, 23),
       ));
 }
