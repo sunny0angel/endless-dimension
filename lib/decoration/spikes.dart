@@ -3,18 +3,18 @@ import 'dart:async';
 import 'package:bonfire/bonfire.dart';
 import 'package:bonfire/util/collision/object_collision.dart';
 import 'package:endless_dimension/map/dungeon_map.dart';
-import 'package:flame/position.dart';
+import 'package:flame/Vector2.dart';
 
 class Spikes extends GameDecoration with Sensor {
-  final Position initPosition;
+  final Vector2 Vector2;
   Timer timer;
 
   bool isTick = false;
 
-  Spikes(this.initPosition)
+  Spikes(this.Vector2)
       : super.sprite(
           Sprite('items/spikes.png'),
-          position: initPosition,
+          position: Vector2,
           width: DungeonMap.tileSize / 1.5,
           height: DungeonMap.tileSize / 1.5,
         );

@@ -10947,7 +10947,7 @@ SQLITE_API int sqlite3changegroup_new(sqlite3_changegroup **pp);
 ** </table>
 **
 ** If the new changeset contains changes to a table that is already present
-** in the changegroup, then the number of columns and the position of the
+** in the changegroup, then the number of columns and the Vector2 of the
 ** primary key columns for the table must be consistent. If this is not the
 ** case, this function fails with SQLITE_SCHEMA. If the input changeset
 ** appears to be corrupt and the corruption is detected, SQLITE_CORRUPT is
@@ -11021,7 +11021,7 @@ SQLITE_API void sqlite3changegroup_delete(sqlite3_changegroup*);
 **        changeset, and
 **   <li> The table has at least as many columns as recorded in the
 **        changeset, and
-**   <li> The table has primary key columns in the same position as
+**   <li> The table has primary key columns in the same Vector2 as
 **        recorded in the changeset.
 ** </ul>
 **
@@ -12211,7 +12211,7 @@ struct fts5_tokenizer {
 
 /* Flags that may be passed by the tokenizer implementation back to FTS5
 ** as the third argument to the supplied xToken callback. */
-#define FTS5_TOKEN_COLOCATED    0x0001      /* Same position as prev. token */
+#define FTS5_TOKEN_COLOCATED    0x0001      /* Same Vector2 as prev. token */
 
 /*
 ** END OF CUSTOM TOKENIZERS

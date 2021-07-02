@@ -1,26 +1,28 @@
 import 'dart:ui';
 
 import 'package:bonfire/bonfire.dart';
-import 'package:bonfire/util/collision/object_collision.dart';
 import 'package:endless_dimension/map/dungeon_map.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
 
 class TowerRotation extends RotationEnemy with ObjectCollision {
-  TowerRotation(Position initPosition)
+  TowerRotation(Vector2 position)
       : super(
-          animIdle: FlameAnimation.Animation.sequenced(
+          animIdle: SpriteAnimation.load(
             "enemy/ballista.png",
-            1,
-            textureWidth: 64,
-            textureHeight: 64,
+            SpriteAnimationData.sequenced(
+              amount: 1,
+              stepTime: 30,
+              textureSize: Vector2(64, 64),
+            ),
           ),
-          animRun: FlameAnimation.Animation.sequenced(
+          animRun: SpriteAnimation.load(
             "enemy/ballista.png",
-            6,
-            textureWidth: 64,
-            textureHeight: 64,
+            SpriteAnimationData.sequenced(
+              amount: 6,
+              stepTime: 30,
+              textureSize: Vector2(64, 64),
+            ),
           ),
-          initPosition: initPosition,
+          position: position,
           width: DungeonMap.tileSize,
           height: DungeonMap.tileSize,
           life: 100,
@@ -28,14 +30,8 @@ class TowerRotation extends RotationEnemy with ObjectCollision {
     setupCollision(
       CollisionConfig(
         collisions: [
-          CollisionArea(
-            height: DungeonMap.tileSize * 0.4,
-            width: DungeonMap.tileSize * 0.4,
-            align: Offset(
-              DungeonMap.tileSize * 0.2,
-              DungeonMap.tileSize * 0.4,
-            ),
-          ),
+          CollisionArea.rectangle(
+              size: Size(DungeonMap.tileSize * 0.4, DungeonMap.tileSize * 0.4))
         ],
       ),
     );
@@ -52,25 +48,28 @@ class TowerRotation extends RotationEnemy with ObjectCollision {
     this.seeAndMoveToAttackRange(
         positioned: (player) {
           this.simpleAttackRange(
-              animationTop: FlameAnimation.Animation.sequenced(
+              animationTop: SpriteAnimation.load(
                 'enemy/ballista_bolts.png',
-                2,
-                textureWidth: 64,
-                textureHeight: 64,
+                SpriteAnimationData.sequenced(
+                  amount: 2,
+                  stepTime: 30,
+                  textureSize: Vector2(64, 64),
+                ),
               ),
-              animationDestroy: FlameAnimation.Animation.sequenced(
+              animationDestroy: SpriteAnimation.load(
                 'player/explosion_fire.png',
-                6,
-                textureWidth: 32,
-                textureHeight: 32,
+                SpriteAnimationData.sequenced(
+                  amount: 6,
+                  stepTime: 30,
+                  textureSize: Vector2(32, 32),
+                ),
               ),
-              width: 25,
-              height: 25,
+              width: 45,
+              height: 45,
               damage: 10,
               speed: speed * 1.5,
-              range: 500,
               collision: CollisionConfig(
-                  collisions: [CollisionArea(height: 15, width: 15)]));
+                  collisions: [CollisionArea.rectangle(size: Size(15, 15))]));
         },
         radiusVision: DungeonMap.tileSize * 4,
         minDistanceCellsFromPlayer: 3);
@@ -87,11 +86,13 @@ class TowerRotation extends RotationEnemy with ObjectCollision {
   void die() {
     gameRef.add(
       AnimatedObjectOnce(
-          animation: FlameAnimation.Animation.sequenced(
+          animation: SpriteAnimation.load(
             "smoke_explosin.png",
-            6,
-            textureWidth: 16,
-            textureHeight: 16,
+            SpriteAnimationData.sequenced(
+              amount: 6,
+              stepTime: 30,
+              textureSize: Vector2(16, 16),
+            ),
           ),
           position: position),
     );

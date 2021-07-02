@@ -1,28 +1,28 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:endless_dimension/decoration/potion_life.dart';
 import 'package:endless_dimension/map/dungeon_map.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
-import 'package:flame/position.dart';
 import 'package:flutter/material.dart';
 
 class Chest extends GameDecoration with TapGesture {
-  final Position initPosition;
   bool _observedPlayer = false;
 
-  TextConfig _textConfig;
-  Chest(this.initPosition)
-      : super.animation(
-          FlameAnimation.Animation.sequenced(
+  TextPaintConfig _TextPaintConfig;
+
+  Chest(Vector2 position)
+      : super.withAnimation(
+          SpriteAnimation.load(
             "items/chest_spritesheet.png",
-            8,
-            textureWidth: 16,
-            textureHeight: 16,
+            SpriteAnimationData.sequenced(
+              amount: 8,
+              stepTime: 30,
+              textureSize: Vector2(16, 16),
+            ),
           ),
           width: DungeonMap.tileSize * 0.6,
           height: DungeonMap.tileSize * 0.6,
-          position: initPosition,
+          position: position,
         ) {
-    _textConfig = TextConfig(
+    _TextPaintConfig = TextPaintConfig(
       color: Colors.white,
       fontSize: width / 2,
     );
@@ -40,7 +40,6 @@ class Chest extends GameDecoration with TapGesture {
       notObserved: () {
         _observedPlayer = false;
       },
-      visionCells: 1,
     );
     super.update(dt);
   }
@@ -49,11 +48,10 @@ class Chest extends GameDecoration with TapGesture {
   void render(Canvas canvas) {
     super.render(canvas);
     if (_observedPlayer) {
-      _textConfig.render(
+      TextPaint(config: _TextPaintConfig).render(
         canvas,
         'Touch me !!',
-        Position(
-            position.left - width / 1.5, position.center.dy - (height + 5)),
+        Vector2(this.position.left - width / 1.5, this.position.top - (height + 5)),
       );
     }
   }
@@ -69,7 +67,7 @@ class Chest extends GameDecoration with TapGesture {
   void _addPotions() {
     gameRef.addGameComponent(
       PotionLife(
-        Position(
+        Vector2(
           position.translate(width * 0.4, 0).left,
           position.translate(0, height * 0.4).top,
         ),
@@ -79,7 +77,7 @@ class Chest extends GameDecoration with TapGesture {
 
     gameRef.addGameComponent(
       PotionLife(
-        Position(
+        Vector2(
           position.translate(width * 0.6, 0).left,
           position.translate(0, height * 0.6).top,
         ),
@@ -95,7 +93,7 @@ class Chest extends GameDecoration with TapGesture {
           textureWidth: 16,
           textureHeight: 16,
         ),
-        position: position.translate(width * 2, 0),
+        position: Vector2.translate(width * 2, 0),
       ),
     );
 
@@ -122,7 +120,7 @@ class Chest extends GameDecoration with TapGesture {
           textureHeight: 32,
         ),
         target: this,
-        positionFromTarget: Rect.fromLTWH(18, -6, 16, 16),
+        positionFromTarget: Vector2Rect(Vector2(18, -6), Vector2(16, 16)),
       ),
     );
   }

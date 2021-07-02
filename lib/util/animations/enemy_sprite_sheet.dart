@@ -1,33 +1,37 @@
 import 'package:bonfire/bonfire.dart';
 
 class EnemySpriteSheet {
-  static Animation get idleLeft => Animation.sequenced(
-        "enemy/goblin_idle_left.png",
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      );
+  static Future<SpriteAnimation> get idleLeft => SpriteAnimation.load(
+      "enemy/goblin_idle_left.png",
+      SpriteAnimationData.sequenced(
+        amount: 6,
+        stepTime: 30,
+        textureSize: Vector2(16, 16),
+      ));
 
-  static Animation get idleRight => Animation.sequenced(
-        "enemy/goblin_idle.png",
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      );
+  static Future<SpriteAnimation> get idleRight => SpriteAnimation.load(
+      "enemy/goblin_idle.png",
+      SpriteAnimationData.sequenced(
+        amount: 6,
+        stepTime: 30,
+        textureSize: Vector2(16, 16),
+      ));
 
-  static Animation get runRight => Animation.sequenced(
-        "enemy/goblin_run_right.png",
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      );
+  static Future<SpriteAnimation> get runRight => SpriteAnimation.load(
+      "enemy/goblin_run_right.png",
+      SpriteAnimationData.sequenced(
+        amount: 6,
+        stepTime: 30,
+        textureSize: Vector2(16, 16),
+      ));
 
-  static Animation get runLeft => Animation.sequenced(
-        "enemy/goblin_run_left.png",
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      );
+  static Future<SpriteAnimation> get runLeft => SpriteAnimation.load(
+      "enemy/goblin_run_left.png",
+      SpriteAnimationData.sequenced(
+        amount: 6,
+        stepTime: 30,
+        textureSize: Vector2(16, 16),
+      ));
 
   static SimpleDirectionAnimation get simpleDirectionAnimation =>
       SimpleDirectionAnimation(

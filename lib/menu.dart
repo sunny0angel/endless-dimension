@@ -5,9 +5,6 @@ import 'package:endless_dimension/game/game.dart';
 import 'package:endless_dimension/util/localization/strings_location.dart';
 import 'package:endless_dimension/util/sounds.dart';
 import 'package:endless_dimension/util/webWidget/fullscreen_button_web/fullscreen_button.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
-import 'package:flame/flame.dart';
-import 'package:flame/position.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,72 +20,82 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
-  int currentPosition = 0;
+  int currentIndex = 0;
   Timer _timer;
-  List<Widget> sprites = [
-    Flame.util.animationAsWidget(
-      Position(80, 80),
-      FlameAnimation.Animation.sequenced("player/knight_run.png", 6,
-          textureWidth: 16, textureHeight: 16),
-    ),
-    Flame.util.animationAsWidget(
-      Position(80, 80),
-      FlameAnimation.Animation.sequenced("player/knight_idle.png", 6,
-          textureWidth: 16, textureHeight: 16),
-    ),
-    Flame.util.animationAsWidget(
-      Position(80, 80),
-      FlameAnimation.Animation.sequenced(
-        "enemy/goblin_run_right.png",
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-    ),
-    Flame.util.animationAsWidget(
-      Position(80, 80),
-      FlameAnimation.Animation.sequenced(
-        "enemy/goblin_idle.png",
-        6,
-        textureWidth: 16,
-        textureHeight: 16,
-      ),
-    ),
-    // Flame.util.animationAsWidget(
-    //     Position(80, 80),
-    //     FlameAnimation.Animation.sequenced(
-    //       "enemy/imp/imp_run_right.png",
-    //       4,
-    //       textureWidth: 16,
-    //       textureHeight: 16,
-    //     )),
-    // Flame.util.animationAsWidget(
-    //     Position(80, 80),
-    //     FlameAnimation.Animation.sequenced(
-    //       "enemy/imp/imp_idle.png",
-    //       4,
-    //       textureWidth: 16,
-    //       textureHeight: 16,
-    //     )),
-    // Flame.util.animationAsWidget(
-    //   Position(70, 80),
-    //   FlameAnimation.Animation.sequenced(
-    //     "enemy/boss/boss_run_right.png",
-    //     4,
-    //     textureWidth: 32,
-    //     textureHeight: 36,
-    //   ),
-    // ),
-    // Flame.util.animationAsWidget(
-    //   Position(70, 80),
-    //   FlameAnimation.Animation.sequenced(
-    //     "enemy/boss/boss_idle.png",
-    //     4,
-    //     textureWidth: 32,
-    //     textureHeight: 36,
-    //   ),
-    // ),
-  ];
+
+  List<Widget> _menuAnimations;
+
+  Future<List<Widget>> _sprites() async  {
+    return <Widget>[
+      SpriteAnimationWidget(
+      animation: await SpriteAnimation.load(
+          "player/knight_run.png",
+          SpriteAnimationData.sequenced(
+            amount: 6,
+            stepTime: 30,
+            textureSize: Vector2(16, 16),
+          ))),
+      SpriteAnimationWidget(
+          animation: await SpriteAnimation.load(
+              "player/knight_idle.png",
+              SpriteAnimationData.sequenced(
+                amount: 6,
+                stepTime: 30,
+                textureSize: Vector2(16, 16),
+              ))),
+      SpriteAnimationWidget(
+          animation: await SpriteAnimation.load(
+              "enemy/goblin_run_right.png",
+              SpriteAnimationData.sequenced(
+                amount: 6,
+                stepTime: 30,
+                textureSize: Vector2(16, 16),
+              ))),
+      SpriteAnimationWidget(
+          animation: await SpriteAnimation.load(
+              "enemy/goblin_idle.png",
+              SpriteAnimationData.sequenced(
+                amount: 6,
+                stepTime: 30,
+                textureSize: Vector2(16, 16),
+              ))),
+    ];
+  }
+  
+  // Flame.util.animationAsWidget(
+  //     Vector2(80, 80),
+  //     FlameAnimation.Animation.sequenced(
+  //       "enemy/imp/imp_run_right.png",
+  //       4,
+  //       textureWidth: 16,
+  //       textureHeight: 16,
+  //     )),
+  // Flame.util.animationAsWidget(
+  //     Vector2(80, 80),
+  //     FlameAnimation.Animation.sequenced(
+  //       "enemy/imp/imp_idle.png",
+  //       4,
+  //       textureWidth: 16,
+  //       textureHeight: 16,
+  //     )),
+  // Flame.util.animationAsWidget(
+  //   Vector2(70, 80),
+  //   FlameAnimation.Animation.sequenced(
+  //     "enemy/boss/boss_run_right.png",
+  //     4,
+  //     textureWidth: 32,
+  //     textureHeight: 36,
+  //   ),
+  // ),
+  // Flame.util.animationAsWidget(
+  //   Vector2(70, 80),
+  //   FlameAnimation.Animation.sequenced(
+  //     "enemy/boss/boss_idle.png",
+  //     4,
+  //     textureWidth: 32,
+  //     textureHeight: 36,
+  //   ),
+  // ),
 
   @override
   void initState() {
@@ -96,6 +103,7 @@ class _MenuState extends State<Menu> {
       Sounds.initialize();
       Sounds.playMenuBackgroundSound();
     }
+    _sprites().then((value) => _menuAnimations);
     startTimer();
     super.initState();
   }
@@ -103,14 +111,20 @@ class _MenuState extends State<Menu> {
   @override
   void dispose() {
     Sounds.stopBackgroundSound();
-    _timer.cancel();
+    _timer.stop();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
+    screenHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
     return AnimatedSwitcher(
       duration: Duration(milliseconds: 300),
       child: Scaffold(
@@ -121,42 +135,42 @@ class _MenuState extends State<Menu> {
             children: <Widget>[
               kIsWeb
                   ? Container(
-                      height: 50,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            icon:
-                                Icon(mute ? Icons.volume_off : Icons.volume_up),
-                            tooltip:
-                                mute ? 'Enable the Music' : 'Close the Music',
-                            onPressed: () {
-                              setState(() {
-                                if (mute) {
-                                  mute = false;
-                                  Sounds.initialize();
-                                  Sounds.playMenuBackgroundSound();
-                                } else {
-                                  mute = true;
-                                }
-                              });
-                            },
-                          ),
-                          fullscreenWeb(
-                            fullscreen,
-                            () {
-                              setState(() {
-                                if (fullscreen) {
-                                  fullscreen = false;
-                                } else {
-                                  fullscreen = true;
-                                }
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    )
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      icon:
+                      Icon(mute ? Icons.volume_off : Icons.volume_up),
+                      tooltip:
+                      mute ? 'Enable the Music' : 'Close the Music',
+                      onPressed: () {
+                        setState(() {
+                          if (mute) {
+                            mute = false;
+                            Sounds.initialize();
+                            Sounds.playMenuBackgroundSound();
+                          } else {
+                            mute = true;
+                          }
+                        });
+                      },
+                    ),
+                    fullscreenWeb(
+                      fullscreen,
+                          () {
+                        setState(() {
+                          if (fullscreen) {
+                            fullscreen = false;
+                          } else {
+                            fullscreen = true;
+                          }
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              )
                   : Text(""),
               Container(
                 height: 58 * 2.0,
@@ -178,7 +192,7 @@ class _MenuState extends State<Menu> {
               SizedBox(
                 height: 20.0,
               ),
-              sprites[currentPosition],
+              _menuAnimations[currentIndex],
               SizedBox(
                 height: 15.0,
               ),
@@ -244,14 +258,18 @@ class _MenuState extends State<Menu> {
   }
 
   void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 2), (timer) {
-      setState(() {
-        currentPosition++;
-        if (currentPosition > sprites.length - 1) {
-          currentPosition = 0;
-        }
-      });
-    });
+    _timer = Timer(
+      2.0,
+      callback: () {
+        setState(() {
+          currentIndex++;
+          if (currentIndex > _menuAnimations.length - 1) {
+            currentIndex = 0;
+          }
+        });
+      },
+      repeat: true,
+    );
   }
 
   void _launchURL(String url) async {

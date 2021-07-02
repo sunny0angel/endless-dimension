@@ -7,102 +7,91 @@ import 'package:endless_dimension/decoration/spikes.dart';
 import 'package:endless_dimension/decoration/torch.dart';
 import 'package:endless_dimension/enemy/goblin.dart';
 import 'package:endless_dimension/enemy/tower_rotation.dart';
-import 'package:flame/position.dart';
+import 'package:flutter/cupertino.dart';
 
 class DungeonMap {
   static double tileSize = 45;
-  static final Sprite wall = Sprite('tile/wall.png');
-  static final Sprite wallTop = Sprite('tile/wall_top.png');
-  static final Sprite wallBottom = Sprite('tile/wall_bottom.png');
-  static final Sprite wallLeft = Sprite('tile/wall_left.png');
-  static final Sprite wallRight = Sprite('tile/wall_right.png');
-  static final Sprite wallBottomLeft = Sprite('tile/wall_top_inner_left.png');
-  static final Sprite wallBottomRight = Sprite('tile/wall_top_inner_right.png');
-  static final Sprite floor_1 = Sprite('tile/floor_1.png');
-  static final Sprite floor_2 = Sprite('tile/floor_2.png');
-  static final Sprite floor_3 = Sprite('tile/floor_3.png');
-  static final Sprite floor_4 = Sprite('tile/floor_4.png');
 
-  static Tile setWallTile(Position position) {
+  static Tile setWallTile(Vector2 position) {
     return TileWithCollision(
-      wall,
+      'tile/wall.png',
       position,
-      collisions: [CollisionArea.fromSize(tileSize)],
+      collisions: [CollisionArea.rectangle(size: Size(tileSize,tileSize))],
       width: tileSize,
       height: tileSize,
     );
   }
 
-  static Tile setWallTopTile(Position position) {
+  static Tile setWallTopTile(Vector2 position) {
     return TileWithCollision(
-      wallTop,
+      'tile/wall_top.png',
       position,
-      collisions: [CollisionArea.fromSize(tileSize)],
+      collisions: [CollisionArea.rectangle(size: Size(tileSize,tileSize))],
       width: tileSize,
       height: tileSize,
     );
   }
 
-  static Tile setWallBottomTile(Position position) {
+  static Tile setWallBottomTile(Vector2 position) {
     return TileWithCollision(
-      wallBottom,
+      'tile/wall_bottom.png',
       position,
-      collisions: [CollisionArea.fromSize(tileSize)],
+      collisions: [CollisionArea.rectangle(size: Size(tileSize,tileSize))],
       width: tileSize,
       height: tileSize,
     );
   }
 
-  static Tile setWallLeftTile(Position position) {
+  static Tile setWallLeftTile(Vector2 position) {
     return TileWithCollision(
-      wallLeft,
+      'tile/wall_left.png',
       position,
-      collisions: [CollisionArea.fromSize(tileSize)],
+      collisions: [CollisionArea.rectangle(size: Size(tileSize,tileSize))],
       width: tileSize,
       height: tileSize,
     );
   }
 
-  static Tile setWallRightTile(Position position) {
+  static Tile setWallRightTile(Vector2 position) {
     return TileWithCollision(
-      wallRight,
+      'tile/wall_right.png',
       position,
-      collisions: [CollisionArea.fromSize(tileSize)],
+      collisions: [CollisionArea.rectangle(size: Size(tileSize,tileSize))],
       width: tileSize,
       height: tileSize,
     );
   }
 
-  static Tile setWallBottomLeftTile(Position position) {
+  static Tile setWallBottomLeftTile(Vector2 position) {
     return TileWithCollision(
-      wallBottomLeft,
+      'tile/wall_top_inner_left.png',
       position,
-      collisions: [CollisionArea.fromSize(tileSize)],
+      collisions: [CollisionArea.rectangle(size: Size(tileSize,tileSize))],
       width: tileSize,
       height: tileSize,
     );
   }
 
-  static Tile setWallBottomRightTile(Position position) {
+  static Tile setWallBottomRightTile(Vector2 position) {
     return TileWithCollision(
-      wallBottomRight,
+      'tile/wall_top_inner_right.png',
       position,
-      collisions: [CollisionArea.fromSize(tileSize)],
+      collisions: [CollisionArea.rectangle(size: Size(tileSize,tileSize))],
       width: tileSize,
       height: tileSize,
     );
   }
 
-  static Tile setRandomFloorTile(Position position) {
+  static Tile setRandomFloorTile(Vector2 position) {
     return Tile.fromSprite(
-      randomFloor(),
+      _randomFloor(),
       position,
       width: tileSize,
       height: tileSize,
     );
   }
 
-  static Tile setEmptyTile(Position position) {
+  static Tile setEmptyTile(Vector2 position) {
     return Tile(
       '',
       position,
@@ -111,7 +100,7 @@ class DungeonMap {
     );
   }
 
-  static Tile createMapTile(int tileType, Position position) {
+  static Tile createMapTile(int tileType, Vector2 position) {
     switch (tileType) {
       case 1:
         return setWallTile(position);
@@ -187,7 +176,7 @@ class DungeonMap {
   }
 
   static void _mapOptimize(List<List<int>> mapTitleList) {
-    // walls position optimize
+    // walls Vector2 optimize
     int cnt = 5;
     while (cnt > 0) {
       for (int i = 3; i < mapTitleList.length - 2; i++) {
@@ -260,7 +249,7 @@ class DungeonMap {
     for (int i = 0; i < mapTitleList.length; i++) {
       for (int j = 0; j < mapTitleList[0].length; j++) {
         tileList.add(createMapTile(
-            mapTitleList[i][j], Position(j.toDouble(), i.toDouble())));
+            mapTitleList[i][j], Vector2(j.toDouble(), i.toDouble())));
       }
     }
 
@@ -274,16 +263,16 @@ class DungeonMap {
     List<GameDecoration> gl = [];
     int tmpCnt = cnt;
     while (tmpCnt > 0) {
-      gl.add(Spikes(getRandomTilePosition(mapTitleList, 9, true, 0, false)));
+      gl.add(Spikes(getRandomTileVector2(mapTitleList, 9, true, 0, false)));
       tmpCnt--;
     }
     tmpCnt = (cnt / 2).truncate();
     while (tmpCnt > 0) {
       gl.add(BarrelDraggable(
-          getRandomTilePosition(mapTitleList, 9, true, 0, true)));
+          getRandomTileVector2(mapTitleList, 9, true, 0, true)));
       gl.add(GameDecorationWithCollision(
         Sprite('items/barrel.png'),
-        getRandomTilePosition(mapTitleList, 9, true, 0, true),
+        getRandomTileVector2(mapTitleList, 9, true, 0, true),
         width: tileSize,
         height: tileSize,
         collisions: [
@@ -293,10 +282,10 @@ class DungeonMap {
           )
         ],
       ));
-      gl.add(Chest(getRandomTilePosition(mapTitleList, 9, true, 0, false)));
+      gl.add(Chest(getRandomTileVector2(mapTitleList, 9, true, 0, false)));
       gl.add(GameDecorationWithCollision(
         Sprite('items/table.png'),
-        getRandomTilePosition(mapTitleList, 9, true, 0, true),
+        getRandomTileVector2(mapTitleList, 9, true, 0, true),
         width: tileSize,
         height: tileSize,
         collisions: [
@@ -311,16 +300,16 @@ class DungeonMap {
     }
     tmpCnt = cnt;
     while (tmpCnt > 0) {
-      gl.add(Torch(getRandomTilePosition(mapTitleList, 1, true, 0, false)));
+      gl.add(Torch(getRandomTileVector2(mapTitleList, 1, true, 0, false)));
       gl.add(GameDecoration.sprite(
         Sprite('items/prisoner.png'),
-        position: getRandomTilePosition(mapTitleList, 1, true, 0, false),
+        position: getRandomTileVector2(mapTitleList, 1, true, 0, false),
         width: tileSize,
         height: tileSize,
       ));
       gl.add(GameDecoration.sprite(
         Sprite('items/flag_red.png'),
-        position: getRandomTilePosition(mapTitleList, 1, true, 0, false),
+        position: getRandomTileVector2(mapTitleList, 1, true, 0, false),
         width: tileSize,
         height: tileSize,
       ));
@@ -335,52 +324,52 @@ class DungeonMap {
     List<Enemy> el = [];
 
     while (cnt > 0) {
-      el.add(Goblin(getRandomTilePosition(mapTitleList, 9, true, 0, true)));
+      el.add(Goblin(getRandomTileVector2(mapTitleList, 9, true, 0, true)));
       cnt--;
     }
 
     while (cnt1 > 0) {
       el.add(
-          TowerRotation(getRandomTilePosition(mapTitleList, 9, true, 0, true)));
+          TowerRotation(getRandomTileVector2(mapTitleList, 9, true, 0, true)));
       cnt1--;
     }
     return el;
   }
 
-  static Sprite randomFloor() {
+  static Future<Sprite> _randomFloor() {
     int p = Random().nextInt(6);
     switch (p) {
       case 0:
-        return floor_1;
+        return Sprite.load('tile/floor_1.png');
         break;
       case 1:
-        return floor_2;
+        return Sprite.load('tile/floor_2.png');
         break;
       case 2:
-        return floor_3;
+        return Sprite.load('tile/floor_3.png');
         break;
       case 3:
-        return floor_4;
+        return Sprite.load('tile/floor_4.png');
         break;
       case 4:
-        return floor_3;
+        return Sprite.load('tile/floor_3.png');
         break;
       case 5:
-        return floor_4;
+        return Sprite.load('tile/floor_4.png');
         break;
       default:
-        return floor_1;
+        return Sprite.load('tile/floor_1.png');
     }
   }
 
-  static Position getRelativeTilePosition(int x, int y) {
-    return Position(
+  static Vector2 getRelativeTileVector2(int x, int y) {
+    return Vector2(
       (x * tileSize).toDouble(),
       (y * tileSize).toDouble(),
     );
   }
 
-  static Position getRandomTilePosition(
+  static Vector2 getRandomTileVector2(
       List<List<int>> mapTitleList,
       int onTileType,
       bool randomOrOnCorner,
@@ -501,6 +490,6 @@ class DungeonMap {
       }
     }
     print(x.toString() + '  +  ' + y.toString());
-    return Position(y * tileSize, x * tileSize);
+    return Vector2(y * tileSize, x * tileSize);
   }
 }

@@ -2,11 +2,10 @@ import 'dart:math';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:bonfire/util/game_controller.dart';
-import 'package:endless_dimension/db/database.dart';
+import 'package:flame/image_composition.dart';
 import 'package:endless_dimension/enemy/goblin.dart';
 import 'package:endless_dimension/map/dungeon_map.dart';
 import 'package:endless_dimension/player/knight.dart';
-import 'package:flame/animation.dart' as FlameAnimation;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:endless_dimension/menu.dart';
@@ -77,23 +76,23 @@ class _GameState extends State<Game>
         joystick: Joystick(
           keyboardEnable: true,
           directional: JoystickDirectional(
-            spriteBackgroundDirectional: Sprite('joystick_background.png'),
-            spriteKnobDirectional: Sprite('joystick_knob.png'),
+            spriteBackgroundDirectional: Sprite.load('joystick_background.png'),
+            spriteKnobDirectional: Sprite.load('joystick_knob.png'),
             size: 100,
           ),
           actions: [
             JoystickAction(
               actionId: 0,
-              sprite: Sprite('joystick_atack.png'),
-              spriteBackgroundDirection: Sprite('joystick_background.png'),
+              sprite: Sprite.load('joystick_atack.png'),
+              spriteBackgroundDirection: Sprite.load('joystick_background.png'),
               align: JoystickActionAlign.BOTTOM_RIGHT,
               size: 50,
               margin: EdgeInsets.only(bottom: 70, right: 40),
             ),
             JoystickAction(
               actionId: 1,
-              sprite: Sprite('joystick_atack_range.png'),
-              spriteBackgroundDirection: Sprite('joystick_background.png'),
+              sprite: Sprite.load('joystick_atack_range.png'),
+              spriteBackgroundDirection: Sprite.load('joystick_background.png'),
               align: JoystickActionAlign.BOTTOM_RIGHT,
               size: 50,
               enableDirection: true,
@@ -101,16 +100,16 @@ class _GameState extends State<Game>
             ),
             JoystickAction(
               actionId: 10,
-              sprite: Sprite('joystick_atack_range.png'),
-              spriteBackgroundDirection: Sprite('joystick_background.png'),
+              sprite: Sprite.load('joystick_atack_range.png'),
+              spriteBackgroundDirection: Sprite.load('joystick_background.png'),
               align: JoystickActionAlign.BOTTOM_RIGHT,
               size: 40,
               margin: EdgeInsets.only(bottom: 80, right: 115),
             ),
             JoystickAction(
               actionId: 11,
-              sprite: Sprite('joystick_atack_range.png'),
-              spriteBackgroundDirection: Sprite('joystick_background.png'),
+              sprite: Sprite.load('joystick_atack_range.png'),
+              spriteBackgroundDirection: Sprite.load('joystick_background.png'),
               align: JoystickActionAlign.BOTTOM_RIGHT,
               size: 40,
               enableDirection: true,
@@ -119,7 +118,7 @@ class _GameState extends State<Game>
           ],
         ),
         player: Knight(
-          DungeonMap.getRandomTilePosition(_mapTitleList, 9, false, 100, true),
+          DungeonMap.getRandomTileVector2(_mapTitleList, 9, false, 100, true),
         ),
         interface: KnightInterface(),
         map: DungeonMap.map(_mapTitleList),
@@ -128,8 +127,8 @@ class _GameState extends State<Game>
         background: BackgroundColorGame(Colors.blueGrey[900]),
         gameController: _controller..setListener(this),
         lightingColorGame: Colors.black.withOpacity(0.75),
-        cameraZoom:
-            1.0, // you can change the game zoom here or directly on camera
+        cameraConfig:
+            CameraConfig(), // you can change the game zoom here or directly on camera
       );
     });
   }
@@ -145,30 +144,22 @@ class _GameState extends State<Game>
     double x = DungeonMap.tileSize * (4 + Random().nextInt(25));
     double y = DungeonMap.tileSize * (5 + Random().nextInt(3));
 
-    Position position = Position(
-      x,
-      y,
-    );
     _controller.addGameComponent(
       AnimatedObjectOnce(
-        animation: FlameAnimation.Animation.sequenced(
-          "smoke_explosin.png",
-          6,
-          textureWidth: 16,
-          textureHeight: 16,
-        ),
-        position: Rect.fromLTWH(
-          position.x,
-          position.y,
-          DungeonMap.tileSize,
-          DungeonMap.tileSize,
-        ),
+        animation: SpriteAnimation.load(
+            "smoke_explosin.png",
+            SpriteAnimationData.sequenced(
+                amount:6,
+                stepTime:30,
+                textureSize:Vector2(16,16),
+              texturePosition:Vector2(x,y),
+            ))
       ),
     );
 
     _controller.addGameComponent(
       Goblin(
-        position,
+        Vector2(x,y),
       ),
     );
   }
@@ -198,7 +189,7 @@ class _GameState extends State<Game>
     Dialogs.showGamePauseMenu(
       context,
       () {
-        _controller.gameRef.resume();
+        _controller.gameRef.resumeEngine();
         showGameOver = false;
         Navigator.pop(context);
       },
@@ -222,7 +213,7 @@ class _GameState extends State<Game>
     if (_controller.player != null) {
       if ((_controller.player as Knight).showPauseMenu) {
         (_controller.player as Knight).setShowPauseMenu(false);
-        _controller.gameRef.pause();
+        _controller.gameRef.pauseEngine();
         _showDialogPauseMenu();
       } else if ((_controller.player as Knight).showPlayerState) {
         (_controller.player as Knight).setShowPlayerState(false);

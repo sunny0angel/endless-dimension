@@ -1,10 +1,8 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:bonfire/util/collision/object_collision.dart';
 import 'package:endless_dimension/map/dungeon_map.dart';
 import 'package:endless_dimension/util/animations/common_sprite_sheet.dart';
 import 'package:endless_dimension/util/animations/enemy_sprite_sheet.dart';
 import 'package:endless_dimension/util/sounds.dart';
-import 'package:flame/position.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +10,10 @@ class Goblin extends SimpleEnemy with ObjectCollision {
   double attack = 20;
   bool _seePlayerClose = false;
 
-  Goblin(Position initPosition)
+  Goblin(Vector2 position)
       : super(
           animation: EnemySpriteSheet.simpleDirectionAnimation,
-          initPosition: initPosition,
+          position: position,
           width: DungeonMap.tileSize * 0.8,
           height: DungeonMap.tileSize * 0.8,
           speed: DungeonMap.tileSize * 1.6,
@@ -24,14 +22,8 @@ class Goblin extends SimpleEnemy with ObjectCollision {
     setupCollision(
       CollisionConfig(
         collisions: [
-          CollisionArea(
-            height: DungeonMap.tileSize * 0.4,
-            width: DungeonMap.tileSize * 0.4,
-            align: Offset(
-              DungeonMap.tileSize * 0.2,
-              DungeonMap.tileSize * 0.4,
-            ),
-          ),
+          CollisionArea.rectangle(
+              size: Size(DungeonMap.tileSize * 0.4, DungeonMap.tileSize * 0.4)),
         ],
       ),
     );
@@ -90,8 +82,8 @@ class Goblin extends SimpleEnemy with ObjectCollision {
     this.simpleAttackRange(
       animationRight: CommonSpriteSheet.fireBallRight,
       animationLeft: CommonSpriteSheet.fireBallLeft,
-      animationTop: CommonSpriteSheet.fireBallTop,
-      animationBottom: CommonSpriteSheet.fireBallBottom,
+      animationUp: CommonSpriteSheet.fireBallTop,
+      animationDown: CommonSpriteSheet.fireBallBottom,
       animationDestroy: CommonSpriteSheet.explosionAnimation,
       id: 35,
       width: width * 0.9,
@@ -103,14 +95,7 @@ class Goblin extends SimpleEnemy with ObjectCollision {
       // },
       collision: CollisionConfig(
         collisions: [
-          CollisionArea(
-            width: width / 2,
-            height: width / 2,
-            align: Offset(
-              width * 0.2,
-              width * 0.2,
-            ),
-          ),
+          CollisionArea.rectangle(size: Size(width / 2, width / 2)),
         ],
       ),
       lightingConfig: LightingConfig(
@@ -129,8 +114,8 @@ class Goblin extends SimpleEnemy with ObjectCollision {
   void execAttack() {
     if (gameRef.player != null && gameRef.player.isDead) return;
     this.simpleAttackMelee(
-        heightArea: width,
-        widthArea: width,
+        height: width,
+        width: width,
         damage: attack / 2,
         interval: 400,
         attackEffectBottomAnim: CommonSpriteSheet.blackAttackEffectBottom,
@@ -146,7 +131,7 @@ class Goblin extends SimpleEnemy with ObjectCollision {
   void receiveDamage(double damage, dynamic from) {
     this.showDamage(
       damage,
-      config: TextConfig(
+      config: TextPaintConfig(
         fontSize: width / 3,
         color: Colors.white,
       ),

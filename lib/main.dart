@@ -16,8 +16,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Comment when running for web
   if (!kIsWeb) {
-    await Flame.util.setLandscape();
-    await Flame.util.fullScreen();
+    await Flame.device.setLandscape();
+    await Flame.device.fullScreen();
   }
   myLocation = const MyLocalizationsDelegate();
   runApp(MyApp());
@@ -51,54 +51,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// class Menu extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.black,
-//       body: Center(
-//         child: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           children: <Widget>[
-//             Text(
-//               'Bonfire',
-//               style: TextStyle(fontSize: 30, color: Colors.white),
-//             ),
-//             SizedBox(
-//               height: 30,
-//             ),
-//             SizedBox(
-//               width: 200,
-//               child: ElevatedButton(
-//                 style: ButtonStyle(
-//                   shape: MaterialStateProperty.all(
-//                     RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(20),
-//                     ),
-//                   ),
-//                 ),
-//                 child: Text('START'),
-//                 onPressed: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(builder: (context) => GameManualMap()),
-//                   );
-//                 },
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//       bottomNavigationBar: Container(
-//         height: 40,
-//         child: Center(
-//           child: Text(
-//             'Keyboard: directional and Space Bar to attack',
-//             style: TextStyle(fontSize: 18),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
