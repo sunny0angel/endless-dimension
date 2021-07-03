@@ -35,8 +35,10 @@ class _GameState extends State<Game>
   void initState() {
     DungeonMap.objectOnMapList.clear();
     _mapTitleList = DungeonMap.createRandomMapTitleList(20, 20, 1);
+    // sound assets preload
     Sounds.initialize();
     Sounds.playGameBackgroundSound();
+
     WidgetsBinding.instance.addObserver(this);
     _controller = GameController()..setListener(this);
     super.initState();
@@ -126,7 +128,8 @@ class _GameState extends State<Game>
         decorations: DungeonMap.decorations(_mapTitleList),
         background: BackgroundColorGame(Colors.blueGrey[900]),
         gameController: _controller..setListener(this),
-        lightingColorGame: Colors.black.withOpacity(0.75),
+        // TODO cause error with unknown reason
+        lightingColorGame: Color.fromRGBO(0, 0, 0, 0.75),
         cameraConfig:
             CameraConfig(), // you can change the game zoom here or directly on camera
       );

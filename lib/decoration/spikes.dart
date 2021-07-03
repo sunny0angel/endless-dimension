@@ -2,12 +2,9 @@ import 'dart:math';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:endless_dimension/map/dungeon_map.dart';
-import 'package:flutter/animation.dart';
 
 class Spikes extends GameDecoration with Sensor {
   Timer timer;
-
-  bool isTick = false;
 
   Spikes(Vector2 position)
       : super.withAnimation(
@@ -36,14 +33,14 @@ class Spikes extends GameDecoration with Sensor {
 
   @override
   void onContact(GameComponent component) {
-    if (timer == null) {
-      if (component is Attackable) {
-        (component as Attackable).receiveDamage(
-            (Random().nextInt(100) * 0.1 + 10).roundToDouble(), 1);
-        timer = Timer(Random().nextInt(2000) * 0.1 + 500, callback: () {
-          timer = null;
-        }, repeat: true);
-      }
+    if (timer == null &&
+        this.animation.currentIndex > 6 &&
+        component is Attackable) {
+      (component as Attackable)
+          .receiveDamage((Random().nextInt(100) * 0.1 + 10).roundToDouble(), 1);
+      timer = Timer(0.5, callback: () {
+        timer = null;
+      }, repeat: true);
     }
   }
 }

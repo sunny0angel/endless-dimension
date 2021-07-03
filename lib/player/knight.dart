@@ -21,7 +21,6 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
   bool showTalk = false;
   double angleRadAttack = 0.0;
   Rect rectDirectionAttack;
-  Sprite spriteDirectionAttack;
   bool execAttackRange = false;
 
   Knight(this.positionVector)
@@ -33,9 +32,8 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
           life: 200,
           speed: DungeonMap.tileSize * 3,
         ) {
-    Flame.images
-        .load('player/atack_effect_right.png')
-        .then((value) => spriteDirectionAttack = Sprite(value));
+    this.aboveComponents = true;
+    // image assets preload
     setupLighting(LightingConfig(
       radius: width * 1.5,
       blurBorder: width * 1.5,
@@ -43,8 +41,8 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
     setupCollision(
       CollisionConfig(
         collisions: [
-          CollisionArea.circle(
-            radius: DungeonMap.tileSize / 2,
+          CollisionArea.rectangle(
+            size: Size(DungeonMap.tileSize / 2, DungeonMap.tileSize / 2),
             align: Vector2(DungeonMap.tileSize / 3.5, DungeonMap.tileSize / 2),
           ),
         ],
@@ -89,16 +87,14 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
   @override
   void die() {
     remove();
-    Flame.images
-        .load('player/crypt.png')
-        .then((value) => gameRef.addGameComponent(
-              GameDecoration(
-                position: positionVector,
-                height: DungeonMap.tileSize,
-                width: DungeonMap.tileSize,
-                sprite: Sprite(value),
-              ),
-            ));
+    gameRef.addGameComponent(
+      GameDecoration.withSprite(
+        Sprite.load('player/crypt.png'),
+        position: positionVector,
+        height: DungeonMap.tileSize,
+        width: DungeonMap.tileSize,
+      ),
+    );
     super.die();
   }
 
@@ -264,12 +260,13 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
   }
 
   void _drawDirectionAttack(Canvas c) {
-    // if (execAttackRange) {}
-    renderSpriteByRadAngle(
-      c,
-      angleRadAttack,
-      Vector2Rect(positionVector, positionVector),
-      spriteDirectionAttack,
-    );
+    // if (execAttackRange) {
+    //   renderSpriteByRadAngle(
+    //     c,
+    //     angleRadAttack,
+    //     Vector2Rect(positionVector, positionVector),
+    //     Sprite.load('direction_attack.png'),
+    //   );
+    // }
   }
 }

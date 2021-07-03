@@ -92,7 +92,7 @@ class Chest extends GameDecoration with TapGesture {
           "smoke_explosin.png",
           SpriteAnimationData.sequenced(
             amount: 6,
-            stepTime: 0.15,
+            stepTime: 0.1,
             textureSize: Vector2(16, 16),
           ),
         ),
@@ -106,7 +106,7 @@ class Chest extends GameDecoration with TapGesture {
           "smoke_explosin.png",
           SpriteAnimationData.sequenced(
             amount: 6,
-            stepTime: 0.15,
+            stepTime: 0.1,
             textureSize: Vector2(16, 16),
           ),
         ),

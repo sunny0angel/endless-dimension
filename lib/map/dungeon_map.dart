@@ -270,30 +270,25 @@ class DungeonMap {
     while (tmpCnt > 0) {
       gl.add(BarrelDraggable(
           getRandomTileVector2(mapTitleList, 9, true, 0, true)));
-      Flame.images
-          .load('items/barrel.png')
-          .then((value) => gl.add(GameDecorationWithCollision(
-                getRandomTileVector2(mapTitleList, 9, true, 0, true),
-                sprite: Sprite(value),
-                width: tileSize,
-                height: tileSize,
-                collisions: [
-                  CollisionArea.rectangle(
-                      size: Size(tileSize / 1.5, tileSize / 1.5))
-                ],
-              )));
+      gl.add(GameDecorationWithCollision.withSprite(
+        Sprite.load('items/barrel.png'),
+        getRandomTileVector2(mapTitleList, 9, true, 0, true),
+        width: tileSize,
+        height: tileSize,
+        collisions: [
+          CollisionArea.rectangle(size: Size(tileSize / 1.5, tileSize / 1.5))
+        ],
+      ));
       gl.add(Chest(getRandomTileVector2(mapTitleList, 9, true, 0, false)));
-      Flame.images
-          .load('items/table.png')
-          .then((value) => gl.add(GameDecorationWithCollision(
-                getRandomTileVector2(mapTitleList, 9, true, 0, true),
-                sprite: Sprite(value),
-                width: tileSize,
-                height: tileSize,
-                collisions: [
-                  CollisionArea.rectangle(size: Size(tileSize * 0.8, tileSize))
-                ],
-              )));
+      gl.add(GameDecorationWithCollision.withSprite(
+        Sprite.load('items/table.png'),
+        getRandomTileVector2(mapTitleList, 9, true, 0, true),
+        width: tileSize,
+        height: tileSize,
+        collisions: [
+          CollisionArea.rectangle(size: Size(tileSize * 0.8, tileSize))
+        ],
+      ));
 
       tmpCnt--;
     }
