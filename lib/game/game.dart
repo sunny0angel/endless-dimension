@@ -1,7 +1,9 @@
 import 'dart:math';
 
+import 'package:bonfire/base/custom_base_game.dart';
 import 'package:bonfire/bonfire.dart';
 import 'package:bonfire/util/game_controller.dart';
+import 'package:endless_dimension/decoration/spikes.dart';
 import 'package:flame/image_composition.dart';
 import 'package:endless_dimension/enemy/goblin.dart';
 import 'package:endless_dimension/map/dungeon_map.dart';
@@ -128,7 +130,7 @@ class _GameState extends State<Game>
         decorations: DungeonMap.decorations(_mapTitleList),
         background: BackgroundColorGame(Colors.blueGrey[900]),
         gameController: _controller..setListener(this),
-        // TODO cause error with unknown reason
+        // TODO \bonfire-1.2.0\lib\lighting render func has error
         lightingColorGame: Color.fromRGBO(0, 0, 0, 0.75),
         cameraConfig:
             CameraConfig(), // you can change the game zoom here or directly on camera
@@ -206,6 +208,20 @@ class _GameState extends State<Game>
 
   @override
   void updateGame() {
+    _controller.gameRef.components.forEach((element) {
+      if (element is Spikes) {
+        print("=============Spikes"+element.priority.toString());
+      }
+      if (element is SimpleEnemy) {
+        print("=============Enemy"+element.priority.toString());
+      }
+      if (element is SimplePlayer) {
+        print("=============Player"+element.priority.toString());
+      }
+      if (element is FlyingAttackAngleObject) {
+        print("=============FlyingAttackAngleObject"+element.priority.toString());
+      }
+    });
     if (_controller.player != null && _controller.player.isDead) {
       if (!showGameOver) {
         showGameOver = true;

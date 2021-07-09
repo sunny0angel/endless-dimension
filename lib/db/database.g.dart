@@ -392,92 +392,83 @@ class Items extends Table with TableInfo<Items, Item> {
   final String _alias;
   Items(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  GeneratedIntColumn _id;
-  GeneratedIntColumn get id => _id ??= _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, true,
-        declaredAsPrimaryKey: true, $customConstraints: 'primary key');
-  }
-
+  GeneratedColumn<int> _id;
+  GeneratedColumn<int> get id =>
+      _id ??= GeneratedColumn<int>('id', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: 'primary key');
   final VerificationMeta _nameMeta = const VerificationMeta('name');
-  GeneratedTextColumn _name;
-  GeneratedTextColumn get name => _name ??= _constructName();
-  GeneratedTextColumn _constructName() {
-    return GeneratedTextColumn('name', $tableName, true,
-        $customConstraints: '');
-  }
-
+  GeneratedColumn<String> _name;
+  GeneratedColumn<String> get name =>
+      _name ??= GeneratedColumn<String>('name', aliasedName, true,
+          typeName: 'TEXT',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _typeMeta = const VerificationMeta('type');
-  GeneratedTextColumn _type;
-  GeneratedTextColumn get type => _type ??= _constructType();
-  GeneratedTextColumn _constructType() {
-    return GeneratedTextColumn('type', $tableName, true,
-        $customConstraints: '');
-  }
-
+  GeneratedColumn<String> _type;
+  GeneratedColumn<String> get type =>
+      _type ??= GeneratedColumn<String>('type', aliasedName, true,
+          typeName: 'TEXT',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _descriptionMeta =
       const VerificationMeta('description');
-  GeneratedTextColumn _description;
-  GeneratedTextColumn get description =>
-      _description ??= _constructDescription();
-  GeneratedTextColumn _constructDescription() {
-    return GeneratedTextColumn('description', $tableName, true,
-        $customConstraints: '');
-  }
-
+  GeneratedColumn<String> _description;
+  GeneratedColumn<String> get description =>
+      _description ??= GeneratedColumn<String>('description', aliasedName, true,
+          typeName: 'TEXT',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _imagePathMeta = const VerificationMeta('imagePath');
-  GeneratedTextColumn _imagePath;
-  GeneratedTextColumn get imagePath => _imagePath ??= _constructImagePath();
-  GeneratedTextColumn _constructImagePath() {
-    return GeneratedTextColumn('imagePath', $tableName, true,
-        $customConstraints: '');
-  }
-
+  GeneratedColumn<String> _imagePath;
+  GeneratedColumn<String> get imagePath =>
+      _imagePath ??= GeneratedColumn<String>('imagePath', aliasedName, true,
+          typeName: 'TEXT',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _lifeMeta = const VerificationMeta('life');
-  GeneratedIntColumn _life;
-  GeneratedIntColumn get life => _life ??= _constructLife();
-  GeneratedIntColumn _constructLife() {
-    return GeneratedIntColumn('life', $tableName, true, $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _life;
+  GeneratedColumn<int> get life =>
+      _life ??= GeneratedColumn<int>('life', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _magicMeta = const VerificationMeta('magic');
-  GeneratedIntColumn _magic;
-  GeneratedIntColumn get magic => _magic ??= _constructMagic();
-  GeneratedIntColumn _constructMagic() {
-    return GeneratedIntColumn('magic', $tableName, true,
-        $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _magic;
+  GeneratedColumn<int> get magic =>
+      _magic ??= GeneratedColumn<int>('magic', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _earthMeta = const VerificationMeta('earth');
-  GeneratedIntColumn _earth;
-  GeneratedIntColumn get earth => _earth ??= _constructEarth();
-  GeneratedIntColumn _constructEarth() {
-    return GeneratedIntColumn('earth', $tableName, true,
-        $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _earth;
+  GeneratedColumn<int> get earth =>
+      _earth ??= GeneratedColumn<int>('earth', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _fireMeta = const VerificationMeta('fire');
-  GeneratedIntColumn _fire;
-  GeneratedIntColumn get fire => _fire ??= _constructFire();
-  GeneratedIntColumn _constructFire() {
-    return GeneratedIntColumn('fire', $tableName, true, $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _fire;
+  GeneratedColumn<int> get fire =>
+      _fire ??= GeneratedColumn<int>('fire', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _waterMeta = const VerificationMeta('water');
-  GeneratedIntColumn _water;
-  GeneratedIntColumn get water => _water ??= _constructWater();
-  GeneratedIntColumn _constructWater() {
-    return GeneratedIntColumn('water', $tableName, true,
-        $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _water;
+  GeneratedColumn<int> get water =>
+      _water ??= GeneratedColumn<int>('water', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _windMeta = const VerificationMeta('wind');
-  GeneratedIntColumn _wind;
-  GeneratedIntColumn get wind => _wind ??= _constructWind();
-  GeneratedIntColumn _constructWind() {
-    return GeneratedIntColumn('wind', $tableName, true, $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _wind;
+  GeneratedColumn<int> get wind =>
+      _wind ??= GeneratedColumn<int>('wind', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -493,11 +484,9 @@ class Items extends Table with TableInfo<Items, Item> {
         wind
       ];
   @override
-  Items get asDslTable => this;
+  String get aliasedName => _alias ?? 'items';
   @override
-  String get $tableName => _alias ?? 'items';
-  @override
-  final String actualTableName = 'items';
+  String get actualTableName => 'items';
   @override
   VerificationContext validateIntegrity(Insertable<Item> instance,
       {bool isInserting = false}) {
@@ -896,83 +885,75 @@ class PlayerState extends Table with TableInfo<PlayerState, PlayerStateData> {
   final String _alias;
   PlayerState(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  GeneratedIntColumn _id;
-  GeneratedIntColumn get id => _id ??= _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, true,
-        declaredAsPrimaryKey: true, $customConstraints: 'primary key');
-  }
-
+  GeneratedColumn<int> _id;
+  GeneratedColumn<int> get id =>
+      _id ??= GeneratedColumn<int>('id', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: 'primary key');
   final VerificationMeta _nameMeta = const VerificationMeta('name');
-  GeneratedTextColumn _name;
-  GeneratedTextColumn get name => _name ??= _constructName();
-  GeneratedTextColumn _constructName() {
-    return GeneratedTextColumn('name', $tableName, true,
-        $customConstraints: '');
-  }
-
+  GeneratedColumn<String> _name;
+  GeneratedColumn<String> get name =>
+      _name ??= GeneratedColumn<String>('name', aliasedName, true,
+          typeName: 'TEXT',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _lifeMeta = const VerificationMeta('life');
-  GeneratedIntColumn _life;
-  GeneratedIntColumn get life => _life ??= _constructLife();
-  GeneratedIntColumn _constructLife() {
-    return GeneratedIntColumn('life', $tableName, true, $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _life;
+  GeneratedColumn<int> get life =>
+      _life ??= GeneratedColumn<int>('life', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _magicMeta = const VerificationMeta('magic');
-  GeneratedIntColumn _magic;
-  GeneratedIntColumn get magic => _magic ??= _constructMagic();
-  GeneratedIntColumn _constructMagic() {
-    return GeneratedIntColumn('magic', $tableName, true,
-        $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _magic;
+  GeneratedColumn<int> get magic =>
+      _magic ??= GeneratedColumn<int>('magic', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _earthMeta = const VerificationMeta('earth');
-  GeneratedIntColumn _earth;
-  GeneratedIntColumn get earth => _earth ??= _constructEarth();
-  GeneratedIntColumn _constructEarth() {
-    return GeneratedIntColumn('earth', $tableName, true,
-        $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _earth;
+  GeneratedColumn<int> get earth =>
+      _earth ??= GeneratedColumn<int>('earth', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _fireMeta = const VerificationMeta('fire');
-  GeneratedIntColumn _fire;
-  GeneratedIntColumn get fire => _fire ??= _constructFire();
-  GeneratedIntColumn _constructFire() {
-    return GeneratedIntColumn('fire', $tableName, true, $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _fire;
+  GeneratedColumn<int> get fire =>
+      _fire ??= GeneratedColumn<int>('fire', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _waterMeta = const VerificationMeta('water');
-  GeneratedIntColumn _water;
-  GeneratedIntColumn get water => _water ??= _constructWater();
-  GeneratedIntColumn _constructWater() {
-    return GeneratedIntColumn('water', $tableName, true,
-        $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _water;
+  GeneratedColumn<int> get water =>
+      _water ??= GeneratedColumn<int>('water', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _windMeta = const VerificationMeta('wind');
-  GeneratedIntColumn _wind;
-  GeneratedIntColumn get wind => _wind ??= _constructWind();
-  GeneratedIntColumn _constructWind() {
-    return GeneratedIntColumn('wind', $tableName, true, $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _wind;
+  GeneratedColumn<int> get wind =>
+      _wind ??= GeneratedColumn<int>('wind', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _bagsizeMeta = const VerificationMeta('bagsize');
-  GeneratedIntColumn _bagsize;
-  GeneratedIntColumn get bagsize => _bagsize ??= _constructBagsize();
-  GeneratedIntColumn _constructBagsize() {
-    return GeneratedIntColumn('bagsize', $tableName, true,
-        $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _bagsize;
+  GeneratedColumn<int> get bagsize =>
+      _bagsize ??= GeneratedColumn<int>('bagsize', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   @override
   List<GeneratedColumn> get $columns =>
       [id, name, life, magic, earth, fire, water, wind, bagsize];
   @override
-  PlayerState get asDslTable => this;
+  String get aliasedName => _alias ?? 'player_state';
   @override
-  String get $tableName => _alias ?? 'player_state';
-  @override
-  final String actualTableName = 'player_state';
+  String get actualTableName => 'player_state';
   @override
   VerificationContext validateIntegrity(Insertable<PlayerStateData> instance,
       {bool isInserting = false}) {
@@ -1210,44 +1191,39 @@ class PlayerItems extends Table with TableInfo<PlayerItems, PlayerItem> {
   final String _alias;
   PlayerItems(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  GeneratedIntColumn _id;
-  GeneratedIntColumn get id => _id ??= _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, true,
-        declaredAsPrimaryKey: true, $customConstraints: 'primary key');
-  }
-
+  GeneratedColumn<int> _id;
+  GeneratedColumn<int> get id =>
+      _id ??= GeneratedColumn<int>('id', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: 'primary key');
   final VerificationMeta _itemidMeta = const VerificationMeta('itemid');
-  GeneratedIntColumn _itemid;
-  GeneratedIntColumn get itemid => _itemid ??= _constructItemid();
-  GeneratedIntColumn _constructItemid() {
-    return GeneratedIntColumn('itemid', $tableName, true,
-        $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _itemid;
+  GeneratedColumn<int> get itemid =>
+      _itemid ??= GeneratedColumn<int>('itemid', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _bagindexMeta = const VerificationMeta('bagindex');
-  GeneratedIntColumn _bagindex;
-  GeneratedIntColumn get bagindex => _bagindex ??= _constructBagindex();
-  GeneratedIntColumn _constructBagindex() {
-    return GeneratedIntColumn('bagindex', $tableName, true,
-        $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _bagindex;
+  GeneratedColumn<int> get bagindex =>
+      _bagindex ??= GeneratedColumn<int>('bagindex', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   final VerificationMeta _cntMeta = const VerificationMeta('cnt');
-  GeneratedIntColumn _cnt;
-  GeneratedIntColumn get cnt => _cnt ??= _constructCnt();
-  GeneratedIntColumn _constructCnt() {
-    return GeneratedIntColumn('cnt', $tableName, true, $customConstraints: '');
-  }
-
+  GeneratedColumn<int> _cnt;
+  GeneratedColumn<int> get cnt =>
+      _cnt ??= GeneratedColumn<int>('cnt', aliasedName, true,
+          typeName: 'INTEGER',
+          requiredDuringInsert: false,
+          $customConstraints: '');
   @override
   List<GeneratedColumn> get $columns => [id, itemid, bagindex, cnt];
   @override
-  PlayerItems get asDslTable => this;
+  String get aliasedName => _alias ?? 'player_items';
   @override
-  String get $tableName => _alias ?? 'player_items';
-  @override
-  final String actualTableName = 'player_items';
+  String get actualTableName => 'player_items';
   @override
   VerificationContext validateIntegrity(Insertable<PlayerItem> instance,
       {bool isInserting = false}) {

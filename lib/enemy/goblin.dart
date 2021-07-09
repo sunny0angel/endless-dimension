@@ -19,6 +19,7 @@ class Goblin extends SimpleEnemy with ObjectCollision {
           speed: DungeonMap.tileSize * 1.6,
           life: 100,
         ) {
+    this.aboveComponents = true;
     setupCollision(
       CollisionConfig(
         collisions: [

@@ -33,14 +33,11 @@ class Spikes extends GameDecoration with Sensor {
 
   @override
   void onContact(GameComponent component) {
-    if (timer == null &&
-        this.animation.currentIndex > 6 &&
-        component is Attackable) {
-      (component as Attackable)
-          .receiveDamage((Random().nextInt(100) * 0.1 + 10).roundToDouble(), 1);
-      timer = Timer(0.5, callback: () {
-        timer = null;
-      }, repeat: true);
-    }
+    timer = Timer(0.5, callback: () {
+      if (this.animation.currentIndex > 6 && component is Attackable) {
+        (component as Attackable).receiveDamage(
+            (Random().nextInt(100) * 0.1 + 10).roundToDouble(), 1);
+      }
+    }, repeat: true);
   }
 }

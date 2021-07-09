@@ -33,7 +33,6 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision {
           speed: DungeonMap.tileSize * 3,
         ) {
     this.aboveComponents = true;
-    // image assets preload
     setupLighting(LightingConfig(
       radius: width * 1.5,
       blurBorder: width * 1.5,

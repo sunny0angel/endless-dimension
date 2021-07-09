@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:endless_dimension/menu.dart';
 
 class KnightInterface extends GameInterface {
+
   @override
-  void onGameResize(Vector2 size) {
+  Future<void> onLoad() async {
     add(BarLifeComponent());
     add(InterfaceComponent(
       sprite: Sprite.load('game_pause_button1.png'),
@@ -68,7 +69,7 @@ class KnightInterface extends GameInterface {
       position: Vector2(screenWidth - 120, screenHeight - 170),
       onTapComponent: (bool) {},
     ));
-
-    super.onGameResize(size);
+    return super.onLoad();
   }
+
 }

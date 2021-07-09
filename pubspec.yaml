@@ -23,6 +23,7 @@ environment:
 dependency_overrides:
   audioplayers: ^0.19.1
   convert: ^3.0.0
+  flame: 1.0.0-releasecandidate.12
 
 dependencies:
   flutter:
@@ -32,9 +33,9 @@ dependencies:
   moor: ^4.3.2
   moor_flutter: ^4.0.0
 
-  bonfire: ^1.2.0
+  bonfire: 1.2.0
   flame_splash_screen: ^0.0.1
-  flame_audio: ^1.0.0-rc.1
+  flame_audio: 1.0.0-rc.1
   url_launcher: ^6.0.8
   google_fonts: ^2.0.0
   path_provider: ^2.0.1
