@@ -10,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'util/localization/my_localizations_delegate.dart';
 
-MyLocalizationsDelegate myLocation;
+MyLocalizationsDelegate myLocation = MyLocalizationsDelegate();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,15 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: GoogleFonts.vt323().fontFamily,
       ),
-      home: FlameSplashScreen(
-        theme: FlameSplashTheme.dark,
-        onFinish: (BuildContext context) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => Menu()),
-          );
-        },
-      ),
+      home: Menu(),
       supportedLocales: MyLocalizationsDelegate.supportedLocales(),
       localizationsDelegates: [
         myLocation,

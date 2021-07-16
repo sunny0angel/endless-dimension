@@ -4,18 +4,18 @@ import 'package:bonfire/bonfire.dart';
 import 'package:endless_dimension/game/game.dart';
 import 'package:endless_dimension/util/animations/player_sprite_sheet.dart';
 import 'package:endless_dimension/util/animations/enemy_sprite_sheet.dart';
+import 'package:endless_dimension/util/dialogs.dart';
 import 'package:endless_dimension/util/localization/strings_location.dart';
 import 'package:endless_dimension/util/sounds.dart';
 import 'package:endless_dimension/util/widget/custom_sprite_animation_widget.dart';
 import 'package:endless_dimension/util/widget/fullscreen_button_web/fullscreen_button.dart';
+import 'package:endless_dimension/util/widget/markdown_blog.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-double screenWidth;
-double screenHeight;
 bool mute = true;
 bool fullscreen = false;
 
@@ -27,7 +27,7 @@ class Menu extends StatefulWidget {
 class _MenuState extends State<Menu> {
   bool showSplash = true;
   int currentPosition = 0;
-  async.Timer _timer;
+  async.Timer? _timer;
   List<Future<SpriteAnimation>> sprites = [
     PlayerSpriteSheet.idleRight,
     PlayerSpriteSheet.runRight,
@@ -48,14 +48,12 @@ class _MenuState extends State<Menu> {
   @override
   void dispose() {
     Sounds.stopBackgroundSound();
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHeight = MediaQuery.of(context).size.height;
     return AnimatedSwitcher(
         duration: Duration(milliseconds: 300),
         child: Scaffold(
@@ -82,7 +80,7 @@ class _MenuState extends State<Menu> {
                               Sounds.playMenuBackgroundSound();
                             } else {
                               mute = true;
-                              FlameAudio.bgm.audioPlayer.setVolume(0);
+                              FlameAudio.bgm.audioPlayer?.setVolume(0);
                             }
                           });
                         },
@@ -139,14 +137,63 @@ class _MenuState extends State<Menu> {
                       getString('play_cap'),
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 30.0,
+                        fontSize: 25.0,
                       ),
                     ),
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Game()),
+                        MaterialPageRoute(
+                          builder: (context) => FlameSplashScreen(
+                            theme: FlameSplashTheme.dark,
+                            onFinish: (BuildContext context) {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => Game()),
+                              );
+                            },
+                          ),
+                        ),
                       );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                SizedBox(
+                  width: 150,
+                  child: TextButton(
+                    child: Text(
+                      getString('blog'),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25.0,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MarkdownBlog()),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                SizedBox(
+                  width: 150,
+                  child: TextButton(
+                    child: Text(
+                      getString('contact_me'),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25.0,
+                      ),
+                    ),
+                    onPressed: () {
+                      Dialogs.showContactMe(context, () {});
                     },
                   ),
                 ),
@@ -165,7 +212,7 @@ class _MenuState extends State<Menu> {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Text(
-                          getString('built_with'),
+                          getString('using'),
                           style: TextStyle(color: Colors.white, fontSize: 15.0),
                         ),
                         InkWell(
@@ -200,7 +247,6 @@ class _MenuState extends State<Menu> {
           currentPosition = 0;
         }
       });
-      print(currentPosition);
     });
   }
 

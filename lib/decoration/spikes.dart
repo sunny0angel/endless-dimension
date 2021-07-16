@@ -1,10 +1,11 @@
 import 'dart:math';
+import 'dart:async' as async;
 
 import 'package:bonfire/bonfire.dart';
 import 'package:endless_dimension/map/dungeon_map.dart';
 
 class Spikes extends GameDecoration with Sensor {
-  Timer timer;
+  async.Timer? timer;
 
   Spikes(Vector2 position)
       : super.withAnimation(
@@ -33,11 +34,17 @@ class Spikes extends GameDecoration with Sensor {
 
   @override
   void onContact(GameComponent component) {
-    timer = Timer(0.5, callback: () {
-      if (this.animation.currentIndex > 6 && component is Attackable) {
-        (component as Attackable).receiveDamage(
+    if (timer == null) {
+      if (component is Attackable && this.animation!.currentIndex > 6) {
+        component.receiveDamage(
             (Random().nextInt(100) * 0.1 + 10).roundToDouble(), 1);
+        timer = async.Timer(Duration(milliseconds: 500), () {
+          timer = null;
+        });
       }
-    }, repeat: true);
+    }
   }
+
+  @override
+  int get priority => LayerPriority.MAP + 1;
 }

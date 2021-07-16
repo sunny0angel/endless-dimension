@@ -1,9 +1,7 @@
 import 'dart:math';
 
-import 'package:bonfire/base/custom_base_game.dart';
 import 'package:bonfire/bonfire.dart';
 import 'package:bonfire/util/game_controller.dart';
-import 'package:endless_dimension/decoration/spikes.dart';
 import 'package:flame/image_composition.dart';
 import 'package:endless_dimension/enemy/goblin.dart';
 import 'package:endless_dimension/map/dungeon_map.dart';
@@ -18,7 +16,7 @@ import '../util/dialogs.dart';
 import '../util/sounds.dart';
 
 class Game extends StatefulWidget {
-  const Game({Key key}) : super(key: key);
+  const Game({Key? key}) : super(key: key);
 
   @override
   _GameState createState() => _GameState();
@@ -29,9 +27,15 @@ class _GameState extends State<Game>
     implements GameListener {
   bool showGameOver = false;
 
-  GameController _controller;
+  late GameController _controller;
 
-  List<List<int>> _mapTitleList;
+  late List<List<int>> _mapTitleList;
+
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
+    print('changed size');
+  }
 
   @override
   void initState() {
@@ -41,14 +45,13 @@ class _GameState extends State<Game>
     Sounds.initialize();
     Sounds.playGameBackgroundSound();
 
-    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance!.addObserver(this);
     _controller = GameController()..setListener(this);
     super.initState();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print(state);
     switch (state) {
       case AppLifecycleState.resumed:
         Sounds.resumeBackgroundSound();
@@ -67,12 +70,15 @@ class _GameState extends State<Game>
   @override
   void dispose() {
     Sounds.stopBackgroundSound();
-    WidgetsBinding.instance.removeObserver(this);
+    WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    var knight = Knight(
+      DungeonMap.getRandomTileVector2(_mapTitleList, 9, false, 100, true),
+    );
     return LayoutBuilder(builder: (context, constraints) {
       DungeonMap.tileSize =
           max(constraints.maxHeight, constraints.maxWidth) / (kIsWeb ? 25 : 22);
@@ -126,14 +132,14 @@ class _GameState extends State<Game>
         ),
         interface: KnightInterface(),
         map: DungeonMap.map(_mapTitleList),
-        enemies: DungeonMap.enemies(_mapTitleList),
+        enemies: DungeonMap.enemies(_mapTitleList, knight.position),
         decorations: DungeonMap.decorations(_mapTitleList),
-        background: BackgroundColorGame(Colors.blueGrey[900]),
+        background: BackgroundColorGame(Colors.blueGrey[900]!),
         gameController: _controller..setListener(this),
         // TODO \bonfire-1.2.0\lib\lighting render func has error
         lightingColorGame: Color.fromRGBO(0, 0, 0, 0.75),
-        cameraConfig:
-            CameraConfig(), // you can change the game zoom here or directly on camera
+        // cameraConfig:
+        //     CameraConfig(), // you can change the game zoom here or directly on camera
       );
     });
   }
@@ -151,6 +157,7 @@ class _GameState extends State<Game>
 
     _controller.addGameComponent(
       AnimatedObjectOnce(
+          position: Vector2Rect(Vector2(x, y), Vector2(16, 16)),
           animation: SpriteAnimation.load(
               "smoke_explosin.png",
               SpriteAnimationData.sequenced(
@@ -208,21 +215,7 @@ class _GameState extends State<Game>
 
   @override
   void updateGame() {
-    _controller.gameRef.components.forEach((element) {
-      if (element is Spikes) {
-        print("=============Spikes"+element.priority.toString());
-      }
-      if (element is SimpleEnemy) {
-        print("=============Enemy"+element.priority.toString());
-      }
-      if (element is SimplePlayer) {
-        print("=============Player"+element.priority.toString());
-      }
-      if (element is FlyingAttackAngleObject) {
-        print("=============FlyingAttackAngleObject"+element.priority.toString());
-      }
-    });
-    if (_controller.player != null && _controller.player.isDead) {
+    if (_controller.player != null && _controller.player!.isDead) {
       if (!showGameOver) {
         showGameOver = true;
         _showDialogGameOver();

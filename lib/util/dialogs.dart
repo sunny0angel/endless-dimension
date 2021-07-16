@@ -1,11 +1,14 @@
 import 'package:endless_dimension/menu.dart';
 import 'package:endless_dimension/util/localization/strings_location.dart';
+import 'package:endless_dimension/util/widget/custom_sprite_animation_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:radar_chart/radar_chart.dart';
 
 import 'dart:math';
+
+import 'animations/player_sprite_sheet.dart';
 
 class Dialogs {
   static void showGameOver(
@@ -104,8 +107,8 @@ class Dialogs {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 70.0,
+                    height: 70.0,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -129,8 +132,8 @@ class Dialogs {
                     ),
                   ),
                   Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 70.0,
+                    height: 70.0,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -154,88 +157,8 @@ class Dialogs {
                     ),
                   ),
                   Container(
-                    width: 50.0,
-                    height: 50.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image:
-                              AssetImage('assets/images/items/item_frame.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                          minimumSize: MaterialStateProperty.all(Size.zero),
-                        ),
-                        onPressed: () {},
-                        child: Image(
-                          image:
-                              AssetImage('assets/images/items/potion_life.png'),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 50.0,
-                    height: 50.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image:
-                              AssetImage('assets/images/items/item_frame.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                          minimumSize: MaterialStateProperty.all(Size.zero),
-                        ),
-                        onPressed: () {},
-                        child: Image(
-                          image:
-                              AssetImage('assets/images/items/potion_life.png'),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 50.0,
-                    height: 50.0,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image:
-                              AssetImage('assets/images/items/item_frame.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                          minimumSize: MaterialStateProperty.all(Size.zero),
-                        ),
-                        onPressed: () {},
-                        child: Image(
-                          image:
-                              AssetImage('assets/images/items/potion_life.png'),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 70.0,
+                    height: 70.0,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -264,8 +187,8 @@ class Dialogs {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 70.0,
+                    height: 70.0,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -289,8 +212,8 @@ class Dialogs {
                     ),
                   ),
                   Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 70.0,
+                    height: 70.0,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -314,8 +237,88 @@ class Dialogs {
                     ),
                   ),
                   Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 70.0,
+                    height: 70.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image:
+                              AssetImage('assets/images/items/item_frame.png'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          minimumSize: MaterialStateProperty.all(Size.zero),
+                        ),
+                        onPressed: () {},
+                        child: Image(
+                          image:
+                              AssetImage('assets/images/items/potion_life.png'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 70.0,
+                    height: 70.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image:
+                              AssetImage('assets/images/items/item_frame.png'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          minimumSize: MaterialStateProperty.all(Size.zero),
+                        ),
+                        onPressed: () {},
+                        child: Image(
+                          image:
+                              AssetImage('assets/images/items/potion_life.png'),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 70.0,
+                    height: 70.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image:
+                              AssetImage('assets/images/items/item_frame.png'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          minimumSize: MaterialStateProperty.all(Size.zero),
+                        ),
+                        onPressed: () {},
+                        child: Image(
+                          image:
+                              AssetImage('assets/images/items/potion_life.png'),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 70.0,
+                    height: 70.0,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -361,8 +364,8 @@ class Dialogs {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 70.0,
+                    height: 70.0,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -386,8 +389,8 @@ class Dialogs {
                     ),
                   ),
                   Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 70.0,
+                    height: 70.0,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -411,8 +414,8 @@ class Dialogs {
                     ),
                   ),
                   Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 70.0,
+                    height: 70.0,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -441,8 +444,8 @@ class Dialogs {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 70.0,
+                    height: 70.0,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -466,13 +469,33 @@ class Dialogs {
                     ),
                   ),
                   Container(
-                    width: 50.0,
-                    height: 100.0,
+                    width: 70.0,
+                    height: 70.0,
+                    child: CustomSpriteAnimationWidget(
+                        animation: PlayerSpriteSheet.idleRight),
+                  ),
+                  Container(
+                    width: 70.0,
+                    height: 70.0,
                     child: Container(
-                      width: 40.0,
-                      child: Image(
-                        image: AssetImage('assets/images/items/prisoner.png'),
-                        fit: BoxFit.fitWidth,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image:
+                              AssetImage('assets/images/items/item_frame.png'),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          minimumSize: MaterialStateProperty.all(Size.zero),
+                        ),
+                        onPressed: () {},
+                        child: Image(
+                          image:
+                              AssetImage('assets/images/items/potion_life.png'),
+                        ),
                       ),
                     ),
                   ),
@@ -482,8 +505,8 @@ class Dialogs {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 70.0,
+                    height: 70.0,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -507,8 +530,8 @@ class Dialogs {
                     ),
                   ),
                   Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 70.0,
+                    height: 70.0,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -532,8 +555,8 @@ class Dialogs {
                     ),
                   ),
                   Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 70.0,
+                    height: 70.0,
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -559,11 +582,11 @@ class Dialogs {
                 ],
               ),
               SizedBox(
-                width: 20.0,
+                width: 40.0,
               ),
               RadarChart(
                 length: 5,
-                radius: 80,
+                radius: 100,
                 initialAngle: pi * 3 / 10,
                 backgroundColor: Colors.white.withOpacity(0.5),
                 borderStroke: 2,
@@ -638,6 +661,7 @@ class Dialogs {
                   ),
                 ],
                 radars: [
+                  // TODO add radius parameter to _RadarTilePainter()
                   RadarTile(
                     values: [0.4, 0.8, 0.65, 0.7, 0.3],
                     borderStroke: 2,
@@ -694,6 +718,50 @@ class Dialogs {
                 )
               ],
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  static void showContactMe(BuildContext context, VoidCallback resume) {
+    showDialog(
+      context: context,
+      barrierColor: Colors.black87,
+      builder: (context) {
+        return Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                'CONTACT INFORMATION',
+                style: TextStyle(
+                  fontFamily: GoogleFonts.vt323().fontFamily,
+                  color: Colors.white,
+                  fontSize: 60.0,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.none,
+                ),
+              ),
+              SizedBox(
+                height: 30.0,
+              ),
+              Text(
+                'email: XXXXX@gmail.com\n'
+                'base: Tokyo\n'
+                'skill: Flutter, Java',
+                textAlign: TextAlign.left,
+                strutStyle:
+                    StrutStyle(forceStrutHeight: true, height: 2, leading: 0.9),
+                style: TextStyle(
+                  fontFamily: GoogleFonts.vt323().fontFamily,
+                  color: Colors.white,
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.w300,
+                  decoration: TextDecoration.none,
+                ),
+              ),
+            ],
           ),
         );
       },

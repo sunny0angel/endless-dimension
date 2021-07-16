@@ -312,20 +312,26 @@ class DungeonMap {
     return gl;
   }
 
-  static List<Enemy> enemies(List<List<int>> mapTitleList) {
+  static List<Enemy> enemies(
+      List<List<int>> mapTitleList, Vector2Rect knightPosition) {
     int cnt = (mapTitleList.length * mapTitleList[0].length / 50).truncate();
     int cnt1 = (cnt / 3).truncate();
     List<Enemy> el = [];
 
     while (cnt > 0) {
-      el.add(Goblin(getRandomTileVector2(mapTitleList, 9, true, 0, true)));
-      cnt--;
+      var position = getRandomTileVector2(mapTitleList, 9, true, 0, true);
+      if (position.distanceTo(knightPosition.position) > tileSize * 10) {
+        el.add(Goblin(position));
+        cnt--;
+      }
     }
 
     while (cnt1 > 0) {
-      el.add(
-          TowerRotation(getRandomTileVector2(mapTitleList, 9, true, 0, true)));
-      cnt1--;
+      var position = getRandomTileVector2(mapTitleList, 9, true, 0, true);
+      if (position.distanceTo(knightPosition.position) > tileSize * 10) {
+        el.add(TowerRotation(position));
+        cnt1--;
+      }
     }
     return el;
   }
@@ -483,7 +489,7 @@ class DungeonMap {
           }
       }
     }
-    print(x.toString() + '  +  ' + y.toString());
+    // print(x.toString() + '  +  ' + y.toString());
     return Vector2(y * tileSize, x * tileSize);
   }
 }

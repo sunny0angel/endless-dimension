@@ -13,14 +13,13 @@ class MyLocalizationsDelegate extends LocalizationsDelegate<MyLocalizations> {
   Future<MyLocalizations> load(Locale locale) async {
     MyLocalizations localizations = new MyLocalizations(locale);
     await localizations.load();
-    print("Load ${locale.languageCode}");
     return localizations;
   }
 
   @override
   bool shouldReload(MyLocalizationsDelegate old) => false;
 
-  Locale resolution(Locale locale, Iterable<Locale> supportedLocales) {
+  Locale? resolution(Locale? locale, Iterable<Locale> supportedLocales) {
     for (Locale supportedLocale in supportedLocales) {
       if (locale != null) {
         if (supportedLocale.languageCode == locale.languageCode ||

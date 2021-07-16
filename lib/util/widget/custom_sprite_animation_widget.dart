@@ -4,17 +4,21 @@ import 'package:flutter/material.dart';
 class CustomSpriteAnimationWidget extends StatelessWidget {
   final Future<SpriteAnimation> animation;
 
-  const CustomSpriteAnimationWidget({Key key, this.animation})
+  const CustomSpriteAnimationWidget({Key? key, required this.animation})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: animation,
-      builder: (context, data) {
-        if (!data.hasData) return SizedBox.shrink();
-        return SpriteAnimationWidget(
-          animation: data.data,
-        );
+      builder: (BuildContext context, AsyncSnapshot<SpriteAnimation> snapshot) {
+        if (!snapshot.hasData) {
+          return SizedBox.shrink();
+        } else {
+          return SpriteAnimationWidget(
+            animation: snapshot.data ?? SpriteAnimation.empty(),
+          );
+        }
       },
     );
   }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class Chest extends GameDecoration with TapGesture {
   bool _observedPlayer = false;
 
-  TextPaintConfig _TextPaintConfig;
+  late TextPaintConfig _textPaintConfig;
 
   Chest(Vector2 position)
       : super.withAnimation(
@@ -22,7 +22,7 @@ class Chest extends GameDecoration with TapGesture {
           height: DungeonMap.tileSize * 0.6,
           position: position,
         ) {
-    _TextPaintConfig = TextPaintConfig(
+    _textPaintConfig = TextPaintConfig(
       color: Colors.white,
       fontSize: width / 2,
     );
@@ -48,7 +48,7 @@ class Chest extends GameDecoration with TapGesture {
   void render(Canvas canvas) {
     super.render(canvas);
     if (_observedPlayer) {
-      TextPaint(config: _TextPaintConfig).render(
+      TextPaint(config: _textPaintConfig).render(
         canvas,
         'Touch me !!',
         Vector2(

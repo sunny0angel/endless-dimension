@@ -15,7 +15,7 @@ class DBProvider {
 
   static final DBProvider db = DBProvider._();
 
-  Database _database;
+  late Database _database;
 
   Database get database {
     if (_database != null) return _database;

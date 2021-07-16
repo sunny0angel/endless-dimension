@@ -1,13 +1,9 @@
-import 'dart:ui';
-
 import 'package:bonfire/bonfire.dart';
+import 'package:endless_dimension/game/game.dart';
 import 'package:endless_dimension/interface/bar_life_component.dart';
 import 'package:endless_dimension/player/knight.dart';
-import 'package:flutter/material.dart';
-import 'package:endless_dimension/menu.dart';
 
 class KnightInterface extends GameInterface {
-
   @override
   Future<void> onLoad() async {
     add(BarLifeComponent());
@@ -44,7 +40,7 @@ class KnightInterface extends GameInterface {
       height: 40,
       width: 40,
       id: 7,
-      position: Vector2(screenWidth - 80, 20),
+      position: Vector2(gameRef.size.x - 80, 20),
       onTapComponent: (bool) {
         if (gameRef.player != null) {
           (gameRef.player as Knight).setShowItem(true);
@@ -57,7 +53,7 @@ class KnightInterface extends GameInterface {
       height: 40,
       width: 40,
       id: 8,
-      position: Vector2(screenWidth - 80, screenHeight - 170),
+      position: gameRef.size + Vector2(-80, -180),
       onTapComponent: (bool) {},
     ));
     add(InterfaceComponent(
@@ -66,10 +62,9 @@ class KnightInterface extends GameInterface {
       height: 40,
       width: 40,
       id: 9,
-      position: Vector2(screenWidth - 120, screenHeight - 170),
+      position: gameRef.size + Vector2(-120, -180),
       onTapComponent: (bool) {},
     ));
     return super.onLoad();
   }
-
 }

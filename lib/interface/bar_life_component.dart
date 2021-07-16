@@ -26,8 +26,8 @@ class BarLifeComponent extends InterfaceComponent {
   @override
   void update(double t) {
     if (this.gameRef.player != null) {
-      life = this.gameRef.player.life;
-      maxLife = this.gameRef.player.maxLife;
+      life = this.gameRef.player!.life;
+      maxLife = this.gameRef.player!.maxLife;
       if (this.gameRef.player is Knight) {
         magic = (this.gameRef.player as Knight).magic;
       }
@@ -51,7 +51,7 @@ class BarLifeComponent extends InterfaceComponent {
         Offset(xBar, yBar),
         Offset(xBar + widthBar, yBar),
         Paint()
-          ..color = Colors.blueGrey[800]
+          ..color = Colors.blueGrey[800]!
           ..strokeWidth = strokeWidth
           ..style = PaintingStyle.fill);
 
@@ -74,7 +74,7 @@ class BarLifeComponent extends InterfaceComponent {
         Offset(xBar, yBar),
         Offset(xBar + widthBar, yBar),
         Paint()
-          ..color = Colors.blueGrey[800]
+          ..color = Colors.blueGrey[800]!
           ..strokeWidth = strokeWidth
           ..style = PaintingStyle.fill);
 

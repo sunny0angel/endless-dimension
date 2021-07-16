@@ -79,7 +79,7 @@ class Goblin extends SimpleEnemy with ObjectCollision {
   }
 
   void execAttackRange() {
-    if (gameRef.player != null && gameRef.player.isDead) return;
+    if (gameRef.player != null && gameRef.player!.isDead) return;
     this.simpleAttackRange(
       animationRight: CommonSpriteSheet.fireBallRight,
       animationLeft: CommonSpriteSheet.fireBallLeft,
@@ -91,9 +91,6 @@ class Goblin extends SimpleEnemy with ObjectCollision {
       height: width * 0.9,
       damage: attack,
       speed: DungeonMap.tileSize * 3,
-      // destroy: () {
-      //   Sounds.attackRangeExplosion();
-      // },
       collision: CollisionConfig(
         collisions: [
           CollisionArea.rectangle(size: Size(width / 2, width / 2)),
@@ -102,6 +99,7 @@ class Goblin extends SimpleEnemy with ObjectCollision {
       lightingConfig: LightingConfig(
         radius: width,
         blurBorder: width * 0.5,
+        color: Colors.transparent
       ),
       execute: () {
         Sounds.attackRange();
@@ -113,7 +111,7 @@ class Goblin extends SimpleEnemy with ObjectCollision {
   }
 
   void execAttack() {
-    if (gameRef.player != null && gameRef.player.isDead) return;
+    if (gameRef.player != null && gameRef.player!.isDead) return;
     this.simpleAttackMelee(
         height: width,
         width: width,

@@ -4,7 +4,7 @@ import 'package:endless_dimension/map/dungeon_map.dart';
 import 'package:flutter/material.dart';
 
 class BarrelDraggable extends GameDecoration with DragGesture, ObjectCollision {
-  TextPaintConfig _TextPaintConfig;
+  late TextPaintConfig _textPaintConfig;
 
   BarrelDraggable(Vector2 position)
       : super.withSprite(
@@ -21,14 +21,14 @@ class BarrelDraggable extends GameDecoration with DragGesture, ObjectCollision {
         ],
       ),
     );
-    _TextPaintConfig =
+    _textPaintConfig =
         TextPaintConfig(color: Colors.white, fontSize: width / 4);
   }
 
   @override
   void render(Canvas canvas) {
     super.render(canvas);
-    TextPaint(config: _TextPaintConfig).render(
+    TextPaint(config: _textPaintConfig).render(
       canvas,
       'Drag',
       Vector2(this.position.left + width / 5, this.position.top - width / 3),

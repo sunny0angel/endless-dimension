@@ -8,17 +8,17 @@ part of 'database.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class Item extends DataClass implements Insertable<Item> {
-  final int id;
-  final String name;
-  final String type;
-  final String description;
-  final String imagePath;
-  final int life;
-  final int magic;
-  final int earth;
-  final int fire;
-  final int water;
-  final int wind;
+  final int? id;
+  final String? name;
+  final String? type;
+  final String? description;
+  final String? imagePath;
+  final int? life;
+  final int? magic;
+  final int? earth;
+  final int? fire;
+  final int? water;
+  final int? wind;
   Item(
       {this.id,
       this.name,
@@ -32,7 +32,7 @@ class Item extends DataClass implements Insertable<Item> {
       this.water,
       this.wind});
   factory Item.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String prefix}) {
+      {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return Item(
       id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
@@ -62,37 +62,37 @@ class Item extends DataClass implements Insertable<Item> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (!nullToAbsent || id != null) {
-      map['id'] = Variable<int>(id);
+      map['id'] = Variable<int?>(id);
     }
     if (!nullToAbsent || name != null) {
-      map['name'] = Variable<String>(name);
+      map['name'] = Variable<String?>(name);
     }
     if (!nullToAbsent || type != null) {
-      map['type'] = Variable<String>(type);
+      map['type'] = Variable<String?>(type);
     }
     if (!nullToAbsent || description != null) {
-      map['description'] = Variable<String>(description);
+      map['description'] = Variable<String?>(description);
     }
     if (!nullToAbsent || imagePath != null) {
-      map['imagePath'] = Variable<String>(imagePath);
+      map['imagePath'] = Variable<String?>(imagePath);
     }
     if (!nullToAbsent || life != null) {
-      map['life'] = Variable<int>(life);
+      map['life'] = Variable<int?>(life);
     }
     if (!nullToAbsent || magic != null) {
-      map['magic'] = Variable<int>(magic);
+      map['magic'] = Variable<int?>(magic);
     }
     if (!nullToAbsent || earth != null) {
-      map['earth'] = Variable<int>(earth);
+      map['earth'] = Variable<int?>(earth);
     }
     if (!nullToAbsent || fire != null) {
-      map['fire'] = Variable<int>(fire);
+      map['fire'] = Variable<int?>(fire);
     }
     if (!nullToAbsent || water != null) {
-      map['water'] = Variable<int>(water);
+      map['water'] = Variable<int?>(water);
     }
     if (!nullToAbsent || wind != null) {
-      map['wind'] = Variable<int>(wind);
+      map['wind'] = Variable<int?>(wind);
     }
     return map;
   }
@@ -121,52 +121,52 @@ class Item extends DataClass implements Insertable<Item> {
   }
 
   factory Item.fromJson(Map<String, dynamic> json,
-      {ValueSerializer serializer}) {
+      {ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return Item(
-      id: serializer.fromJson<int>(json['id']),
-      name: serializer.fromJson<String>(json['name']),
-      type: serializer.fromJson<String>(json['type']),
-      description: serializer.fromJson<String>(json['description']),
-      imagePath: serializer.fromJson<String>(json['imagePath']),
-      life: serializer.fromJson<int>(json['life']),
-      magic: serializer.fromJson<int>(json['magic']),
-      earth: serializer.fromJson<int>(json['earth']),
-      fire: serializer.fromJson<int>(json['fire']),
-      water: serializer.fromJson<int>(json['water']),
-      wind: serializer.fromJson<int>(json['wind']),
+      id: serializer.fromJson<int?>(json['id']),
+      name: serializer.fromJson<String?>(json['name']),
+      type: serializer.fromJson<String?>(json['type']),
+      description: serializer.fromJson<String?>(json['description']),
+      imagePath: serializer.fromJson<String?>(json['imagePath']),
+      life: serializer.fromJson<int?>(json['life']),
+      magic: serializer.fromJson<int?>(json['magic']),
+      earth: serializer.fromJson<int?>(json['earth']),
+      fire: serializer.fromJson<int?>(json['fire']),
+      water: serializer.fromJson<int?>(json['water']),
+      wind: serializer.fromJson<int?>(json['wind']),
     );
   }
   @override
-  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'name': serializer.toJson<String>(name),
-      'type': serializer.toJson<String>(type),
-      'description': serializer.toJson<String>(description),
-      'imagePath': serializer.toJson<String>(imagePath),
-      'life': serializer.toJson<int>(life),
-      'magic': serializer.toJson<int>(magic),
-      'earth': serializer.toJson<int>(earth),
-      'fire': serializer.toJson<int>(fire),
-      'water': serializer.toJson<int>(water),
-      'wind': serializer.toJson<int>(wind),
+      'id': serializer.toJson<int?>(id),
+      'name': serializer.toJson<String?>(name),
+      'type': serializer.toJson<String?>(type),
+      'description': serializer.toJson<String?>(description),
+      'imagePath': serializer.toJson<String?>(imagePath),
+      'life': serializer.toJson<int?>(life),
+      'magic': serializer.toJson<int?>(magic),
+      'earth': serializer.toJson<int?>(earth),
+      'fire': serializer.toJson<int?>(fire),
+      'water': serializer.toJson<int?>(water),
+      'wind': serializer.toJson<int?>(wind),
     };
   }
 
   Item copyWith(
-          {int id,
-          String name,
-          String type,
-          String description,
-          String imagePath,
-          int life,
-          int magic,
-          int earth,
-          int fire,
-          int water,
-          int wind}) =>
+          {int? id,
+          String? name,
+          String? type,
+          String? description,
+          String? imagePath,
+          int? life,
+          int? magic,
+          int? earth,
+          int? fire,
+          int? water,
+          int? wind}) =>
       Item(
         id: id ?? this.id,
         name: name ?? this.name,
@@ -237,17 +237,17 @@ class Item extends DataClass implements Insertable<Item> {
 }
 
 class ItemsCompanion extends UpdateCompanion<Item> {
-  final Value<int> id;
-  final Value<String> name;
-  final Value<String> type;
-  final Value<String> description;
-  final Value<String> imagePath;
-  final Value<int> life;
-  final Value<int> magic;
-  final Value<int> earth;
-  final Value<int> fire;
-  final Value<int> water;
-  final Value<int> wind;
+  final Value<int?> id;
+  final Value<String?> name;
+  final Value<String?> type;
+  final Value<String?> description;
+  final Value<String?> imagePath;
+  final Value<int?> life;
+  final Value<int?> magic;
+  final Value<int?> earth;
+  final Value<int?> fire;
+  final Value<int?> water;
+  final Value<int?> wind;
   const ItemsCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -275,17 +275,17 @@ class ItemsCompanion extends UpdateCompanion<Item> {
     this.wind = const Value.absent(),
   });
   static Insertable<Item> custom({
-    Expression<int> id,
-    Expression<String> name,
-    Expression<String> type,
-    Expression<String> description,
-    Expression<String> imagePath,
-    Expression<int> life,
-    Expression<int> magic,
-    Expression<int> earth,
-    Expression<int> fire,
-    Expression<int> water,
-    Expression<int> wind,
+    Expression<int?>? id,
+    Expression<String?>? name,
+    Expression<String?>? type,
+    Expression<String?>? description,
+    Expression<String?>? imagePath,
+    Expression<int?>? life,
+    Expression<int?>? magic,
+    Expression<int?>? earth,
+    Expression<int?>? fire,
+    Expression<int?>? water,
+    Expression<int?>? wind,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -303,17 +303,17 @@ class ItemsCompanion extends UpdateCompanion<Item> {
   }
 
   ItemsCompanion copyWith(
-      {Value<int> id,
-      Value<String> name,
-      Value<String> type,
-      Value<String> description,
-      Value<String> imagePath,
-      Value<int> life,
-      Value<int> magic,
-      Value<int> earth,
-      Value<int> fire,
-      Value<int> water,
-      Value<int> wind}) {
+      {Value<int?>? id,
+      Value<String?>? name,
+      Value<String?>? type,
+      Value<String?>? description,
+      Value<String?>? imagePath,
+      Value<int?>? life,
+      Value<int?>? magic,
+      Value<int?>? earth,
+      Value<int?>? fire,
+      Value<int?>? water,
+      Value<int?>? wind}) {
     return ItemsCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -333,37 +333,37 @@ class ItemsCompanion extends UpdateCompanion<Item> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<int>(id.value);
+      map['id'] = Variable<int?>(id.value);
     }
     if (name.present) {
-      map['name'] = Variable<String>(name.value);
+      map['name'] = Variable<String?>(name.value);
     }
     if (type.present) {
-      map['type'] = Variable<String>(type.value);
+      map['type'] = Variable<String?>(type.value);
     }
     if (description.present) {
-      map['description'] = Variable<String>(description.value);
+      map['description'] = Variable<String?>(description.value);
     }
     if (imagePath.present) {
-      map['imagePath'] = Variable<String>(imagePath.value);
+      map['imagePath'] = Variable<String?>(imagePath.value);
     }
     if (life.present) {
-      map['life'] = Variable<int>(life.value);
+      map['life'] = Variable<int?>(life.value);
     }
     if (magic.present) {
-      map['magic'] = Variable<int>(magic.value);
+      map['magic'] = Variable<int?>(magic.value);
     }
     if (earth.present) {
-      map['earth'] = Variable<int>(earth.value);
+      map['earth'] = Variable<int?>(earth.value);
     }
     if (fire.present) {
-      map['fire'] = Variable<int>(fire.value);
+      map['fire'] = Variable<int?>(fire.value);
     }
     if (water.present) {
-      map['water'] = Variable<int>(water.value);
+      map['water'] = Variable<int?>(water.value);
     }
     if (wind.present) {
-      map['wind'] = Variable<int>(wind.value);
+      map['wind'] = Variable<int?>(wind.value);
     }
     return map;
   }
@@ -389,86 +389,55 @@ class ItemsCompanion extends UpdateCompanion<Item> {
 
 class Items extends Table with TableInfo<Items, Item> {
   final GeneratedDatabase _db;
-  final String _alias;
+  final String? _alias;
   Items(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  GeneratedColumn<int> _id;
-  GeneratedColumn<int> get id =>
-      _id ??= GeneratedColumn<int>('id', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: 'primary key');
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, true,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      $customConstraints: 'primary key');
   final VerificationMeta _nameMeta = const VerificationMeta('name');
-  GeneratedColumn<String> _name;
-  GeneratedColumn<String> get name =>
-      _name ??= GeneratedColumn<String>('name', aliasedName, true,
-          typeName: 'TEXT',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
+      'name', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _typeMeta = const VerificationMeta('type');
-  GeneratedColumn<String> _type;
-  GeneratedColumn<String> get type =>
-      _type ??= GeneratedColumn<String>('type', aliasedName, true,
-          typeName: 'TEXT',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<String?> type = GeneratedColumn<String?>(
+      'type', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _descriptionMeta =
       const VerificationMeta('description');
-  GeneratedColumn<String> _description;
-  GeneratedColumn<String> get description =>
-      _description ??= GeneratedColumn<String>('description', aliasedName, true,
-          typeName: 'TEXT',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<String?> description = GeneratedColumn<String?>(
+      'description', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _imagePathMeta = const VerificationMeta('imagePath');
-  GeneratedColumn<String> _imagePath;
-  GeneratedColumn<String> get imagePath =>
-      _imagePath ??= GeneratedColumn<String>('imagePath', aliasedName, true,
-          typeName: 'TEXT',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<String?> imagePath = GeneratedColumn<String?>(
+      'imagePath', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _lifeMeta = const VerificationMeta('life');
-  GeneratedColumn<int> _life;
-  GeneratedColumn<int> get life =>
-      _life ??= GeneratedColumn<int>('life', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> life = GeneratedColumn<int?>(
+      'life', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _magicMeta = const VerificationMeta('magic');
-  GeneratedColumn<int> _magic;
-  GeneratedColumn<int> get magic =>
-      _magic ??= GeneratedColumn<int>('magic', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> magic = GeneratedColumn<int?>(
+      'magic', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _earthMeta = const VerificationMeta('earth');
-  GeneratedColumn<int> _earth;
-  GeneratedColumn<int> get earth =>
-      _earth ??= GeneratedColumn<int>('earth', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> earth = GeneratedColumn<int?>(
+      'earth', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _fireMeta = const VerificationMeta('fire');
-  GeneratedColumn<int> _fire;
-  GeneratedColumn<int> get fire =>
-      _fire ??= GeneratedColumn<int>('fire', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> fire = GeneratedColumn<int?>(
+      'fire', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _waterMeta = const VerificationMeta('water');
-  GeneratedColumn<int> _water;
-  GeneratedColumn<int> get water =>
-      _water ??= GeneratedColumn<int>('water', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> water = GeneratedColumn<int?>(
+      'water', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _windMeta = const VerificationMeta('wind');
-  GeneratedColumn<int> _wind;
-  GeneratedColumn<int> get wind =>
-      _wind ??= GeneratedColumn<int>('wind', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> wind = GeneratedColumn<int?>(
+      'wind', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -493,49 +462,49 @@ class Items extends Table with TableInfo<Items, Item> {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('name')) {
       context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name'], _nameMeta));
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     }
     if (data.containsKey('type')) {
       context.handle(
-          _typeMeta, type.isAcceptableOrUnknown(data['type'], _typeMeta));
+          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
     }
     if (data.containsKey('description')) {
       context.handle(
           _descriptionMeta,
           description.isAcceptableOrUnknown(
-              data['description'], _descriptionMeta));
+              data['description']!, _descriptionMeta));
     }
     if (data.containsKey('imagePath')) {
       context.handle(_imagePathMeta,
-          imagePath.isAcceptableOrUnknown(data['imagePath'], _imagePathMeta));
+          imagePath.isAcceptableOrUnknown(data['imagePath']!, _imagePathMeta));
     }
     if (data.containsKey('life')) {
       context.handle(
-          _lifeMeta, life.isAcceptableOrUnknown(data['life'], _lifeMeta));
+          _lifeMeta, life.isAcceptableOrUnknown(data['life']!, _lifeMeta));
     }
     if (data.containsKey('magic')) {
       context.handle(
-          _magicMeta, magic.isAcceptableOrUnknown(data['magic'], _magicMeta));
+          _magicMeta, magic.isAcceptableOrUnknown(data['magic']!, _magicMeta));
     }
     if (data.containsKey('earth')) {
       context.handle(
-          _earthMeta, earth.isAcceptableOrUnknown(data['earth'], _earthMeta));
+          _earthMeta, earth.isAcceptableOrUnknown(data['earth']!, _earthMeta));
     }
     if (data.containsKey('fire')) {
       context.handle(
-          _fireMeta, fire.isAcceptableOrUnknown(data['fire'], _fireMeta));
+          _fireMeta, fire.isAcceptableOrUnknown(data['fire']!, _fireMeta));
     }
     if (data.containsKey('water')) {
       context.handle(
-          _waterMeta, water.isAcceptableOrUnknown(data['water'], _waterMeta));
+          _waterMeta, water.isAcceptableOrUnknown(data['water']!, _waterMeta));
     }
     if (data.containsKey('wind')) {
       context.handle(
-          _windMeta, wind.isAcceptableOrUnknown(data['wind'], _windMeta));
+          _windMeta, wind.isAcceptableOrUnknown(data['wind']!, _windMeta));
     }
     return context;
   }
@@ -543,7 +512,7 @@ class Items extends Table with TableInfo<Items, Item> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Item map(Map<String, dynamic> data, {String tablePrefix}) {
+  Item map(Map<String, dynamic> data, {String? tablePrefix}) {
     return Item.fromData(data, _db,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
@@ -558,15 +527,15 @@ class Items extends Table with TableInfo<Items, Item> {
 }
 
 class PlayerStateData extends DataClass implements Insertable<PlayerStateData> {
-  final int id;
-  final String name;
-  final int life;
-  final int magic;
-  final int earth;
-  final int fire;
-  final int water;
-  final int wind;
-  final int bagsize;
+  final int? id;
+  final String? name;
+  final int? life;
+  final int? magic;
+  final int? earth;
+  final int? fire;
+  final int? water;
+  final int? wind;
+  final int? bagsize;
   PlayerStateData(
       {this.id,
       this.name,
@@ -579,7 +548,7 @@ class PlayerStateData extends DataClass implements Insertable<PlayerStateData> {
       this.bagsize});
   factory PlayerStateData.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
-      {String prefix}) {
+      {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return PlayerStateData(
       id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
@@ -605,31 +574,31 @@ class PlayerStateData extends DataClass implements Insertable<PlayerStateData> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (!nullToAbsent || id != null) {
-      map['id'] = Variable<int>(id);
+      map['id'] = Variable<int?>(id);
     }
     if (!nullToAbsent || name != null) {
-      map['name'] = Variable<String>(name);
+      map['name'] = Variable<String?>(name);
     }
     if (!nullToAbsent || life != null) {
-      map['life'] = Variable<int>(life);
+      map['life'] = Variable<int?>(life);
     }
     if (!nullToAbsent || magic != null) {
-      map['magic'] = Variable<int>(magic);
+      map['magic'] = Variable<int?>(magic);
     }
     if (!nullToAbsent || earth != null) {
-      map['earth'] = Variable<int>(earth);
+      map['earth'] = Variable<int?>(earth);
     }
     if (!nullToAbsent || fire != null) {
-      map['fire'] = Variable<int>(fire);
+      map['fire'] = Variable<int?>(fire);
     }
     if (!nullToAbsent || water != null) {
-      map['water'] = Variable<int>(water);
+      map['water'] = Variable<int?>(water);
     }
     if (!nullToAbsent || wind != null) {
-      map['wind'] = Variable<int>(wind);
+      map['wind'] = Variable<int?>(wind);
     }
     if (!nullToAbsent || bagsize != null) {
-      map['bagsize'] = Variable<int>(bagsize);
+      map['bagsize'] = Variable<int?>(bagsize);
     }
     return map;
   }
@@ -654,46 +623,46 @@ class PlayerStateData extends DataClass implements Insertable<PlayerStateData> {
   }
 
   factory PlayerStateData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer serializer}) {
+      {ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return PlayerStateData(
-      id: serializer.fromJson<int>(json['id']),
-      name: serializer.fromJson<String>(json['name']),
-      life: serializer.fromJson<int>(json['life']),
-      magic: serializer.fromJson<int>(json['magic']),
-      earth: serializer.fromJson<int>(json['earth']),
-      fire: serializer.fromJson<int>(json['fire']),
-      water: serializer.fromJson<int>(json['water']),
-      wind: serializer.fromJson<int>(json['wind']),
-      bagsize: serializer.fromJson<int>(json['bagsize']),
+      id: serializer.fromJson<int?>(json['id']),
+      name: serializer.fromJson<String?>(json['name']),
+      life: serializer.fromJson<int?>(json['life']),
+      magic: serializer.fromJson<int?>(json['magic']),
+      earth: serializer.fromJson<int?>(json['earth']),
+      fire: serializer.fromJson<int?>(json['fire']),
+      water: serializer.fromJson<int?>(json['water']),
+      wind: serializer.fromJson<int?>(json['wind']),
+      bagsize: serializer.fromJson<int?>(json['bagsize']),
     );
   }
   @override
-  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'name': serializer.toJson<String>(name),
-      'life': serializer.toJson<int>(life),
-      'magic': serializer.toJson<int>(magic),
-      'earth': serializer.toJson<int>(earth),
-      'fire': serializer.toJson<int>(fire),
-      'water': serializer.toJson<int>(water),
-      'wind': serializer.toJson<int>(wind),
-      'bagsize': serializer.toJson<int>(bagsize),
+      'id': serializer.toJson<int?>(id),
+      'name': serializer.toJson<String?>(name),
+      'life': serializer.toJson<int?>(life),
+      'magic': serializer.toJson<int?>(magic),
+      'earth': serializer.toJson<int?>(earth),
+      'fire': serializer.toJson<int?>(fire),
+      'water': serializer.toJson<int?>(water),
+      'wind': serializer.toJson<int?>(wind),
+      'bagsize': serializer.toJson<int?>(bagsize),
     };
   }
 
   PlayerStateData copyWith(
-          {int id,
-          String name,
-          int life,
-          int magic,
-          int earth,
-          int fire,
-          int water,
-          int wind,
-          int bagsize}) =>
+          {int? id,
+          String? name,
+          int? life,
+          int? magic,
+          int? earth,
+          int? fire,
+          int? water,
+          int? wind,
+          int? bagsize}) =>
       PlayerStateData(
         id: id ?? this.id,
         name: name ?? this.name,
@@ -752,15 +721,15 @@ class PlayerStateData extends DataClass implements Insertable<PlayerStateData> {
 }
 
 class PlayerStateCompanion extends UpdateCompanion<PlayerStateData> {
-  final Value<int> id;
-  final Value<String> name;
-  final Value<int> life;
-  final Value<int> magic;
-  final Value<int> earth;
-  final Value<int> fire;
-  final Value<int> water;
-  final Value<int> wind;
-  final Value<int> bagsize;
+  final Value<int?> id;
+  final Value<String?> name;
+  final Value<int?> life;
+  final Value<int?> magic;
+  final Value<int?> earth;
+  final Value<int?> fire;
+  final Value<int?> water;
+  final Value<int?> wind;
+  final Value<int?> bagsize;
   const PlayerStateCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -784,15 +753,15 @@ class PlayerStateCompanion extends UpdateCompanion<PlayerStateData> {
     this.bagsize = const Value.absent(),
   });
   static Insertable<PlayerStateData> custom({
-    Expression<int> id,
-    Expression<String> name,
-    Expression<int> life,
-    Expression<int> magic,
-    Expression<int> earth,
-    Expression<int> fire,
-    Expression<int> water,
-    Expression<int> wind,
-    Expression<int> bagsize,
+    Expression<int?>? id,
+    Expression<String?>? name,
+    Expression<int?>? life,
+    Expression<int?>? magic,
+    Expression<int?>? earth,
+    Expression<int?>? fire,
+    Expression<int?>? water,
+    Expression<int?>? wind,
+    Expression<int?>? bagsize,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -808,15 +777,15 @@ class PlayerStateCompanion extends UpdateCompanion<PlayerStateData> {
   }
 
   PlayerStateCompanion copyWith(
-      {Value<int> id,
-      Value<String> name,
-      Value<int> life,
-      Value<int> magic,
-      Value<int> earth,
-      Value<int> fire,
-      Value<int> water,
-      Value<int> wind,
-      Value<int> bagsize}) {
+      {Value<int?>? id,
+      Value<String?>? name,
+      Value<int?>? life,
+      Value<int?>? magic,
+      Value<int?>? earth,
+      Value<int?>? fire,
+      Value<int?>? water,
+      Value<int?>? wind,
+      Value<int?>? bagsize}) {
     return PlayerStateCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -834,31 +803,31 @@ class PlayerStateCompanion extends UpdateCompanion<PlayerStateData> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<int>(id.value);
+      map['id'] = Variable<int?>(id.value);
     }
     if (name.present) {
-      map['name'] = Variable<String>(name.value);
+      map['name'] = Variable<String?>(name.value);
     }
     if (life.present) {
-      map['life'] = Variable<int>(life.value);
+      map['life'] = Variable<int?>(life.value);
     }
     if (magic.present) {
-      map['magic'] = Variable<int>(magic.value);
+      map['magic'] = Variable<int?>(magic.value);
     }
     if (earth.present) {
-      map['earth'] = Variable<int>(earth.value);
+      map['earth'] = Variable<int?>(earth.value);
     }
     if (fire.present) {
-      map['fire'] = Variable<int>(fire.value);
+      map['fire'] = Variable<int?>(fire.value);
     }
     if (water.present) {
-      map['water'] = Variable<int>(water.value);
+      map['water'] = Variable<int?>(water.value);
     }
     if (wind.present) {
-      map['wind'] = Variable<int>(wind.value);
+      map['wind'] = Variable<int?>(wind.value);
     }
     if (bagsize.present) {
-      map['bagsize'] = Variable<int>(bagsize.value);
+      map['bagsize'] = Variable<int?>(bagsize.value);
     }
     return map;
   }
@@ -882,71 +851,46 @@ class PlayerStateCompanion extends UpdateCompanion<PlayerStateData> {
 
 class PlayerState extends Table with TableInfo<PlayerState, PlayerStateData> {
   final GeneratedDatabase _db;
-  final String _alias;
+  final String? _alias;
   PlayerState(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  GeneratedColumn<int> _id;
-  GeneratedColumn<int> get id =>
-      _id ??= GeneratedColumn<int>('id', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: 'primary key');
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, true,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      $customConstraints: 'primary key');
   final VerificationMeta _nameMeta = const VerificationMeta('name');
-  GeneratedColumn<String> _name;
-  GeneratedColumn<String> get name =>
-      _name ??= GeneratedColumn<String>('name', aliasedName, true,
-          typeName: 'TEXT',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
+      'name', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _lifeMeta = const VerificationMeta('life');
-  GeneratedColumn<int> _life;
-  GeneratedColumn<int> get life =>
-      _life ??= GeneratedColumn<int>('life', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> life = GeneratedColumn<int?>(
+      'life', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _magicMeta = const VerificationMeta('magic');
-  GeneratedColumn<int> _magic;
-  GeneratedColumn<int> get magic =>
-      _magic ??= GeneratedColumn<int>('magic', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> magic = GeneratedColumn<int?>(
+      'magic', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _earthMeta = const VerificationMeta('earth');
-  GeneratedColumn<int> _earth;
-  GeneratedColumn<int> get earth =>
-      _earth ??= GeneratedColumn<int>('earth', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> earth = GeneratedColumn<int?>(
+      'earth', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _fireMeta = const VerificationMeta('fire');
-  GeneratedColumn<int> _fire;
-  GeneratedColumn<int> get fire =>
-      _fire ??= GeneratedColumn<int>('fire', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> fire = GeneratedColumn<int?>(
+      'fire', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _waterMeta = const VerificationMeta('water');
-  GeneratedColumn<int> _water;
-  GeneratedColumn<int> get water =>
-      _water ??= GeneratedColumn<int>('water', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> water = GeneratedColumn<int?>(
+      'water', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _windMeta = const VerificationMeta('wind');
-  GeneratedColumn<int> _wind;
-  GeneratedColumn<int> get wind =>
-      _wind ??= GeneratedColumn<int>('wind', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> wind = GeneratedColumn<int?>(
+      'wind', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _bagsizeMeta = const VerificationMeta('bagsize');
-  GeneratedColumn<int> _bagsize;
-  GeneratedColumn<int> get bagsize =>
-      _bagsize ??= GeneratedColumn<int>('bagsize', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> bagsize = GeneratedColumn<int?>(
+      'bagsize', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   @override
   List<GeneratedColumn> get $columns =>
       [id, name, life, magic, earth, fire, water, wind, bagsize];
@@ -960,39 +904,39 @@ class PlayerState extends Table with TableInfo<PlayerState, PlayerStateData> {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('name')) {
       context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name'], _nameMeta));
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     }
     if (data.containsKey('life')) {
       context.handle(
-          _lifeMeta, life.isAcceptableOrUnknown(data['life'], _lifeMeta));
+          _lifeMeta, life.isAcceptableOrUnknown(data['life']!, _lifeMeta));
     }
     if (data.containsKey('magic')) {
       context.handle(
-          _magicMeta, magic.isAcceptableOrUnknown(data['magic'], _magicMeta));
+          _magicMeta, magic.isAcceptableOrUnknown(data['magic']!, _magicMeta));
     }
     if (data.containsKey('earth')) {
       context.handle(
-          _earthMeta, earth.isAcceptableOrUnknown(data['earth'], _earthMeta));
+          _earthMeta, earth.isAcceptableOrUnknown(data['earth']!, _earthMeta));
     }
     if (data.containsKey('fire')) {
       context.handle(
-          _fireMeta, fire.isAcceptableOrUnknown(data['fire'], _fireMeta));
+          _fireMeta, fire.isAcceptableOrUnknown(data['fire']!, _fireMeta));
     }
     if (data.containsKey('water')) {
       context.handle(
-          _waterMeta, water.isAcceptableOrUnknown(data['water'], _waterMeta));
+          _waterMeta, water.isAcceptableOrUnknown(data['water']!, _waterMeta));
     }
     if (data.containsKey('wind')) {
       context.handle(
-          _windMeta, wind.isAcceptableOrUnknown(data['wind'], _windMeta));
+          _windMeta, wind.isAcceptableOrUnknown(data['wind']!, _windMeta));
     }
     if (data.containsKey('bagsize')) {
       context.handle(_bagsizeMeta,
-          bagsize.isAcceptableOrUnknown(data['bagsize'], _bagsizeMeta));
+          bagsize.isAcceptableOrUnknown(data['bagsize']!, _bagsizeMeta));
     }
     return context;
   }
@@ -1000,7 +944,7 @@ class PlayerState extends Table with TableInfo<PlayerState, PlayerStateData> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  PlayerStateData map(Map<String, dynamic> data, {String tablePrefix}) {
+  PlayerStateData map(Map<String, dynamic> data, {String? tablePrefix}) {
     return PlayerStateData.fromData(data, _db,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
@@ -1015,13 +959,13 @@ class PlayerState extends Table with TableInfo<PlayerState, PlayerStateData> {
 }
 
 class PlayerItem extends DataClass implements Insertable<PlayerItem> {
-  final int id;
-  final int itemid;
-  final int bagindex;
-  final int cnt;
+  final int? id;
+  final int? itemid;
+  final int? bagindex;
+  final int? cnt;
   PlayerItem({this.id, this.itemid, this.bagindex, this.cnt});
   factory PlayerItem.fromData(Map<String, dynamic> data, GeneratedDatabase db,
-      {String prefix}) {
+      {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     return PlayerItem(
       id: const IntType().mapFromDatabaseResponse(data['${effectivePrefix}id']),
@@ -1037,16 +981,16 @@ class PlayerItem extends DataClass implements Insertable<PlayerItem> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (!nullToAbsent || id != null) {
-      map['id'] = Variable<int>(id);
+      map['id'] = Variable<int?>(id);
     }
     if (!nullToAbsent || itemid != null) {
-      map['itemid'] = Variable<int>(itemid);
+      map['itemid'] = Variable<int?>(itemid);
     }
     if (!nullToAbsent || bagindex != null) {
-      map['bagindex'] = Variable<int>(bagindex);
+      map['bagindex'] = Variable<int?>(bagindex);
     }
     if (!nullToAbsent || cnt != null) {
-      map['cnt'] = Variable<int>(cnt);
+      map['cnt'] = Variable<int?>(cnt);
     }
     return map;
   }
@@ -1064,27 +1008,27 @@ class PlayerItem extends DataClass implements Insertable<PlayerItem> {
   }
 
   factory PlayerItem.fromJson(Map<String, dynamic> json,
-      {ValueSerializer serializer}) {
+      {ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return PlayerItem(
-      id: serializer.fromJson<int>(json['id']),
-      itemid: serializer.fromJson<int>(json['itemid']),
-      bagindex: serializer.fromJson<int>(json['bagindex']),
-      cnt: serializer.fromJson<int>(json['cnt']),
+      id: serializer.fromJson<int?>(json['id']),
+      itemid: serializer.fromJson<int?>(json['itemid']),
+      bagindex: serializer.fromJson<int?>(json['bagindex']),
+      cnt: serializer.fromJson<int?>(json['cnt']),
     );
   }
   @override
-  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'itemid': serializer.toJson<int>(itemid),
-      'bagindex': serializer.toJson<int>(bagindex),
-      'cnt': serializer.toJson<int>(cnt),
+      'id': serializer.toJson<int?>(id),
+      'itemid': serializer.toJson<int?>(itemid),
+      'bagindex': serializer.toJson<int?>(bagindex),
+      'cnt': serializer.toJson<int?>(cnt),
     };
   }
 
-  PlayerItem copyWith({int id, int itemid, int bagindex, int cnt}) =>
+  PlayerItem copyWith({int? id, int? itemid, int? bagindex, int? cnt}) =>
       PlayerItem(
         id: id ?? this.id,
         itemid: itemid ?? this.itemid,
@@ -1116,10 +1060,10 @@ class PlayerItem extends DataClass implements Insertable<PlayerItem> {
 }
 
 class PlayerItemsCompanion extends UpdateCompanion<PlayerItem> {
-  final Value<int> id;
-  final Value<int> itemid;
-  final Value<int> bagindex;
-  final Value<int> cnt;
+  final Value<int?> id;
+  final Value<int?> itemid;
+  final Value<int?> bagindex;
+  final Value<int?> cnt;
   const PlayerItemsCompanion({
     this.id = const Value.absent(),
     this.itemid = const Value.absent(),
@@ -1133,10 +1077,10 @@ class PlayerItemsCompanion extends UpdateCompanion<PlayerItem> {
     this.cnt = const Value.absent(),
   });
   static Insertable<PlayerItem> custom({
-    Expression<int> id,
-    Expression<int> itemid,
-    Expression<int> bagindex,
-    Expression<int> cnt,
+    Expression<int?>? id,
+    Expression<int?>? itemid,
+    Expression<int?>? bagindex,
+    Expression<int?>? cnt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1147,7 +1091,10 @@ class PlayerItemsCompanion extends UpdateCompanion<PlayerItem> {
   }
 
   PlayerItemsCompanion copyWith(
-      {Value<int> id, Value<int> itemid, Value<int> bagindex, Value<int> cnt}) {
+      {Value<int?>? id,
+      Value<int?>? itemid,
+      Value<int?>? bagindex,
+      Value<int?>? cnt}) {
     return PlayerItemsCompanion(
       id: id ?? this.id,
       itemid: itemid ?? this.itemid,
@@ -1160,16 +1107,16 @@ class PlayerItemsCompanion extends UpdateCompanion<PlayerItem> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<int>(id.value);
+      map['id'] = Variable<int?>(id.value);
     }
     if (itemid.present) {
-      map['itemid'] = Variable<int>(itemid.value);
+      map['itemid'] = Variable<int?>(itemid.value);
     }
     if (bagindex.present) {
-      map['bagindex'] = Variable<int>(bagindex.value);
+      map['bagindex'] = Variable<int?>(bagindex.value);
     }
     if (cnt.present) {
-      map['cnt'] = Variable<int>(cnt.value);
+      map['cnt'] = Variable<int?>(cnt.value);
     }
     return map;
   }
@@ -1188,36 +1135,26 @@ class PlayerItemsCompanion extends UpdateCompanion<PlayerItem> {
 
 class PlayerItems extends Table with TableInfo<PlayerItems, PlayerItem> {
   final GeneratedDatabase _db;
-  final String _alias;
+  final String? _alias;
   PlayerItems(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  GeneratedColumn<int> _id;
-  GeneratedColumn<int> get id =>
-      _id ??= GeneratedColumn<int>('id', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: 'primary key');
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, true,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      $customConstraints: 'primary key');
   final VerificationMeta _itemidMeta = const VerificationMeta('itemid');
-  GeneratedColumn<int> _itemid;
-  GeneratedColumn<int> get itemid =>
-      _itemid ??= GeneratedColumn<int>('itemid', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> itemid = GeneratedColumn<int?>(
+      'itemid', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _bagindexMeta = const VerificationMeta('bagindex');
-  GeneratedColumn<int> _bagindex;
-  GeneratedColumn<int> get bagindex =>
-      _bagindex ??= GeneratedColumn<int>('bagindex', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> bagindex = GeneratedColumn<int?>(
+      'bagindex', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   final VerificationMeta _cntMeta = const VerificationMeta('cnt');
-  GeneratedColumn<int> _cnt;
-  GeneratedColumn<int> get cnt =>
-      _cnt ??= GeneratedColumn<int>('cnt', aliasedName, true,
-          typeName: 'INTEGER',
-          requiredDuringInsert: false,
-          $customConstraints: '');
+  late final GeneratedColumn<int?> cnt = GeneratedColumn<int?>(
+      'cnt', aliasedName, true,
+      typeName: 'INTEGER', requiredDuringInsert: false, $customConstraints: '');
   @override
   List<GeneratedColumn> get $columns => [id, itemid, bagindex, cnt];
   @override
@@ -1230,19 +1167,19 @@ class PlayerItems extends Table with TableInfo<PlayerItems, PlayerItem> {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('itemid')) {
       context.handle(_itemidMeta,
-          itemid.isAcceptableOrUnknown(data['itemid'], _itemidMeta));
+          itemid.isAcceptableOrUnknown(data['itemid']!, _itemidMeta));
     }
     if (data.containsKey('bagindex')) {
       context.handle(_bagindexMeta,
-          bagindex.isAcceptableOrUnknown(data['bagindex'], _bagindexMeta));
+          bagindex.isAcceptableOrUnknown(data['bagindex']!, _bagindexMeta));
     }
     if (data.containsKey('cnt')) {
       context.handle(
-          _cntMeta, cnt.isAcceptableOrUnknown(data['cnt'], _cntMeta));
+          _cntMeta, cnt.isAcceptableOrUnknown(data['cnt']!, _cntMeta));
     }
     return context;
   }
@@ -1250,7 +1187,7 @@ class PlayerItems extends Table with TableInfo<PlayerItems, PlayerItem> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  PlayerItem map(Map<String, dynamic> data, {String tablePrefix}) {
+  PlayerItem map(Map<String, dynamic> data, {String? tablePrefix}) {
     return PlayerItem.fromData(data, _db,
         prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
@@ -1266,12 +1203,9 @@ class PlayerItems extends Table with TableInfo<PlayerItems, PlayerItem> {
 
 abstract class _$Database extends GeneratedDatabase {
   _$Database(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
-  Items _items;
-  Items get items => _items ??= Items(this);
-  PlayerState _playerState;
-  PlayerState get playerState => _playerState ??= PlayerState(this);
-  PlayerItems _playerItems;
-  PlayerItems get playerItems => _playerItems ??= PlayerItems(this);
+  late final Items items = Items(this);
+  late final PlayerState playerState = PlayerState(this);
+  late final PlayerItems playerItems = PlayerItems(this);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override

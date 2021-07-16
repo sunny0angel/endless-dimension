@@ -12,7 +12,7 @@ Widget fullscreenWeb(bool fullscreen, ui.VoidCallback callback) => IconButton(
         if (fullscreen) {
           document.exitFullscreen();
         } else {
-          document.documentElement.requestFullscreen();
+          document.documentElement?.requestFullscreen();
         }
         callback;
       },
