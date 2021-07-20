@@ -8,10 +8,9 @@ import 'package:endless_dimension/util/dialogs.dart';
 import 'package:endless_dimension/util/localization/strings_location.dart';
 import 'package:endless_dimension/util/sounds.dart';
 import 'package:endless_dimension/util/widget/custom_sprite_animation_widget.dart';
-import 'package:endless_dimension/util/widget/fullscreen_button_web/fullscreen_button.dart';
+import 'package:endless_dimension/util/widget/fullscreen_web_callback/fullscreen_callback.dart';
 import 'package:endless_dimension/util/widget/markdown_blog.dart';
 import 'package:flame_audio/flame_audio.dart';
-import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -85,9 +84,15 @@ class _MenuState extends State<Menu> {
                           });
                         },
                       ),
-                      fullscreenWeb(
-                        fullscreen,
-                        () {
+                      IconButton(
+                        icon: Icon(
+                          fullscreen ? Icons.fullscreen_exit : Icons.fullscreen,
+                          color: Colors.white,
+                        ),
+                        tooltip:
+                            fullscreen ? 'Exit Full Screen' : 'Full Screen',
+                        onPressed: () {
+                          fullscreenWebCallback(fullscreen);
                           setState(() {
                             if (fullscreen) {
                               fullscreen = false;
@@ -98,6 +103,10 @@ class _MenuState extends State<Menu> {
                         },
                       ),
                     ],
+                  ),
+                if (kIsWeb)
+                  SizedBox(
+                    height: 40.0,
                   ),
                 Container(
                   height: 58 * 2.0,
@@ -143,17 +152,7 @@ class _MenuState extends State<Menu> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => FlameSplashScreen(
-                            theme: FlameSplashTheme.dark,
-                            onFinish: (BuildContext context) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context) => Game()),
-                              );
-                            },
-                          ),
-                        ),
+                        MaterialPageRoute(builder: (context) => Game()),
                       );
                     },
                   ),

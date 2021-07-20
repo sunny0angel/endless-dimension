@@ -1,7 +1,5 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:endless_dimension/menu.dart';
 import 'package:endless_dimension/util/localization/my_localizations_delegate.dart';
@@ -14,11 +12,10 @@ MyLocalizationsDelegate myLocation = MyLocalizationsDelegate();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Comment when running for web
-  if (!kIsWeb) {
-    await Flame.device.setLandscape();
-    await Flame.device.fullScreen();
-  }
+
+  await Flame.device.setLandscape();
+  await Flame.device.fullScreen();
+
   myLocation = const MyLocalizationsDelegate();
   runApp(MyApp());
 }
