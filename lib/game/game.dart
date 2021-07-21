@@ -80,16 +80,14 @@ class _GameState extends State<Game>
     var knight = Knight(
       DungeonMap.getRandomTileVector2(_mapTitleList, 9, false, 100, true),
     );
-    DungeonMap.tileSize =
-        max(window.physicalSize.height, window.physicalSize.width) /
-            (kIsWeb ? 25 : 22);
-    // var maxHeight = _mapTitleList.length * DungeonMap.tileSize;
-    // var maxWidth = _mapTitleList[0].length * DungeonMap.tileSize;
+    var initHeight = window.physicalSize.height / 2;
+    var initWidth = window.physicalSize.width / 2;
+    DungeonMap.tileSize = max(initHeight, initWidth) / (kIsWeb ? 25 : 22);
     return OverflowBox(
         minWidth: 0.0,
         minHeight: 0.0,
-        maxWidth: window.physicalSize.width,
-        maxHeight: window.physicalSize.height,
+        maxWidth: initWidth,
+        maxHeight: initHeight,
         child: BonfireWidget(
           joystick: Joystick(
             keyboardEnable: true,

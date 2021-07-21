@@ -17,26 +17,63 @@ class MarkdownBlog extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          padding: EdgeInsets.all(10.0),
-          width: MediaQuery.of(context).size.width / 3,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              backgroundBlendMode: BlendMode.color,
-              color: Colors.black87,
-              image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: AssetImage('assets/images/scroll.png'))),
-          child: ListView(
-            children: [
-              _menuItem("SSSSS", Icon(Icons.ac_unit)),
-              _menuItem("SSSSS", Icon(Icons.ac_unit)),
-              _menuItem("SSSSS", Icon(Icons.ac_unit)),
-              _menuItem("SSSSS", Icon(Icons.ac_unit)),
-            ],
-          ),
-        ),
+            width: MediaQuery.of(context).size.width / 3,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.topCenter,
+                  width: MediaQuery.of(context).size.width / 3,
+                  height: MediaQuery.of(context).size.height / 10,
+                  decoration: BoxDecoration(
+                      backgroundBlendMode: BlendMode.color,
+                      color: Colors.black87,
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage(
+                              'assets/images/scroll_bar_upside.png'))),
+                  child: Container(),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width / 3,
+                  height: MediaQuery.of(context).size.height * 4 / 5,
+                  decoration: BoxDecoration(
+                      backgroundBlendMode: BlendMode.color,
+                      color: Colors.black87,
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage('assets/images/scroll_paper.png'))),
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(50, 20, 50, 20),
+                    width: MediaQuery.of(context).size.width / 3,
+                    child: ListView(
+                      children: [
+                        _menuItem("SSSSS", Icon(Icons.ac_unit)),
+                        _menuItem("SSSSS", Icon(Icons.ac_unit)),
+                        _menuItem("SSSSS", Icon(Icons.ac_unit)),
+                        _menuItem("SSSSS", Icon(Icons.ac_unit)),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  width: MediaQuery.of(context).size.width / 3,
+                  height: MediaQuery.of(context).size.height / 10,
+                  decoration: BoxDecoration(
+                      backgroundBlendMode: BlendMode.color,
+                      color: Colors.black87,
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage(
+                              'assets/images/scroll_bar_downside.png'))),
+                  child: Container(),
+                ),
+              ],
+            )),
         Container(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(50.0),
             width: MediaQuery.of(context).size.width / 3 * 2,
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(

@@ -57,146 +57,153 @@ class _MenuState extends State<Menu> {
         duration: Duration(milliseconds: 300),
         child: Scaffold(
           backgroundColor: Colors.black,
-          body: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                if (kIsWeb)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          mute ? Icons.volume_off : Icons.volume_up,
-                          color: Colors.white,
+          body: OverflowBox(
+            maxHeight: 500,
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  if (kIsWeb)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            mute ? Icons.volume_off : Icons.volume_up,
+                            color: Colors.white,
+                          ),
+                          tooltip:
+                              mute ? 'Enable the Music' : 'Close the Music',
+                          onPressed: () {
+                            setState(() {
+                              if (mute) {
+                                mute = false;
+                                Sounds.initialize();
+                                Sounds.playMenuBackgroundSound();
+                              } else {
+                                mute = true;
+                                FlameAudio.bgm.audioPlayer?.setVolume(0);
+                              }
+                            });
+                          },
                         ),
-                        tooltip: mute ? 'Enable the Music' : 'Close the Music',
-                        onPressed: () {
-                          setState(() {
-                            if (mute) {
-                              mute = false;
-                              Sounds.initialize();
-                              Sounds.playMenuBackgroundSound();
-                            } else {
-                              mute = true;
-                              FlameAudio.bgm.audioPlayer?.setVolume(0);
-                            }
-                          });
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          fullscreen ? Icons.fullscreen_exit : Icons.fullscreen,
-                          color: Colors.white,
+                        IconButton(
+                          icon: Icon(
+                            fullscreen
+                                ? Icons.fullscreen_exit
+                                : Icons.fullscreen,
+                            color: Colors.white,
+                          ),
+                          tooltip:
+                              fullscreen ? 'Exit Full Screen' : 'Full Screen',
+                          onPressed: () {
+                            fullscreenWebCallback(fullscreen);
+                            setState(() {
+                              if (fullscreen) {
+                                fullscreen = false;
+                              } else {
+                                fullscreen = true;
+                              }
+                            });
+                          },
                         ),
-                        tooltip:
-                            fullscreen ? 'Exit Full Screen' : 'Full Screen',
-                        onPressed: () {
-                          fullscreenWebCallback(fullscreen);
-                          setState(() {
-                            if (fullscreen) {
-                              fullscreen = false;
-                            } else {
-                              fullscreen = true;
-                            }
-                          });
-                        },
+                      ],
+                    ),
+                  if (kIsWeb)
+                    SizedBox(
+                      height: 40.0,
+                    ),
+                  Container(
+                    height: 58 * 2.0,
+                    width: 283 * 2.0,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/menu_board.png'),
+                            fit: BoxFit.cover)),
+                    child: Center(
+                      child: Text(
+                        getString("game_name"),
+                        style: TextStyle(
+                            color: Colors.blueGrey[900],
+                            fontSize: 50.0,
+                            fontWeight: FontWeight.bold),
                       ),
-                    ],
+                    ),
                   ),
-                if (kIsWeb)
                   SizedBox(
-                    height: 40.0,
+                    height: 20.0,
                   ),
-                Container(
-                  height: 58 * 2.0,
-                  width: 283 * 2.0,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/menu_board.png'),
-                          fit: BoxFit.cover)),
-                  child: Center(
-                    child: Text(
-                      getString("game_name"),
-                      style: TextStyle(
-                          color: Colors.blueGrey[900],
-                          fontSize: 50.0,
-                          fontWeight: FontWeight.bold),
+                  if (sprites.isNotEmpty)
+                    SizedBox(
+                      height: 100,
+                      width: 100,
+                      child: CustomSpriteAnimationWidget(
+                        animation: sprites[currentPosition],
+                      ),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                if (sprites.isNotEmpty)
                   SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: CustomSpriteAnimationWidget(
-                      animation: sprites[currentPosition],
-                    ),
+                    height: 30.0,
                   ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                SizedBox(
-                  width: 150,
-                  child: TextButton(
-                    child: Text(
-                      getString('play_cap'),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25.0,
+                  SizedBox(
+                    width: 150,
+                    child: TextButton(
+                      child: Text(
+                        getString('play_cap'),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25.0,
+                        ),
                       ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Game()),
+                        );
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Game()),
-                      );
-                    },
                   ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                SizedBox(
-                  width: 150,
-                  child: TextButton(
-                    child: Text(
-                      getString('blog'),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25.0,
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  SizedBox(
+                    width: 150,
+                    child: TextButton(
+                      child: Text(
+                        getString('blog'),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25.0,
+                        ),
                       ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MarkdownBlog()),
+                        );
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MarkdownBlog()),
-                      );
-                    },
                   ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                SizedBox(
-                  width: 150,
-                  child: TextButton(
-                    child: Text(
-                      getString('contact_me'),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25.0,
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  SizedBox(
+                    width: 150,
+                    child: TextButton(
+                      child: Text(
+                        getString('contact_me'),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 25.0,
+                        ),
                       ),
+                      onPressed: () {
+                        Dialogs.showContactMe(context, () {});
+                      },
                     ),
-                    onPressed: () {
-                      Dialogs.showContactMe(context, () {});
-                    },
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           bottomNavigationBar: SafeArea(
