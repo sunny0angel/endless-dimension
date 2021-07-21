@@ -97,10 +97,7 @@ class Goblin extends SimpleEnemy with ObjectCollision {
         ],
       ),
       lightingConfig: LightingConfig(
-        radius: width,
-        blurBorder: width * 0.5,
-        color: Colors.transparent
-      ),
+          radius: width, blurBorder: width * 0.5, color: Colors.transparent),
       execute: () {
         Sounds.attackRange();
       },

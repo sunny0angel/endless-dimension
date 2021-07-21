@@ -3,6 +3,8 @@ import 'dart:ui';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:bonfire/util/game_controller.dart';
+import 'package:endless_dimension/util/widget/bgm_mute_button.dart';
+import 'package:endless_dimension/util/widget/full_screen_button.dart';
 import 'package:flame/image_composition.dart';
 import 'package:endless_dimension/enemy/goblin.dart';
 import 'package:endless_dimension/map/dungeon_map.dart';
@@ -13,7 +15,7 @@ import 'package:endless_dimension/menu.dart';
 
 import '../interface/knight_interface.dart';
 import '../menu.dart';
-import '../util/dialogs.dart';
+import '../util/widget/dialogs.dart';
 import '../util/sounds.dart';
 
 class Game extends StatefulWidget {
@@ -32,6 +34,9 @@ class _GameState extends State<Game>
 
   late List<List<int>> _mapTitleList;
 
+  late double _initWidth;
+  late double _initHeight;
+
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
@@ -40,6 +45,8 @@ class _GameState extends State<Game>
 
   @override
   void initState() {
+    _initWidth = initWidth;
+    _initHeight = initHeight;
     DungeonMap.objectOnMapList.clear();
     _mapTitleList = DungeonMap.createRandomMapTitleList(20, 20, 1);
     // sound assets preload
@@ -80,78 +87,100 @@ class _GameState extends State<Game>
     var knight = Knight(
       DungeonMap.getRandomTileVector2(_mapTitleList, 9, false, 100, true),
     );
-    var initHeight = window.physicalSize.height / 2;
-    var initWidth = window.physicalSize.width / 2;
-    DungeonMap.tileSize = max(initHeight, initWidth) / (kIsWeb ? 25 : 22);
-    return OverflowBox(
-        minWidth: 0.0,
-        minHeight: 0.0,
-        maxWidth: initWidth,
-        maxHeight: initHeight,
-        child: BonfireWidget(
-          joystick: Joystick(
-            keyboardEnable: true,
-            directional: JoystickDirectional(
-              spriteBackgroundDirectional:
-                  Sprite.load('joystick_background.png'),
-              spriteKnobDirectional: Sprite.load('joystick_knob.png'),
-              size: 100,
-            ),
-            actions: [
-              JoystickAction(
-                actionId: 0,
-                sprite: Sprite.load('joystick_atack.png'),
-                spriteBackgroundDirection:
-                    Sprite.load('joystick_background.png'),
-                align: JoystickActionAlign.BOTTOM_RIGHT,
-                size: 50,
-                margin: EdgeInsets.only(bottom: 70, right: 40),
+    DungeonMap.tileSize = max(_initHeight, _initWidth) / (kIsWeb ? 25 : 22);
+    return Scaffold(
+        backgroundColor: Colors.black87,
+        body: OverflowBox(
+            minWidth: 0.0,
+            minHeight: 0.0,
+            maxWidth: _initWidth,
+            maxHeight: _initHeight,
+            child: Stack(children: [
+              Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Colors.blueAccent.shade700, width: 1.0),
+                  ),
+                  child: BonfireWidget(
+                    joystick: Joystick(
+                      keyboardEnable: true,
+                      directional: JoystickDirectional(
+                        spriteBackgroundDirectional:
+                            Sprite.load('joystick_background.png'),
+                        spriteKnobDirectional: Sprite.load('joystick_knob.png'),
+                        size: 100,
+                      ),
+                      actions: [
+                        JoystickAction(
+                          actionId: 0,
+                          sprite: Sprite.load('joystick_atack.png'),
+                          spriteBackgroundDirection:
+                              Sprite.load('joystick_background.png'),
+                          align: JoystickActionAlign.BOTTOM_RIGHT,
+                          size: 50,
+                          margin: EdgeInsets.only(bottom: 70, right: 40),
+                        ),
+                        JoystickAction(
+                          actionId: 1,
+                          sprite: Sprite.load('joystick_atack_range.png'),
+                          spriteBackgroundDirection:
+                              Sprite.load('joystick_background.png'),
+                          align: JoystickActionAlign.BOTTOM_RIGHT,
+                          size: 50,
+                          enableDirection: true,
+                          margin: EdgeInsets.only(bottom: 20, right: 90),
+                        ),
+                        JoystickAction(
+                          actionId: 10,
+                          sprite: Sprite.load('joystick_atack_range.png'),
+                          spriteBackgroundDirection:
+                              Sprite.load('joystick_background.png'),
+                          align: JoystickActionAlign.BOTTOM_RIGHT,
+                          size: 40,
+                          margin: EdgeInsets.only(bottom: 80, right: 115),
+                        ),
+                        JoystickAction(
+                          actionId: 11,
+                          sprite: Sprite.load('joystick_atack_range.png'),
+                          spriteBackgroundDirection:
+                              Sprite.load('joystick_background.png'),
+                          align: JoystickActionAlign.BOTTOM_RIGHT,
+                          size: 40,
+                          enableDirection: true,
+                          margin: EdgeInsets.only(bottom: 25, right: 165),
+                        ),
+                      ],
+                    ),
+                    player: Knight(
+                      DungeonMap.getRandomTileVector2(
+                          _mapTitleList, 9, false, 100, true),
+                    ),
+                    interface: KnightInterface(),
+                    map: DungeonMap.map(_mapTitleList),
+                    enemies: DungeonMap.enemies(_mapTitleList, knight.position),
+                    decorations: DungeonMap.decorations(_mapTitleList),
+                    background: BackgroundColorGame(Colors.blueGrey[900]!),
+                    gameController: _controller..setListener(this),
+                    // TODO \bonfire-1.2.0\lib\lighting render func has error
+                    lightingColorGame: Color.fromRGBO(0, 0, 0, 0.75),
+                    // cameraConfig:
+                    //     CameraConfig(), // you can change the game zoom here or directly on camera
+                  )),
+              Positioned(
+                top: initHeight / 3,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    BgmMuteButton(),
+                    FullscreenButton(
+                        callback: () => setState(() {
+                              _initWidth = initWidth;
+                              _initHeight = initHeight;
+                            })),
+                  ],
+                ),
               ),
-              JoystickAction(
-                actionId: 1,
-                sprite: Sprite.load('joystick_atack_range.png'),
-                spriteBackgroundDirection:
-                    Sprite.load('joystick_background.png'),
-                align: JoystickActionAlign.BOTTOM_RIGHT,
-                size: 50,
-                enableDirection: true,
-                margin: EdgeInsets.only(bottom: 20, right: 90),
-              ),
-              JoystickAction(
-                actionId: 10,
-                sprite: Sprite.load('joystick_atack_range.png'),
-                spriteBackgroundDirection:
-                    Sprite.load('joystick_background.png'),
-                align: JoystickActionAlign.BOTTOM_RIGHT,
-                size: 40,
-                margin: EdgeInsets.only(bottom: 80, right: 115),
-              ),
-              JoystickAction(
-                actionId: 11,
-                sprite: Sprite.load('joystick_atack_range.png'),
-                spriteBackgroundDirection:
-                    Sprite.load('joystick_background.png'),
-                align: JoystickActionAlign.BOTTOM_RIGHT,
-                size: 40,
-                enableDirection: true,
-                margin: EdgeInsets.only(bottom: 25, right: 165),
-              ),
-            ],
-          ),
-          player: Knight(
-            DungeonMap.getRandomTileVector2(_mapTitleList, 9, false, 100, true),
-          ),
-          interface: KnightInterface(),
-          map: DungeonMap.map(_mapTitleList),
-          enemies: DungeonMap.enemies(_mapTitleList, knight.position),
-          decorations: DungeonMap.decorations(_mapTitleList),
-          background: BackgroundColorGame(Colors.blueGrey[900]!),
-          gameController: _controller..setListener(this),
-          // TODO \bonfire-1.2.0\lib\lighting render func has error
-          lightingColorGame: Color.fromRGBO(0, 0, 0, 0.75),
-          // cameraConfig:
-          //     CameraConfig(), // you can change the game zoom here or directly on camera
-        ));
+            ])));
   }
 
   @override

@@ -183,10 +183,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
         ],
       ),
       lightingConfig: LightingConfig(
-        radius: width * 0.5,
-        blurBorder: width,
-        color: Colors.transparent
-      ),
+          radius: width * 0.5, blurBorder: width, color: Colors.transparent),
       destroy: () {
         Sounds.attackRangeExplosion();
       },
@@ -215,10 +212,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
         ],
       ),
       lightingConfig: LightingConfig(
-        radius: width / 2 * 3,
-        blurBorder: width,
-          color: Colors.transparent
-      ),
+          radius: width / 2 * 3, blurBorder: width, color: Colors.transparent),
       destroy: () {
         Sounds.attackRangeExplosion();
       },

@@ -1,5 +1,4 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:endless_dimension/game/game.dart';
 import 'package:endless_dimension/interface/bar_life_component.dart';
 import 'package:endless_dimension/player/knight.dart';
 

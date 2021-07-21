@@ -8,7 +8,7 @@ import 'package:radar_chart/radar_chart.dart';
 
 import 'dart:math';
 
-import 'animations/player_sprite_sheet.dart';
+import '../animations/player_sprite_sheet.dart';
 
 class Dialogs {
   static void showGameOver(

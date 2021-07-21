@@ -61,8 +61,4 @@ class Sounds {
   static void resumeBackgroundSound() {
     FlameAudio.bgm.resume();
   }
-
-  static void dispose() {
-    FlameAudio.bgm.dispose();
-  }
 }
