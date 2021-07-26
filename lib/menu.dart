@@ -1,9 +1,13 @@
 import 'dart:async' as async;
+import 'dart:io';
+import 'dart:math';
+import 'dart:ui';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:endless_dimension/game/game.dart';
 import 'package:endless_dimension/util/animations/player_sprite_sheet.dart';
 import 'package:endless_dimension/util/animations/enemy_sprite_sheet.dart';
+import 'package:endless_dimension/util/function/common_func.dart';
 import 'package:endless_dimension/util/widget/dialogs.dart';
 import 'package:endless_dimension/util/localization/strings_location.dart';
 import 'package:endless_dimension/util/sounds.dart';
@@ -14,6 +18,11 @@ import 'package:endless_dimension/util/widget/markdown_blog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+late double initHeight;
+late double initWidth;
+late double scalingRate = 1;
+late bool fullscreenDisabled = false;
 
 class Menu extends StatefulWidget {
   @override
@@ -33,41 +42,41 @@ class _MenuState extends State<Menu> {
 
   @override
   void initState() {
-    if (!kIsWeb) {
-      Sounds.initialize();
-      Sounds.playMenuBackgroundSound();
+    // 1440 x 3120
+    if (max(window.physicalSize.width, window.physicalSize.height) <= 3120 ||
+        min(window.physicalSize.width, window.physicalSize.height) <= 1440) {
+      scalingRate = 0.7;
+    } else {
+      scalingRate = 1;
     }
+    if (BrowserType.safari == getBrowserType()) mute = true;
+    if (BrowserType.safari == getBrowserType() && Platform.isIOS)
+      fullscreenDisabled = true;
+    Sounds.bgmType = BgmType.menu;
+    Sounds.initialize();
+    Sounds.playBackgroundSound();
     startTimer();
     super.initState();
   }
 
   @override
   void dispose() {
-    Sounds.stopBackgroundSound();
+    Sounds.disposeBackgroundSound();
     _timer?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    initHeight = MediaQuery.of(context).size.height;
+    initWidth = MediaQuery.of(context).size.width;
     return AnimatedSwitcher(
         duration: Duration(milliseconds: 300),
         child: Scaffold(
           backgroundColor: Colors.black87,
           body: OverflowBox(
-            maxHeight: 500,
-            child: Row(children: [
-              if (kIsWeb)
-                Container(
-                  width: 20,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      BgmMuteButton(),
-                      FullscreenButton(),
-                    ],
-                  ),
-                ),
+            maxHeight: 470 * scalingRate,
+            child: Stack(children: [
               Container(
                 width: MediaQuery.of(context).size.width - 20,
                 child: Center(
@@ -75,8 +84,18 @@ class _MenuState extends State<Menu> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Container(
-                        height: 58 * 2.0,
-                        width: 283 * 2.0,
+                        height: 58 *
+                            2.0 *
+                            scalingRate *
+                            ((scalingRate != 1 && initHeight > initWidth)
+                                ? 0.8
+                                : 1),
+                        width: 283 *
+                            2.0 *
+                            scalingRate *
+                            ((scalingRate != 1 && initHeight > initWidth)
+                                ? 0.8
+                                : 1),
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 image:
@@ -87,33 +106,38 @@ class _MenuState extends State<Menu> {
                             getString("game_name"),
                             style: TextStyle(
                                 color: Colors.blueGrey[900],
-                                fontSize: 50.0,
+                                fontSize: 50.0 *
+                                    scalingRate *
+                                    ((scalingRate != 1 &&
+                                            initHeight > initWidth)
+                                        ? 0.8
+                                        : 1),
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
                       SizedBox(
-                        height: 20.0,
+                        height: 15.0 * scalingRate,
                       ),
                       if (sprites.isNotEmpty)
                         SizedBox(
-                          height: 100,
-                          width: 100,
+                          height: 100 * scalingRate,
+                          width: 100 * scalingRate,
                           child: CustomSpriteAnimationWidget(
                             animation: sprites[currentPosition],
                           ),
                         ),
                       SizedBox(
-                        height: 30.0,
+                        height: 15.0 * scalingRate,
                       ),
                       SizedBox(
-                        width: 150,
+                        width: 150 * scalingRate,
                         child: TextButton(
                           child: Text(
                             getString('play_cap'),
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 25.0,
+                              fontSize: 30.0 * scalingRate,
                             ),
                           ),
                           onPressed: () {
@@ -125,16 +149,16 @@ class _MenuState extends State<Menu> {
                         ),
                       ),
                       SizedBox(
-                        height: 20.0,
+                        height: 10.0 * scalingRate,
                       ),
                       SizedBox(
-                        width: 150,
+                        width: 150 * scalingRate,
                         child: TextButton(
                           child: Text(
                             getString('blog'),
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 25.0,
+                              fontSize: 30.0 * scalingRate,
                             ),
                           ),
                           onPressed: () {
@@ -147,16 +171,16 @@ class _MenuState extends State<Menu> {
                         ),
                       ),
                       SizedBox(
-                        height: 20.0,
+                        height: 10.0 * scalingRate,
                       ),
                       SizedBox(
-                        width: 150,
+                        width: 150 * scalingRate,
                         child: TextButton(
                           child: Text(
                             getString('contact_me'),
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 25.0,
+                              fontSize: 30.0 * scalingRate,
                             ),
                           ),
                           onPressed: () {
@@ -168,12 +192,24 @@ class _MenuState extends State<Menu> {
                   ),
                 ),
               ),
+              Positioned(
+                top: initHeight / 6,
+                child: kIsWeb
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          BgmMuteButton(),
+                          if (!fullscreenDisabled) FullscreenButton(),
+                        ],
+                      )
+                    : SizedBox.shrink(),
+              ),
             ]),
           ),
           bottomNavigationBar: SafeArea(
             child: Container(
-              height: 20,
-              margin: EdgeInsets.all(20.0),
+              height: 20 * scalingRate,
+              margin: EdgeInsets.all(15.0 * scalingRate),
               child: Stack(
                 children: <Widget>[
                   Align(
@@ -182,12 +218,15 @@ class _MenuState extends State<Menu> {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Text(
-                          getString('using'),
-                          style: TextStyle(color: Colors.white, fontSize: 15.0),
+                          "using: ",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15.0 * scalingRate),
                         ),
                         InkWell(
                           onTap: () {
-                            _launchURL('https://github.com/RafaelBarbosatec');
+                            _launchURL(
+                                'https://github.com/RafaelBarbosatec/bonfire');
                           },
                           child: Text(
                             'Bonfire',
@@ -195,7 +234,27 @@ class _MenuState extends State<Menu> {
                               decoration: TextDecoration.underline,
                               color: Colors.blue,
                               fontFamily: 'Normal',
-                              fontSize: 12.0,
+                              fontSize: 12.0 * scalingRate,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          " & ",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15.0 * scalingRate),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            _launchURL('https://github.com/flame-engine/flame');
+                          },
+                          child: Text(
+                            'Flame',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: Colors.blue,
+                              fontFamily: 'Normal',
+                              fontSize: 12.0 * scalingRate,
                             ),
                           ),
                         )

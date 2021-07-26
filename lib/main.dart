@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ void main() async {
   await Flame.device.fullScreen();
 
   myLocation = const MyLocalizationsDelegate();
+
   runApp(MyApp());
 }
 

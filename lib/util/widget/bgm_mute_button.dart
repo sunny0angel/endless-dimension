@@ -1,4 +1,3 @@
-import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,10 +24,10 @@ class _BgmMuteButtonState extends State<BgmMuteButton> {
           if (mute) {
             mute = false;
             Sounds.initialize();
-            Sounds.playMenuBackgroundSound();
+            Sounds.playBackgroundSound();
           } else {
             mute = true;
-            FlameAudio.bgm.audioPlayer?.setVolume(0);
+            Sounds.stopBackgroundSound();
           }
         });
       },

@@ -3,12 +3,14 @@ import 'dart:ui';
 
 import 'package:bonfire/bonfire.dart';
 import 'package:bonfire/util/game_controller.dart';
+import 'package:endless_dimension/util/function/common_func.dart';
 import 'package:endless_dimension/util/widget/bgm_mute_button.dart';
 import 'package:endless_dimension/util/widget/full_screen_button.dart';
 import 'package:flame/image_composition.dart';
 import 'package:endless_dimension/enemy/goblin.dart';
 import 'package:endless_dimension/map/dungeon_map.dart';
 import 'package:endless_dimension/player/knight.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:endless_dimension/menu.dart';
@@ -45,14 +47,15 @@ class _GameState extends State<Game>
 
   @override
   void initState() {
+    if (BrowserType.safari == getBrowserType()) mute = true;
     _initWidth = initWidth;
     _initHeight = initHeight;
     DungeonMap.objectOnMapList.clear();
-    _mapTitleList = DungeonMap.createRandomMapTitleList(20, 20, 1);
+    _mapTitleList = DungeonMap.createRandomMapTitleList(20, 20, 5);
     // sound assets preload
+    Sounds.bgmType = BgmType.game;
     Sounds.initialize();
-    Sounds.playGameBackgroundSound();
-
+    Sounds.playBackgroundSound();
     WidgetsBinding.instance!.addObserver(this);
     _controller = GameController()..setListener(this);
     super.initState();
@@ -77,7 +80,7 @@ class _GameState extends State<Game>
 
   @override
   void dispose() {
-    Sounds.stopBackgroundSound();
+    Sounds.disposeBackgroundSound();
     WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
   }
@@ -102,6 +105,7 @@ class _GameState extends State<Game>
                         color: Colors.blueAccent.shade700, width: 1.0),
                   ),
                   child: BonfireWidget(
+                    showFPS: true,
                     joystick: Joystick(
                       keyboardEnable: true,
                       directional: JoystickDirectional(
@@ -162,23 +166,21 @@ class _GameState extends State<Game>
                     background: BackgroundColorGame(Colors.blueGrey[900]!),
                     gameController: _controller..setListener(this),
                     // TODO \bonfire-1.2.0\lib\lighting render func has error
-                    lightingColorGame: Color.fromRGBO(0, 0, 0, 0.75),
+                    lightingColorGame: Colors.black.withOpacity(0.75),
                     // cameraConfig:
                     //     CameraConfig(), // you can change the game zoom here or directly on camera
                   )),
               Positioned(
                 top: initHeight / 3,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    BgmMuteButton(),
-                    FullscreenButton(
-                        callback: () => setState(() {
-                              _initWidth = initWidth;
-                              _initHeight = initHeight;
-                            })),
-                  ],
-                ),
+                child: kIsWeb
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          BgmMuteButton(),
+                          if (!fullscreenDisabled) FullscreenButton(),
+                        ],
+                      )
+                    : SizedBox.shrink(),
               ),
             ])));
   }

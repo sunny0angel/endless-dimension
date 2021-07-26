@@ -17,7 +17,7 @@ class PotionMagic extends GameDecoration with Sensor {
   void onContact(GameComponent component) {
     final db = DBProvider.db.database;
     if (component is Player) {
-      db
+      db!
           .into(db.playerItems)
           .insert(PlayerItem(itemid: 2, bagindex: 101, cnt: 1));
       remove();

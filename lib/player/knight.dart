@@ -314,14 +314,20 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
       TalkDialog.show(gameRef.context, [
         Say(
           "Look at this! It seems that I'm not alone here ...",
-          // Container(
-          //   width: 50,
-          //   height: 50,
-          //   child: AnimationWidget(
-          //     animation: animation.current,
-          //     playing: true,
-          //   ),
-          // ),
+          person: Container(
+            width: 100,
+            height: 100,
+            child: FutureBuilder<SpriteAnimation>(
+              future: PlayerSpriteSheet.idleRight,
+              builder: (context, anim) {
+                if (!anim.hasData) return SizedBox.shrink();
+                return SpriteAnimationWidget(
+                  animation: anim.data!,
+                  playing: true,
+                );
+              },
+            ),
+          ),
         ),
       ], finish: () {
         gameRef.resumeEngine();

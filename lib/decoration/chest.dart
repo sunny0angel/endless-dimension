@@ -30,7 +30,14 @@ class Chest extends GameDecoration with TapGesture {
 
   @override
   void update(double dt) {
-    this.seePlayer(
+    Player? player = gameRef.player;
+    if (player == null) return;
+
+    if (player.isDead) {
+      return;
+    }
+    this.seeComponent(
+      player,
       observed: (player) {
         if (!_observedPlayer) {
           _observedPlayer = true;

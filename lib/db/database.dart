@@ -15,9 +15,9 @@ class DBProvider {
 
   static final DBProvider db = DBProvider._();
 
-  late Database _database;
+  Database? _database;
 
-  Database get database {
+  Database? get database {
     if (_database != null) return _database;
     // if _database is null we instantiate it
     _database = constructDb();
