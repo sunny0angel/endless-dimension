@@ -93,96 +93,91 @@ class _GameState extends State<Game>
     DungeonMap.tileSize = max(_initHeight, _initWidth) / (kIsWeb ? 25 : 22);
     return Scaffold(
         backgroundColor: Colors.black87,
-        body: OverflowBox(
-            minWidth: 0.0,
-            minHeight: 0.0,
-            maxWidth: _initWidth,
-            maxHeight: _initHeight,
-            child: Stack(children: [
-              Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Colors.blueAccent.shade700, width: 1.0),
-                  ),
-                  child: BonfireWidget(
-                    showFPS: true,
-                    joystick: Joystick(
-                      keyboardEnable: true,
-                      directional: JoystickDirectional(
-                        spriteBackgroundDirectional:
-                            Sprite.load('joystick_background.png'),
-                        spriteKnobDirectional: Sprite.load('joystick_knob.png'),
-                        size: 100,
-                      ),
-                      actions: [
-                        JoystickAction(
-                          actionId: 0,
-                          sprite: Sprite.load('joystick_atack.png'),
-                          spriteBackgroundDirection:
-                              Sprite.load('joystick_background.png'),
-                          align: JoystickActionAlign.BOTTOM_RIGHT,
-                          size: 50,
-                          margin: EdgeInsets.only(bottom: 70, right: 40),
-                        ),
-                        JoystickAction(
-                          actionId: 1,
-                          sprite: Sprite.load('joystick_atack_range.png'),
-                          spriteBackgroundDirection:
-                              Sprite.load('joystick_background.png'),
-                          align: JoystickActionAlign.BOTTOM_RIGHT,
-                          size: 50,
-                          enableDirection: true,
-                          margin: EdgeInsets.only(bottom: 20, right: 90),
-                        ),
-                        JoystickAction(
-                          actionId: 10,
-                          sprite: Sprite.load('joystick_atack_range.png'),
-                          spriteBackgroundDirection:
-                              Sprite.load('joystick_background.png'),
-                          align: JoystickActionAlign.BOTTOM_RIGHT,
-                          size: 40,
-                          margin: EdgeInsets.only(bottom: 80, right: 115),
-                        ),
-                        JoystickAction(
-                          actionId: 11,
-                          sprite: Sprite.load('joystick_atack_range.png'),
-                          spriteBackgroundDirection:
-                              Sprite.load('joystick_background.png'),
-                          align: JoystickActionAlign.BOTTOM_RIGHT,
-                          size: 40,
-                          enableDirection: true,
-                          margin: EdgeInsets.only(bottom: 25, right: 165),
-                        ),
-                      ],
-                    ),
-                    player: Knight(
-                      DungeonMap.getRandomTileVector2(
-                          _mapTitleList, 9, false, 100, true),
-                    ),
-                    interface: KnightInterface(),
-                    map: DungeonMap.map(_mapTitleList),
-                    enemies: DungeonMap.enemies(_mapTitleList, knight.position),
-                    decorations: DungeonMap.decorations(_mapTitleList),
-                    background: BackgroundColorGame(Colors.blueGrey[900]!),
-                    gameController: _controller..setListener(this),
-                    // TODO \bonfire-1.2.0\lib\lighting render func has error
-                    lightingColorGame: Colors.black.withOpacity(0.75),
-                    // cameraConfig:
-                    //     CameraConfig(), // you can change the game zoom here or directly on camera
-                  )),
-              Positioned(
-                top: initHeight / 3,
-                child: kIsWeb
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          BgmMuteButton(),
-                          if (!fullscreenDisabled) FullscreenButton(),
-                        ],
-                      )
-                    : SizedBox.shrink(),
+        body: Stack(children: [
+          Container(
+              decoration: BoxDecoration(
+                border:
+                    Border.all(color: Colors.blueAccent.shade700, width: 1.0),
               ),
-            ])));
+              child: BonfireWidget(
+                showFPS: true,
+                joystick: Joystick(
+                  keyboardEnable: true,
+                  directional: JoystickDirectional(
+                    spriteBackgroundDirectional:
+                        Sprite.load('joystick_background.png'),
+                    spriteKnobDirectional: Sprite.load('joystick_knob.png'),
+                    size: 100,
+                  ),
+                  actions: [
+                    JoystickAction(
+                      actionId: 0,
+                      sprite: Sprite.load('joystick_atack.png'),
+                      spriteBackgroundDirection:
+                          Sprite.load('joystick_background.png'),
+                      align: JoystickActionAlign.BOTTOM_RIGHT,
+                      size: 50,
+                      margin: EdgeInsets.only(bottom: 70, right: 40),
+                    ),
+                    JoystickAction(
+                      actionId: 1,
+                      sprite: Sprite.load('joystick_atack_range.png'),
+                      spriteBackgroundDirection:
+                          Sprite.load('joystick_background.png'),
+                      align: JoystickActionAlign.BOTTOM_RIGHT,
+                      size: 50,
+                      enableDirection: true,
+                      margin: EdgeInsets.only(bottom: 20, right: 90),
+                    ),
+                    JoystickAction(
+                      actionId: 10,
+                      sprite: Sprite.load('joystick_atack_range.png'),
+                      spriteBackgroundDirection:
+                          Sprite.load('joystick_background.png'),
+                      align: JoystickActionAlign.BOTTOM_RIGHT,
+                      size: 40,
+                      margin: EdgeInsets.only(bottom: 80, right: 115),
+                    ),
+                    JoystickAction(
+                      actionId: 11,
+                      sprite: Sprite.load('joystick_atack_range.png'),
+                      spriteBackgroundDirection:
+                          Sprite.load('joystick_background.png'),
+                      align: JoystickActionAlign.BOTTOM_RIGHT,
+                      size: 40,
+                      enableDirection: true,
+                      margin: EdgeInsets.only(bottom: 25, right: 165),
+                    ),
+                  ],
+                ),
+                player: Knight(
+                  DungeonMap.getRandomTileVector2(
+                      _mapTitleList, 9, false, 100, true),
+                ),
+                interface: KnightInterface(),
+                map: DungeonMap.map(_mapTitleList),
+                enemies: DungeonMap.enemies(_mapTitleList, knight.position),
+                decorations: DungeonMap.decorations(_mapTitleList),
+                background: BackgroundColorGame(Colors.blueGrey[900]!),
+                gameController: _controller..setListener(this),
+                // TODO \bonfire-1.2.0\lib\lighting render func has error
+                lightingColorGame: Colors.black.withOpacity(0.75),
+                // cameraConfig:
+                //     CameraConfig(), // you can change the game zoom here or directly on camera
+              )),
+          Positioned(
+            top: initHeight / 3,
+            child: kIsWeb
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      BgmMuteButton(),
+                      if (!fullscreenDisabled) FullscreenButton(),
+                    ],
+                  )
+                : SizedBox.shrink(),
+          ),
+        ]));
   }
 
   @override
