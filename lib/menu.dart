@@ -49,8 +49,8 @@ class _MenuState extends State<Menu> {
     } else {
       scalingRate = 1;
     }
-    if (BrowserType.safari == getBrowserType()) mute = true;
-    if (BrowserType.safari == getBrowserType() && Platform.isIOS)
+    if (kIsWeb && BrowserType.safari == getBrowserType()) mute = true;
+    if (kIsWeb && BrowserType.safari == getBrowserType() && Platform.isIOS)
       fullscreenDisabled = true;
     Sounds.bgmType = BgmType.menu;
     Sounds.initialize();
@@ -75,7 +75,7 @@ class _MenuState extends State<Menu> {
         child: Scaffold(
           backgroundColor: Colors.black87,
           body: OverflowBox(
-            maxHeight: 470 * scalingRate,
+            maxHeight: 465 * scalingRate,
             child: Stack(children: [
               Container(
                 width: MediaQuery.of(context).size.width - 20,
@@ -128,7 +128,7 @@ class _MenuState extends State<Menu> {
                           ),
                         ),
                       SizedBox(
-                        height: 15.0 * scalingRate,
+                        height: 10.0 * scalingRate,
                       ),
                       SizedBox(
                         width: 150 * scalingRate,
@@ -149,7 +149,7 @@ class _MenuState extends State<Menu> {
                         ),
                       ),
                       SizedBox(
-                        height: 10.0 * scalingRate,
+                        height: 7.0 * scalingRate,
                       ),
                       SizedBox(
                         width: 150 * scalingRate,
@@ -171,7 +171,7 @@ class _MenuState extends State<Menu> {
                         ),
                       ),
                       SizedBox(
-                        height: 10.0 * scalingRate,
+                        height: 7.0 * scalingRate,
                       ),
                       SizedBox(
                         width: 150 * scalingRate,

@@ -17,7 +17,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
   double magic = 100;
   double initSpeed = DungeonMap.tileSize * 3;
   IntervalTick _timerMagic = IntervalTick(100);
-  IntervalTick _timerAttackRange = IntervalTick(100);
+  IntervalTick _timerAttackRange = IntervalTick(500);
   IntervalTick _timerSeeEnemy = IntervalTick(500);
   bool showObserveEnemy = false;
   bool showTalk = false;
@@ -134,7 +134,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
   void actionAttack() {
     Sounds.attackMelee();
     this.simpleAttackMelee(
-      damage: attack * 0.1,
+      damage: attack * 0.5,
       animationBottom: CommonSpriteSheet.whiteAttackEffectBottom,
       animationLeft: CommonSpriteSheet.whiteAttackEffectLeft,
       animationRight: CommonSpriteSheet.whiteAttackEffectRight,
@@ -150,7 +150,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
     Sounds.attackMelee();
     decrementMagic(20);
     this.simpleAttackMelee(
-      damage: attack,
+      damage: attack * 1.5,
       animationBottom: CommonSpriteSheet.whiteAttackEffectBottom,
       animationLeft: CommonSpriteSheet.whiteAttackEffectLeft,
       animationRight: CommonSpriteSheet.whiteAttackEffectRight,
@@ -172,7 +172,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
       radAngleDirection: angleRadAttack,
       width: width,
       height: width,
-      damage: 5,
+      damage: attack * 0.5,
       speed: initSpeed * 2,
       collision: CollisionConfig(
         collisions: [
@@ -201,7 +201,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
       radAngleDirection: angleRadAttack,
       width: width * 3,
       height: width * 3,
-      damage: 40,
+      damage: attack * 1.5,
       speed: initSpeed * 3,
       collision: CollisionConfig(
         collisions: [
@@ -249,7 +249,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
 
   void _verifyMagic(double dt) {
     if (_timerMagic.update(dt) && magic < 100) {
-      magic += 0.1;
+      magic += 1.5;
       if (magic > 100) {
         magic = 100;
       }

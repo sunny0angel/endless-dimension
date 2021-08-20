@@ -1,4 +1,7 @@
-fullscreenWebCallback(fullscreen) =>
-    throw UnsupportedError('fullscreenWeb Unsupported');
+import 'common_func.dart';
 
-getBrowserType() => throw UnsupportedError('fullscreenWeb Unsupported');
+fullscreenWebCallback(fullscreen) =>
+    throw UnsupportedError('fullscreenWebCallback Unsupported');
+
+BrowserType getBrowserType() =>
+    throw UnsupportedError('getBrowserType Unsupported');

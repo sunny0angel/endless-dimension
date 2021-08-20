@@ -29,7 +29,7 @@ class Sounds {
       _audioPoolMeleeAttack = await AudioPool.create('attack_enemy.mp3',
           repeating: false, maxPlayers: 20, prefix: 'assets/audio/');
       _audioPoolExplosion = await AudioPool.create('explosion.wav',
-          repeating: false, maxPlayers: 20, prefix: 'assets/audio/');
+          repeating: false, maxPlayers: 1, prefix: 'assets/audio/');
       _audioPoolInteraction = await AudioPool.create('sound_interaction.wav',
           repeating: false, maxPlayers: 20, prefix: 'assets/audio/');
     }
