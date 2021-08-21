@@ -114,6 +114,17 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
       }
     }
 
+    if (event.id == 100) {
+      if (event.event == ActionEvent.UP) {
+        actionAddLife();
+      }
+    }
+
+    if (event.id == 101) {
+      if (event.event == ActionEvent.UP) {
+        actionAddMagic();
+      }
+    }
     super.joystickAction(event);
   }
 
@@ -218,6 +229,16 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
       },
     );
   }
+
+   void actionAddLife()
+   {
+      life += 100;
+   }
+
+   void actionAddMagic()
+   {
+     magic += 100;
+   }
 
   @override
   void update(double dt) {
