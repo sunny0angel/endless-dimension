@@ -143,6 +143,27 @@ class _GameState extends State<Game>
                   enableDirection: true,
                   margin: EdgeInsets.only(bottom: 25, right: 165),
                 ),
+                JoystickAction(
+                  actionId: 100,
+                  sprite: Sprite.load('joystick_atack_range.png'),
+                  spriteBackgroundDirection:
+                  Sprite.load('joystick_background.png'),
+                  align: JoystickActionAlign.BOTTOM_RIGHT,
+                  size: 40,
+                  enableDirection: true,
+                  margin: EdgeInsets.only(bottom: 25, right: 215),
+                ),
+                JoystickAction(
+                  actionId: 101,
+                  sprite: Sprite.load('joystick_atack_range.png'),
+                  spriteBackgroundDirection:
+                  Sprite.load('joystick_background.png'),
+                  align: JoystickActionAlign.BOTTOM_RIGHT,
+                  size: 40,
+                  enableDirection: true,
+                  margin: EdgeInsets.only(bottom: 25, right: 265),
+                ),
+
               ],
             ),
             player: Knight(
