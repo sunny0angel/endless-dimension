@@ -12,114 +12,62 @@ import 'package:flutter/cupertino.dart';
 class DungeonMap {
   static double tileSize = 45;
 
-  static Tile setWallTile(Vector2 position) {
-    return TileWithCollision(
-      'tile/wall.png',
-      position,
-      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
-      width: tileSize,
-      height: tileSize,
-    );
+  static TileModel setWallTile(double x, double y) {
+    return _createTileWithCollisions('tile/wall.png', x, y);
   }
 
-  static Tile setWallTopTile(Vector2 position) {
-    return TileWithCollision(
-      'tile/wall_top.png',
-      position,
-      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
-      width: tileSize,
-      height: tileSize,
-    );
+  static TileModel setWallTopTile(double x, double y) {
+    return _createTileWithCollisions('tile/wall_top.png', x, y);
   }
 
-  static Tile setWallBottomTile(Vector2 position) {
-    return TileWithCollision(
-      'tile/wall_bottom.png',
-      position,
-      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
-      width: tileSize,
-      height: tileSize,
-    );
+  static TileModel setWallBottomTile(double x, double y) {
+    return _createTileWithCollisions('tile/wall_bottom.png', x, y);
   }
 
-  static Tile setWallLeftTile(Vector2 position) {
-    return TileWithCollision(
-      'tile/wall_left.png',
-      position,
-      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
-      width: tileSize,
-      height: tileSize,
-    );
+  static TileModel setWallLeftTile(double x, double y) {
+    return _createTileWithCollisions('tile/wall_left.png', x, y);
   }
 
-  static Tile setWallRightTile(Vector2 position) {
-    return TileWithCollision(
-      'tile/wall_right.png',
-      position,
-      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
-      width: tileSize,
-      height: tileSize,
-    );
+  static TileModel setWallRightTile(double x, double y) {
+    return _createTileWithCollisions('tile/wall_right.png', x, y);
   }
 
-  static Tile setWallBottomLeftTile(Vector2 position) {
-    return TileWithCollision(
-      'tile/wall_top_inner_left.png',
-      position,
-      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
-      width: tileSize,
-      height: tileSize,
-    );
+  static TileModel setWallBottomLeftTile(double x, double y) {
+    return _createTileWithCollisions('tile/wall_top_inner_left.png', x, y);
   }
 
-  static Tile setWallBottomRightTile(Vector2 position) {
-    return TileWithCollision(
-      'tile/wall_top_inner_right.png',
-      position,
-      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
-      width: tileSize,
-      height: tileSize,
-    );
+  static TileModel setWallBottomRightTile(double x, double y) {
+    return _createTileWithCollisions('tile/wall_top_inner_right.png', x, y);
   }
 
-  static Tile setRandomFloorTile(Vector2 position) {
-    return Tile.fromSprite(
-      _randomFloor(),
-      position,
-      width: tileSize,
-      height: tileSize,
-    );
+  static TileModel setRandomFloorTile(double x, double y) {
+    return _creatTile(_randomFloor(), x, y);
   }
 
-  static Tile setEmptyTile(Vector2 position) {
-    return Tile(
-      '',
-      position,
-      width: tileSize,
-      height: tileSize,
-    );
+  static TileModel setEmptyTile(double x, double y) {
+    return _creatTile('tile/empty.png', x, y);
   }
 
-  static Tile createMapTile(int tileType, Vector2 position) {
+  static TileModel createMapTile(int tileType, double x, double y) {
     switch (tileType) {
       case 1:
-        return setWallTile(position);
+        return setWallTile(x, y);
       case 2:
-        return setWallTopTile(position);
+        return setWallTopTile(x, y);
       case 3:
-        return setWallBottomTile(position);
+        return setWallBottomTile(x, y);
       case 4:
-        return setWallLeftTile(position);
+        return setWallLeftTile(x, y);
       case 5:
-        return setWallRightTile(position);
+        return setWallRightTile(x, y);
       case 6:
-        return setWallBottomLeftTile(position);
+        return setWallBottomLeftTile(x, y);
       case 7:
-        return setWallBottomRightTile(position);
+        return setWallBottomRightTile(x, y);
       case 9:
-        return setRandomFloorTile(position);
+        return setRandomFloorTile(x, y);
       default:
-        return setEmptyTile(position);
+        return setEmptyTile(x, y);
     }
   }
 
@@ -245,15 +193,37 @@ class DungeonMap {
   }
 
   static MapWorld map(List<List<int>> mapTitleList) {
-    List<Tile> tileList = [];
+    List<TileModel> tileList = [];
     for (int i = 0; i < mapTitleList.length; i++) {
       for (int j = 0; j < mapTitleList[0].length; j++) {
-        tileList.add(createMapTile(
-            mapTitleList[i][j], Vector2(j.toDouble(), i.toDouble())));
+        tileList
+            .add(createMapTile(mapTitleList[i][j], j.toDouble(), i.toDouble()));
       }
     }
 
-    return MapWorld(tileList);
+    return MapWorld(tileList, tileSizeToUpdate: tileSize);
+  }
+
+  static TileModel _createTileWithCollisions(
+      String spritePath, double x, double y) {
+    return TileModel(
+      sprite: TileModelSprite(path: spritePath),
+      x: x,
+      y: y,
+      collisions: [CollisionArea.rectangle(size: Size(tileSize, tileSize))],
+      width: tileSize,
+      height: tileSize,
+    );
+  }
+
+  static TileModel _creatTile(String spritePath, double x, double y) {
+    return TileModel(
+      sprite: TileModelSprite(path: spritePath),
+      x: x,
+      y: y,
+      width: tileSize,
+      height: tileSize,
+    );
   }
 
   static List<Point<int>> objectOnMapList = [];
@@ -336,29 +306,29 @@ class DungeonMap {
     return el;
   }
 
-  static Future<Sprite> _randomFloor() {
+  static String _randomFloor() {
     int p = Random().nextInt(6);
     switch (p) {
       case 0:
-        return Sprite.load('tile/floor_1.png');
+        return 'tile/floor_1.png';
         break;
       case 1:
-        return Sprite.load('tile/floor_2.png');
+        return 'tile/floor_2.png';
         break;
       case 2:
-        return Sprite.load('tile/floor_3.png');
+        return 'tile/floor_3.png';
         break;
       case 3:
-        return Sprite.load('tile/floor_4.png');
+        return 'tile/floor_4.png';
         break;
       case 4:
-        return Sprite.load('tile/floor_3.png');
+        return 'tile/floor_3.png';
         break;
       case 5:
-        return Sprite.load('tile/floor_4.png');
+        return 'tile/floor_4.png';
         break;
       default:
-        return Sprite.load('tile/floor_1.png');
+        return 'tile/floor_1.png';
     }
   }
 

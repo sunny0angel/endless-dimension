@@ -12,12 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
-  final Vector2 positionVector;
   double attack = 20;
   double magic = 100;
   double initSpeed = DungeonMap.tileSize * 3;
   IntervalTick _timerMagic = IntervalTick(100);
-  IntervalTick _timerAttackRange = IntervalTick(500);
+  IntervalTick _timerAttackRange = IntervalTick(300);
   IntervalTick _timerSeeEnemy = IntervalTick(500);
   bool showObserveEnemy = false;
   bool showTalk = false;
@@ -35,12 +34,12 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
     ..style = PaintingStyle.stroke
     ..strokeWidth = 2;
 
-  Knight(this.positionVector)
+  Knight({required Vector2 position})
       : super(
           animation: PlayerSpriteSheet.simpleDirectionAnimation,
           width: DungeonMap.tileSize,
           height: DungeonMap.tileSize,
-          position: positionVector,
+          position: position,
           life: 200,
           speed: DungeonMap.tileSize * 3,
         ) {
@@ -105,12 +104,12 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
 
     if (event.id == 11) {
       if (event.event == ActionEvent.MOVE) {
-        execAttackRangeBigFire = true;
         angleRadAttack = event.radAngle;
-        // actionAttackRange();
+        execAttackRangeBigFire = true;
       }
       if (event.event == ActionEvent.UP) {
         execAttackRangeBigFire = false;
+        actionAttackRangeBigFire();
       }
     }
 
@@ -123,7 +122,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
     gameRef.addGameComponent(
       GameDecoration.withSprite(
         Sprite.load('player/crypt.png'),
-        position: positionVector,
+        position: this.position.position,
         height: DungeonMap.tileSize,
         width: DungeonMap.tileSize,
       ),
@@ -184,7 +183,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
       ),
       lightingConfig: LightingConfig(
           radius: width * 0.5, blurBorder: width, color: Colors.transparent),
-      destroy: () {
+      onDestroy: () {
         Sounds.attackRangeExplosion();
       },
     );
@@ -199,21 +198,21 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
       animationTop: CommonSpriteSheet.fireBallTop,
       animationDestroy: CommonSpriteSheet.explosionAnimation,
       radAngleDirection: angleRadAttack,
-      width: width * 3,
-      height: width * 3,
+      width: width,
+      height: width,
       damage: attack * 1.5,
       speed: initSpeed * 3,
       collision: CollisionConfig(
         collisions: [
           CollisionArea.circle(
-            radius: width / 2 * 3,
+            radius: width / 2,
             align: Vector2(width * 0.1, 0),
           ),
         ],
       ),
       lightingConfig: LightingConfig(
           radius: width / 2 * 3, blurBorder: width, color: Colors.transparent),
-      destroy: () {
+      onDestroy: () {
         Sounds.attackRangeExplosion();
       },
     );
@@ -242,8 +241,6 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
     }
 
     if (execAttackRange && _timerAttackRange.update(dt)) actionAttackRange();
-    if (execAttackRangeBigFire && _timerAttackRange.update(dt))
-      actionAttackRangeBigFire();
     super.update(dt);
   }
 
@@ -313,7 +310,9 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
       gameRef.pauseEngine();
       TalkDialog.show(gameRef.context, [
         Say(
-          "Look at this! It seems that I'm not alone here ...",
+          text: [
+            TextSpan(text: "Look at this! It seems that I'm not alone here ...")
+          ],
           person: Container(
             width: 100,
             height: 100,
@@ -343,7 +342,7 @@ class Knight extends SimplePlayer with Lighting, ObjectCollision, MouseGesture {
   }
 
   void _drawDirectionAttack(Canvas c) {
-    if (execAttackRange) {
+    if (execAttackRange || execAttackRangeBigFire) {
       double radius = position.height;
       rectDirectionAttack = Rect.fromLTWH(
         position.center.dx - radius,

@@ -87,8 +87,9 @@ class _GameState extends State<Game>
 
   @override
   Widget build(BuildContext context) {
-    var knight = Knight(
-      DungeonMap.getRandomTileVector2(_mapTitleList, 9, false, 100, true),
+    var _knight = Knight(
+      position:
+          DungeonMap.getRandomTileVector2(_mapTitleList, 9, false, 100, true),
     );
     DungeonMap.tileSize = max(_initHeight, _initWidth) / (kIsWeb ? 25 : 22);
     return Scaffold(
@@ -126,7 +127,7 @@ class _GameState extends State<Game>
                 ),
                 JoystickAction(
                   actionId: 10,
-                  sprite: Sprite.load('joystick_atack_range.png'),
+                  sprite: Sprite.load('joystick_atack.png'),
                   spriteBackgroundDirection:
                       Sprite.load('joystick_background.png'),
                   align: JoystickActionAlign.BOTTOM_RIGHT,
@@ -145,13 +146,10 @@ class _GameState extends State<Game>
                 ),
               ],
             ),
-            player: Knight(
-              DungeonMap.getRandomTileVector2(
-                  _mapTitleList, 9, false, 100, true),
-            ),
+            player: _knight,
             interface: KnightInterface(),
             map: DungeonMap.map(_mapTitleList),
-            enemies: DungeonMap.enemies(_mapTitleList, knight.position),
+            enemies: DungeonMap.enemies(_mapTitleList, _knight.position),
             decorations: DungeonMap.decorations(_mapTitleList),
             background: BackgroundColorGame(Colors.blueGrey[900]!),
             gameController: _controller..setListener(this),
